@@ -66,6 +66,51 @@ function InvitationViewInner({ uid }) {
     };
   }, []);
 
+  useEffect(() => {
+    const { autoplay = true } = config?.audio || {};
+    if (!autoplay) return;
+
+    const audio = audioRef.current;
+    if (!audio || typeof window === "undefined") return;
+
+    let cancelled = false;
+
+    const resume = () => {
+      if (cancelled) return;
+      audio.muted = false;
+      audio
+        .play()
+        .then(() => {
+          if (!cancelled) setIsPlaying(true);
+        })
+        .catch(() => {});
+      window.removeEventListener("pointerdown", resume, true);
+      window.removeEventListener("touchstart", resume, true);
+      window.removeEventListener("keydown", resume, true);
+    };
+
+    audio
+      .play()
+      .then(() => {
+        if (!cancelled) setIsPlaying(true);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        audio.muted = true;
+        audio.play().catch(() => {});
+        window.addEventListener("pointerdown", resume, true);
+        window.addEventListener("touchstart", resume, true);
+        window.addEventListener("keydown", resume, true);
+      });
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener("pointerdown", resume, true);
+      window.removeEventListener("touchstart", resume, true);
+      window.removeEventListener("keydown", resume, true);
+    };
+  }, [config]);
+
   if (!uid) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">

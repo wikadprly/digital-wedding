@@ -65,6 +65,8 @@
     "thankYou": "Thank You!",
     "successMessage": "Your message and wishes have been sent. We deeply appreciate your kind words.",
     "oneMessageLimit": "Each guest can only submit one message.",
+    "delete": "Delete wish",
+    "deleteConfirm": "Delete this wish?",
     "close": "Close"
   }
 }

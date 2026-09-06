@@ -7,6 +7,11 @@ import {
   deleteWish,
   checkWishSubmitted,
 } from "@/services/api";
+import {
+  storeWishToken,
+  getWishToken,
+  clearWishToken,
+} from "@/lib/wish-storage";
 
 export function useWishes() {
   const { uid } = useInvitation();
@@ -32,19 +37,32 @@ export function useWishes() {
 
   const createMutation = useMutation({
     mutationFn: (wishData) => createWish(uid, wishData),
-    onSuccess: () => {
+    onSuccess: (result) => {
+      const wish = result?.data;
+      if (wish?.id && wish?.editToken) {
+        storeWishToken(uid, wish.id, wish.editToken);
+      }
       queryClient.invalidateQueries({ queryKey: ["wishes", uid] });
     },
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (wishId) => deleteWish(uid, wishId),
-    onSuccess: () => {
+    mutationFn: (wishId) => {
+      const stored = getWishToken(uid);
+      return deleteWish(uid, wishId, stored?.token);
+    },
+    onSuccess: (_result, wishId) => {
+      const stored = getWishToken(uid);
+      if (stored && stored.wishId === wishId) {
+        clearWishToken(uid);
+        setSubmittedWish(null);
+      }
       queryClient.invalidateQueries({ queryKey: ["wishes", uid] });
     },
   });
 
   return {
+    uid,
     wishes: wishesQuery.data,
     isLoading: wishesQuery.isLoading,
     error: wishesQuery.error,

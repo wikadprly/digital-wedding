@@ -65,6 +65,8 @@
     "thankYou": "Terima Kasih!",
     "successMessage": "Pesan dan doa Anda telah terkirim. Kami sangat menghargai ucapan Anda.",
     "oneMessageLimit": "Setiap tamu hanya dapat mengirim satu pesan.",
+    "delete": "Hapus ucapan",
+    "deleteConfirm": "Hapus ucapan ini?",
     "close": "Tutup"
   }
 }

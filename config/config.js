@@ -36,8 +36,8 @@ const config = {
       },
     ],
     audio: {
-      src: "/audio/fulfilling-humming.mp3",
-      title: "Fulfilling Humming",
+      src: "/audio/i-wanna-grow-old.mp3",
+      title: "I Wanna Grow Old",
       autoplay: true,
       loop: true,
     },

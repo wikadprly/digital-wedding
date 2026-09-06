@@ -44,9 +44,12 @@ export async function checkWishSubmitted(uid, name) {
   return response.json();
 }
 
-export async function deleteWish(uid, wishId) {
+export async function deleteWish(uid, wishId, token) {
   const response = await fetch(`${API_URL}/api/${uid}/wishes/${wishId}`, {
     method: "DELETE",
+    headers: {
+      "x-wish-token": token || "",
+    },
   });
 
   if (!response.ok) {

@@ -1,14 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useSyncExternalStore } from "react";
 import { motion } from "motion/react";
 import InvitationView from "./invitation-view";
 import { getWeddingUid } from "@/lib/invitation-storage";
 import { useTranslation } from "@/lib/i18n";
 
+const subscribeToStorage = () => () => {};
+const getClientSnapshot = () => getWeddingUid();
+const getServerSnapshot = () => null;
+
 export default function RootView() {
   const { t } = useTranslation();
-  const [uid] = useState(() => getWeddingUid());
+  const uid = useSyncExternalStore(
+    subscribeToStorage,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
 
   if (uid) {
     return <InvitationView uid={uid} />;

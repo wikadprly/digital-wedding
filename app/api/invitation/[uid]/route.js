@@ -19,6 +19,15 @@ export async function GET(request, { params }) {
 
     const invitation = invitationResult.rows[0];
 
+    let audio = invitation.audio;
+    if (typeof audio === "string" && audio) {
+      try {
+        audio = JSON.parse(audio);
+      } catch {
+        audio = null;
+      }
+    }
+
     const agendaResult = await query(
       "SELECT id, title, date, start_time, end_time, location, address FROM agenda WHERE invitation_uid = $1 ORDER BY order_index, date",
       [uid],
@@ -44,7 +53,7 @@ export async function GET(request, { params }) {
       maps_embed: invitation.maps_embed,
       ogImage: invitation.og_image,
       favicon: invitation.favicon,
-      audio: invitation.audio,
+      audio,
       agenda: agendaResult.rows.map((a) => ({
         title: a.title,
         date: a.date,

@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Heart } from "lucide-react";
+import { Heart, Trash2 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { useMotionPreset } from "@/lib/motion";
 import { useWishes } from "@/features/wishes/hooks/use-wishes";
+import { getWishToken } from "@/lib/wish-storage";
 import Confetti from "@/components/ui/confetti";
 
 const ATTENDANCE_OPTIONS = [
@@ -43,10 +44,18 @@ export default function Wishes() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
 
-  const { wishes, isLoading, setSubmittedWish, createMutation } = useWishes();
+  const { uid, wishes, isLoading, setSubmittedWish, createMutation, deleteMutation } =
+    useWishes();
   const fadeUp = useMotionPreset("fadeUp");
 
   const data = wishes || [];
+  const ownWish = uid && getWishToken(uid);
+
+  const handleDelete = (wishId) => {
+    if (window.confirm(t("wishes.deleteConfirm"))) {
+      deleteMutation.mutate(wishId);
+    }
+  };
 
   const count = (value) =>
     data.filter((w) => (w.attendance || "").toLowerCase() === value).length;
@@ -54,7 +63,8 @@ export default function Wishes() {
   const notAttending = count("not_attending");
 
   const attendanceLabel = (value) => {
-    const option = ATTENDANCE_OPTIONS.find((o) => o.value === value);
+    const v = (value || "").toLowerCase();
+    const option = ATTENDANCE_OPTIONS.find((o) => o.value === v);
     return option ? t(option.key) : value;
   };
 
@@ -177,9 +187,22 @@ export default function Wishes() {
             >
               <div className="flex items-center justify-between">
                 <span className="font-medium text-[#7a1b3a]">{wish.name}</span>
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#7a1b3a]/10 px-2 py-0.5 text-xs text-[#7a1b3a]">
-                  <AttendanceIcon type={wish.attendance} />
-                  {attendanceLabel(wish.attendance)}
+                <span className="inline-flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-[#7a1b3a]/10 px-2 py-0.5 text-xs text-[#7a1b3a]">
+                    <AttendanceIcon type={wish.attendance} />
+                    {attendanceLabel(wish.attendance)}
+                  </span>
+                  {ownWish && ownWish.wishId === wish.id && (
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(wish.id)}
+                      disabled={deleteMutation.isPending}
+                      aria-label={t("wishes.delete")}
+                      className="rounded-full bg-red-50 p-1.5 text-red-400 hover:bg-red-100 hover:text-red-600 disabled:opacity-50"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </button>
+                  )}
                 </span>
               </div>
               <p className="mt-1 text-sm text-gray-600">{wish.message}</p>
