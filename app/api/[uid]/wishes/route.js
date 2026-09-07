@@ -6,7 +6,7 @@ const wishSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(80),
   message: z.string().trim().min(1, "Message is required").max(1000),
   attendance: z
-    .enum(["attending", "notAttending", "maybe"])
+    .enum(["attending", "not_attending", "maybe"])
     .default("attending"),
 });
 
@@ -31,7 +31,8 @@ export async function GET(request, { params }) {
     }
 
     const result = await query(
-      `SELECT id, name, message, attendance,
+      `SELECT id, name, message,
+              LOWER(attendance) as attendance,
               created_at AT TIME ZONE 'UTC' AT TIME ZONE 'Asia/Jakarta' as created_at
        FROM wishes
        WHERE invitation_uid = $1
@@ -94,7 +95,7 @@ export async function POST(request, { params }) {
 
     const dbAttendance = {
       attending: "ATTENDING",
-      notAttending: "NOT_ATTENDING",
+      not_attending: "NOT_ATTENDING",
       maybe: "MAYBE",
     }[attendance] || "ATTENDING";
 
@@ -117,7 +118,7 @@ export async function POST(request, { params }) {
       const result = await query(
         `INSERT INTO wishes (invitation_uid, name, message, attendance, created_at)
          VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta')
-         RETURNING id, name, message, attendance, edit_token,
+         RETURNING id, name, message, LOWER(attendance) as attendance, edit_token,
                    created_at AT TIME ZONE 'UTC' AT TIME ZONE 'Asia/Jakarta' as created_at`,
         [uid, name, message, dbAttendance],
       );

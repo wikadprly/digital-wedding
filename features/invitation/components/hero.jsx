@@ -1,10 +1,10 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
 import { formatEventDate } from "@/lib/format-event-date";
-import { getGuestName } from "@/lib/invitation-storage";
+import { resolveGuestName } from "@/lib/invitation-storage";
 import { useTranslation } from "@/lib/i18n";
 import {
   useMotionPreset,
@@ -58,10 +58,11 @@ export default function Hero() {
   const fadeUp = useMotionPreset("fadeUp");
   const scaleIn = useMotionPreset("scaleIn");
 
-  const [guestName] = useState(() => {
-    if (typeof window === "undefined") return "";
-    return getGuestName() || "";
-  });
+  const guestName = useSyncExternalStore(
+    () => () => {},
+    () => resolveGuestName(),
+    () => "",
+  );
 
   const groomInitial = (config.groomName || "R")[0];
   const brideInitial = (config.brideName || "R")[0];

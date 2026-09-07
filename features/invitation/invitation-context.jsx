@@ -5,8 +5,8 @@ import {
   getWeddingUid,
   storeWeddingUid,
   storeGuestName,
+  resolveGuestName,
 } from "@/lib/invitation-storage";
-import { safeBase64 } from "@/lib/base64";
 import { InvitationContext } from "./invitation-context-definition";
 
 export function InvitationProvider({ uid, children }) {
@@ -40,22 +40,7 @@ export function InvitationProvider({ uid, children }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const urlParams = new URLSearchParams(window.location.search);
-    let extractedName = null;
-
-    const toParam = urlParams.get("to");
-    const guestParam = urlParams.get("guest");
-
-    if (toParam) {
-      extractedName = decodeURIComponent(toParam).trim();
-    } else if (guestParam) {
-      try {
-        extractedName = safeBase64.decode(guestParam);
-      } catch (error) {
-        console.error("Error decoding guest name:", error);
-      }
-    }
-
+    const extractedName = resolveGuestName();
     if (extractedName) {
       storeGuestName(extractedName);
     }

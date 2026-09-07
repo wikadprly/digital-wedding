@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "motion/react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
 import LandingPage from "@/features/invitation/components/landing-page";
 import MainContent from "@/features/invitation/components/main-content";
-import BottomBar from "@/features/invitation/components/bottom-bar";
 import MusicButton from "@/features/invitation/components/music-button";
 import { InvitationProvider } from "@/features/invitation/invitation-context";
 import { useTranslation } from "@/lib/i18n";
@@ -140,7 +139,6 @@ function InvitationViewInner({ uid }) {
             animate={{ opacity: 1 }}
           >
             <MainContent />
-            <BottomBar />
             <MusicButton isPlaying={isPlaying} onToggle={toggleMusic} />
           </motion.div>
         )}

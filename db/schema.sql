@@ -19,9 +19,10 @@ CREATE TABLE IF NOT EXISTS invitations (
   address        TEXT,
   maps_url       TEXT,
   maps_embed     TEXT,
-  og_image       TEXT NOT NULL DEFAULT '',
+  og_image        TEXT NOT NULL DEFAULT '',
   favicon        TEXT NOT NULL DEFAULT '/favicon.svg',
   audio          JSONB NOT NULL DEFAULT '{}'::jsonb,
+  gift_address   JSONB NOT NULL DEFAULT '{}'::jsonb,
   created_at     TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -62,43 +63,7 @@ CREATE TABLE IF NOT EXISTS banks (
 );
 
 -- ============================================================
--- Seed data untuk undangan default (uid: rizal-rema-2026)
+-- Seed data default (uid: rizal-rema-2026)
+-- Sumber data tunggal: config/config.js
+-- Terapkan dengan: npm run seed
 -- ============================================================
-
-INSERT INTO invitations (
-  uid, title, description, groom_name, bride_name, parent_groom, parent_bride,
-  wedding_date, time, location, address, maps_url, maps_embed,
-  og_image, favicon, audio
-)
-VALUES (
-  'rizal-rema-2026',
-  'Pernikahan Rizal & Rema',
-  'Kami akan menikah dan mengundang Anda untuk turut merayakan momen istimewa ini.',
-  'Rizal', 'Rema',
-  'Bapak Rizal & Ibu Rizal',
-  'Bapak Rema & Ibu Rema',
-  '2026-10-09',
-  '10:00 - 13:00 WIB',
-  'Tempat Pernikahan Rizal & Rema',
-  'Alamat Pernikahan Rizal & Rema',
-  'https://goo.gl/maps/qG9TGTTYi42X5KG47',
-  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.0000000000005!2d106.8270733147699!3d-6.175392995514422!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f4f1b6d7b1e7%3A0x2e69f4f1b6d7b1e7!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1633666820004!5m2!1sid!2sid',
-  '',
-  '/favicon.svg',
-  '{"src": "/audio/i-wanna-grow-old.mp3", "title": "I Wanna Grow Old", "autoplay": true, "loop": true}'::jsonb
-)
-ON CONFLICT (uid) DO NOTHING;
-
-INSERT INTO agenda (invitation_uid, title, date, start_time, end_time, location, address, order_index)
-VALUES
-  ('rizal-rema-2026', 'Akad Nikah', '2026-10-09', '10:00', '11:00',
-   'Tempat Pernikahan Rizal & Rema', 'Alamat Pernikahan Rizal & Rema', 0),
-  ('rizal-rema-2026', 'Resepsi Nikah', '2026-10-09', '11:00', '13:00',
-   'Tempat Pernikahan Rizal & Rema', 'Alamat Pernikahan Rizal & Rema', 1)
-ON CONFLICT DO NOTHING;
-
-INSERT INTO banks (invitation_uid, bank, account_number, account_name, order_index)
-VALUES
-  ('rizal-rema-2026', 'Bank Central Asia', '1234567890', 'FULAN', 0),
-  ('rizal-rema-2026', 'Bank Mandiri', '0987654321', 'FULANA', 1)
-ON CONFLICT DO NOTHING;

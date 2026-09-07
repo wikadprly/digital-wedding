@@ -11,7 +11,7 @@ import Confetti from "@/components/ui/confetti";
 
 const ATTENDANCE_OPTIONS = [
   { value: "attending", key: "wishes.attending", icon: "check" },
-  { value: "notAttending", key: "wishes.notAttending", icon: "x" },
+  { value: "not_attending", key: "wishes.notAttending", icon: "x" },
   { value: "maybe", key: "wishes.maybe", icon: "?" },
 ];
 
@@ -23,7 +23,7 @@ function AttendanceIcon({ type }) {
           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
         </svg>
       );
-    case "notAttending":
+    case "not_attending":
       return (
         <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -48,7 +48,7 @@ export default function Wishes() {
     useWishes();
   const fadeUp = useMotionPreset("fadeUp");
 
-  const data = wishes || [];
+  const data = Array.isArray(wishes) ? wishes : [];
   const ownWish = uid && getWishToken(uid);
 
   const handleDelete = (wishId) => {

@@ -28,6 +28,15 @@ export async function GET(request, { params }) {
       }
     }
 
+    let giftAddress = invitation.gift_address;
+    if (typeof giftAddress === "string" && giftAddress) {
+      try {
+        giftAddress = JSON.parse(giftAddress);
+      } catch {
+        giftAddress = null;
+      }
+    }
+
     const agendaResult = await query(
       "SELECT id, title, date, start_time, end_time, location, address FROM agenda WHERE invitation_uid = $1 ORDER BY order_index, date",
       [uid],
@@ -67,6 +76,7 @@ export async function GET(request, { params }) {
         accountNumber: b.account_number,
         accountName: b.account_name,
       })),
+      giftAddress,
     };
 
     return NextResponse.json({ success: true, data });
