@@ -7,8 +7,8 @@ import { useTranslation } from "@/lib/i18n";
 
 const NAV_ITEMS = [
   { id: "home", icon: Home, labelKey: "nav.home" },
-  { id: "events", icon: CalendarHeart, labelKey: "nav.saveDate" },
   { id: "profile", icon: Users, labelKey: "nav.couple" },
+  { id: "events", icon: CalendarHeart, labelKey: "nav.saveDate" },
   { id: "gallery", icon: Images, labelKey: "nav.gallery" },
   { id: "wishes", icon: Heart, labelKey: "nav.rsvp" },
 ];
