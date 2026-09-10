@@ -13,6 +13,8 @@ const NAV_ITEMS = [
   { id: "wishes", icon: Heart, labelKey: "nav.rsvp" },
 ];
 
+const SECTION_ORDER = ["home", "profile", "events", "gallery", "wishes"];
+
 const BUTTON_WIDTH = 44;
 const GAP = 6;
 const PITCH = BUTTON_WIDTH + GAP;
@@ -23,25 +25,35 @@ export default function BottomNav() {
   const activeIndex = Math.max(0, NAV_ITEMS.findIndex((item) => item.id === active));
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]) setActive(visible[0].target.id);
-      },
-      { rootMargin: "-40% 0px -40% 0px", threshold: [0, 0.1, 0.3, 0.6, 1] },
-    );
+    const probe = () => {
+      const half = window.innerHeight / 2;
+      let current = SECTION_ORDER[0];
 
-    NAV_ITEMS.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
+      for (const id of SECTION_ORDER) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= half) {
+          current = id;
+        } else {
+          break;
+        }
+      }
 
-    return () => observer.disconnect();
+      setActive(current);
+    };
+
+    probe();
+    window.addEventListener("scroll", probe, { passive: true });
+    window.addEventListener("resize", probe);
+
+    return () => {
+      window.removeEventListener("scroll", probe);
+      window.removeEventListener("resize", probe);
+    };
   }, []);
 
   const scrollTo = (id) => {
+    setActive(id);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
