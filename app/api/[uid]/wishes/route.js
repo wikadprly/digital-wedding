@@ -117,7 +117,7 @@ export async function POST(request, { params }) {
     try {
       const result = await query(
         `INSERT INTO wishes (invitation_uid, name, message, attendance, created_at)
-         VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Jakarta')
+         VALUES ($1, $2, $3, $4, now())
          RETURNING id, name, message, LOWER(attendance) as attendance, edit_token,
                    created_at AT TIME ZONE 'UTC' AT TIME ZONE 'Asia/Jakarta' as created_at`,
         [uid, name, message, dbAttendance],

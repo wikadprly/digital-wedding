@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Cormorant_Garamond, DM_Sans } from "next/font/google";
+import {
+  Playfair_Display,
+  Cormorant_Garamond,
+  DM_Sans,
+  Italianno,
+} from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
@@ -19,6 +24,12 @@ const dmSans = DM_Sans({
   subsets: ["latin"],
 });
 
+const italianno = Italianno({
+  variable: "--font-italianno",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   title: "Pernikahan Rizal & Rema",
   description:
@@ -29,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="id"
-      className={`${playfair.variable} ${cormorant.variable} ${dmSans.variable} h-full antialiased`}
+      className={`${playfair.variable} ${cormorant.variable} ${dmSans.variable} ${italianno.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <Providers>{children}</Providers>

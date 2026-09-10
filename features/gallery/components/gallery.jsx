@@ -11,37 +11,42 @@ const GALLERY_IMAGES = [
   { src: "/couple.png", position: "object-center", delay: 300 },
 ];
 
+function Diamond() {
+  return <span className="inline-block h-1.5 w-1.5 rotate-45 bg-champagne" />;
+}
+
 export default function Gallery() {
   const scaleIn = useMotionPreset("scaleIn");
+  const fadeUp = useMotionPreset("fadeUp");
 
   return (
     <section
       id="gallery"
-      className="relative overflow-hidden bg-white px-6 py-16"
+      className="relative overflow-hidden bg-dusty px-6 pb-28 pt-16"
     >
-      <div className="pointer-events-none absolute right-0 top-20 h-64 w-40 opacity-10">
-        <svg viewBox="0 0 80 160" fill="none" className="h-full w-full">
-          <path d="M40 160C40 110 40 60 40 15" stroke="#7a1b3a" strokeWidth="2" />
-          <path
-            d="M40 30C28 28 18 34 14 50M40 40C50 36 58 42 62 58"
-            stroke="#7a1b3a"
-            strokeWidth="2"
-          />
-        </svg>
-      </div>
+      <Botanical className="pointer-events-none absolute -left-10 bottom-24 h-40 w-40 -scale-x-100 opacity-[0.1]" />
 
       <motion.div
-        variants={scaleIn}
+        variants={fadeUp}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
-        className="relative z-10 mb-10 text-center"
+        viewport={{ once: true, margin: "-60px" }}
+        className="relative z-10 text-center"
       >
-        <h2 className="font-serif text-5xl text-[#7a1b3a]">Our Gallery</h2>
-        <div className="mx-auto mt-4 h-px w-24 bg-[#7a1b3a]/20" />
+        <h2 className="font-serif text-2xl uppercase tracking-[0.22em] text-ivory">
+          Our Gallery
+        </h2>
+        <div className="mt-4 flex items-center justify-center gap-3">
+          <span className="h-px w-8 bg-champagne" />
+          <Diamond />
+          <span className="h-px w-8 bg-champagne" />
+        </div>
+        <p className="mx-auto mt-4 max-w-xs font-script text-3xl leading-snug text-ivory">
+          Sebentuk kenangan kecil yang ingin kami bagikan.
+        </p>
       </motion.div>
 
-      <div className="relative z-10 mx-auto grid max-w-3xl grid-cols-2 gap-4">
+      <div className="relative z-10 mx-auto mt-8 grid max-w-md grid-cols-2 gap-4">
         {GALLERY_IMAGES.map((img, i) => (
           <motion.div
             key={i}
@@ -50,18 +55,38 @@ export default function Gallery() {
             whileInView="visible"
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className="relative h-56 w-full overflow-hidden rounded-xl shadow-md"
+            className="relative h-56 w-full overflow-hidden rounded-[16px] border border-ivory/30 bg-rosy shadow-[0_14px_28px_-18px_rgba(74,52,56,0.45)]"
           >
             <Image
               src={img.src}
               alt={`Gallery ${i + 1}`}
               fill
               sizes="(max-width: 768px) 50vw, 320px"
-              className={`object-cover ${img.position}`}
+              className={`object-cover transition-transform duration-700 hover:scale-105 ${img.position}`}
             />
           </motion.div>
         ))}
       </div>
     </section>
+  );
+}
+
+function Botanical({ className }) {
+  return (
+    <svg viewBox="0 0 140 140" fill="none" className={className} style={{ color: "#F7F2EC" }} aria-hidden>
+      <path
+        d="M8 8c14 2 30 10 38 24 6 11 6 24-2 32-7 7-19 6-24-2-4-7-2-16 6-19"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinecap="round"
+      />
+      <path
+        d="M8 8c2 18 10 36 26 46 12 8 27 9 36 1"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinecap="round"
+      />
+      <circle cx="46" cy="34" r="2.5" fill="currentColor" />
+    </svg>
   );
 }

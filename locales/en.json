@@ -9,7 +9,11 @@
     "event": "Events",
     "location": "Location",
     "gifts": "Gifts",
-    "wishes": "Wishes"
+    "wishes": "Wishes",
+    "couple": "Couple",
+    "gallery": "Gallery",
+    "rsvp": "RSVP",
+    "saveDate": "Save The Date"
   },
   "landing": {
     "saveTheDate": "Save the Date",

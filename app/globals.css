@@ -33,8 +33,18 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --font-sans: var(--font-dm-sans), "DM Sans", sans-serif;
-  --font-serif: var(--font-playfair), "Playfair Display", serif;
-  --font-serif-alt: var(--font-cormorant), "Cormorant Garamond", serif;
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", serif;
+  --font-serif-alt: var(--font-playfair), "Playfair Display", serif;
+  --font-script: var(--font-italianno), "Italianno", cursive;
+  --color-dusty: #9a5368;
+  --color-mute: #b97889;
+  --color-blush: #d9aeb7;
+  --color-ivory: #f7f2ec;
+  --color-rosy: #fffcf8;
+  --color-champagne: #c8a77b;
+  --color-brown: #4a3438;
+  --color-brown-mute: #8f6872;
+  --color-rose-line: #e7d7dc;
   --animate-marquee: marquee var(--duration) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
 

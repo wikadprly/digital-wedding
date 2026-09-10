@@ -9,13 +9,13 @@ export default function MusicButton({ isPlaying, onToggle }) {
       aria-label={isPlaying ? "Pause music" : "Play music"}
       className={cn(
         "fixed bottom-24 right-5 z-50 flex h-11 w-11 items-center justify-center",
-        "rounded-full bg-[#7a1b3a] text-white shadow-lg hover:bg-[#8a2044]",
-        "transition-transform",
+        "rounded-full border border-rose-line/60 bg-dusty text-white shadow-[0_10px_24px_-10px_rgba(154,83,104,0.6)]",
+        "transition-transform hover:scale-105",
       )}
     >
       {isPlaying ? (
         <svg
-          className="h-5 w-5 animate-spin"
+          className="h-5 w-5"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

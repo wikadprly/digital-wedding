@@ -9,7 +9,11 @@
     "event": "Event",
     "location": "Lokasi",
     "gifts": "Hadiah",
-    "wishes": "Harapan"
+    "wishes": "Harapan",
+    "couple": "Mempelai",
+    "gallery": "Galeri",
+    "rsvp": "Konfirmasi",
+    "saveDate": "Simpan Tanggal"
   },
   "landing": {
     "saveTheDate": "Catat Tanggal Penting Ini",

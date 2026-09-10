@@ -6,6 +6,7 @@ import { useConfig } from "@/features/invitation/hooks/use-config";
 import LandingPage from "@/features/invitation/components/landing-page";
 import MainContent from "@/features/invitation/components/main-content";
 import MusicButton from "@/features/invitation/components/music-button";
+import BottomNav from "@/features/invitation/components/bottom-nav";
 import { InvitationProvider } from "@/features/invitation/invitation-context";
 import { useTranslation } from "@/lib/i18n";
 
@@ -143,6 +144,8 @@ function InvitationViewInner({ uid }) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {isOpened && <BottomNav />}
     </>
   );
 }
