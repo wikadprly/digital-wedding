@@ -45,3 +45,4 @@ next-env.d.ts
 
 # env template (keep)
 !.env.example
+.neon
