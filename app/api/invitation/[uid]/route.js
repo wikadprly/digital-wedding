@@ -52,6 +52,8 @@ export async function GET(request, { params }) {
       description: invitation.description,
       groomName: invitation.groom_name,
       brideName: invitation.bride_name,
+      groomPhoto: invitation.groom_photo || "",
+      bridePhoto: invitation.bride_photo || "",
       parentGroom: invitation.parent_groom,
       parentBride: invitation.parent_bride,
       date: invitation.wedding_date,

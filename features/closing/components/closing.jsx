@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { MessageCircle, Heart } from "lucide-react";
+import { MessageCircle, Heart, ArrowRight } from "lucide-react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
 import { useMotionPreset } from "@/lib/motion";
 
@@ -55,6 +55,19 @@ export default function Closing() {
           <br />
           {config.groomName} &amp; {config.brideName}
         </motion.p>
+
+        <motion.button
+          variants={fadeUp}
+          onClick={() =>
+            document
+              .getElementById("wishes")
+              ?.scrollIntoView({ behavior: "smooth", block: "start" })
+          }
+          className="mx-auto mt-10 flex items-center gap-2 rounded-full bg-ivory px-8 py-3 text-sm font-semibold text-dusty shadow-[0_10px_24px_-12px_rgba(74,52,56,0.5)] transition hover:bg-rosy"
+        >
+          Konfirmasi Kehadiran
+          <ArrowRight className="h-4 w-4" />
+        </motion.button>
       </motion.div>
 
       <motion.div

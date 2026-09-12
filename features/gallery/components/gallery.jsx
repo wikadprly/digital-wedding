@@ -9,6 +9,7 @@ const GALLERY_IMAGES = [
   { src: "/couple.png", position: "object-center", delay: 100 },
   { src: "/couple.png", position: "object-bottom", delay: 200 },
   { src: "/couple.png", position: "object-center", delay: 300 },
+  { src: "/couple.png", position: "object-top", delay: 400 },
 ];
 
 function Diamond() {
@@ -55,13 +56,19 @@ export default function Gallery() {
             whileInView="visible"
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className="relative h-56 w-full overflow-hidden rounded-[16px] border border-ivory/30 bg-rosy shadow-[0_14px_28px_-18px_rgba(74,52,56,0.45)]"
+            className={`relative w-full overflow-hidden rounded-[16px] border border-ivory/30 bg-rosy shadow-[0_14px_28px_-18px_rgba(74,52,56,0.45)] ${
+              i === 0 ? "col-span-2 h-64" : "h-44"
+            }`}
           >
             <Image
               src={img.src}
               alt={`Gallery ${i + 1}`}
               fill
-              sizes="(max-width: 768px) 50vw, 320px"
+              sizes={
+                i === 0
+                  ? "(max-width: 768px) calc(100vw - 48px), 448px"
+                  : "(max-width: 768px) 50vw, 320px"
+              }
               className={`object-cover transition-transform duration-700 hover:scale-105 ${img.position}`}
             />
           </motion.div>

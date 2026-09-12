@@ -36,7 +36,7 @@ export default function LandingPage({ onOpenInvitation }) {
   const brideName = config.brideName;
 
   return (
-    <div className="relative mx-auto flex min-h-svh w-full max-w-[430px] flex-col overflow-x-hidden bg-ivory font-sans">
+    <div className="relative mx-auto flex min-h-screen w-full max-w-[430px] flex-col overflow-x-hidden bg-ivory font-sans">
       {/* botanical line art corner */}
       <Botanical className="absolute -left-8 -top-6 h-40 w-40 opacity-10" />
       <Botanical className="absolute -bottom-8 -right-8 h-40 w-40 rotate-180 opacity-10" />
@@ -57,17 +57,18 @@ export default function LandingPage({ onOpenInvitation }) {
         {/* photo frame — vertical oval / arched */}
         <motion.div
           {...stage(2)}
-          className="relative mt-5 h-[clamp(170px,38svh,280px)] w-[clamp(160px,48vw,215px)] overflow-hidden border border-dusty/25 bg-rosy shadow-[0_16px_36px_-18px_rgba(154,83,104,0.4)]"
-          style={{ borderRadius: "120px 120px 24px 24px" }}
+          className="relative mt-5 w-[clamp(160px,48vw,215px)] aspect-[3/4] rounded-[130px_130px_26px_26px] border border-dusty/40 bg-rosy/40 p-2 shadow-[0_16px_36px_-18px_rgba(154,83,104,0.4)]"
         >
-          <Image
-            src="/couple.png"
-            alt={`${groomName} & ${brideName}`}
-            fill
-            sizes="215px"
-            priority
-            className="object-cover"
-          />
+          <div className="relative h-full w-full overflow-hidden rounded-[116px_116px_16px_16px] bg-rosy">
+            <Image
+              src="/couple.png"
+              alt={`${groomName} & ${brideName}`}
+              fill
+              sizes="215px"
+              priority
+              className="object-cover"
+            />
+          </div>
         </motion.div>
 
         {/* names — Cormorant / Playfair */}
@@ -98,13 +99,16 @@ export default function LandingPage({ onOpenInvitation }) {
           </p>
         </motion.div>
 
-        {/* invitation copy */}
+        {/* invitation copy — 3 baris seperti bait */}
         <motion.p
           {...stage(6)}
-          className="mt-3 max-w-[280px] text-[13px] leading-relaxed text-brown"
+          className="mt-4 max-w-[300px] text-[16px] leading-[1.8] text-brown"
         >
-          Dengan penuh sukacita, kami mengundang Anda untuk hadir di hari
-          istimewa kami.
+          Dengan penuh sukacita,
+          <br />
+          kami mengundang Anda untuk hadir
+          <br />
+          di hari istimewa kami.
         </motion.p>
 
         {/* CTA */}

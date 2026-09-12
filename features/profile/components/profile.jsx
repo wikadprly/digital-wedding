@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
 import { useMotionPreset, staggerContainer } from "@/lib/motion";
@@ -27,7 +28,23 @@ function Diamond() {
   return <span className="inline-block h-1.5 w-1.5 rotate-45 bg-champagne" />;
 }
 
-function Portrait({ initial }) {
+function Portrait({ src, initial }) {
+  if (src) {
+    return (
+      <div className="relative mx-auto h-40 w-32 rounded-[90px_90px_18px_18px] border border-dusty/35 bg-rosy/40 p-1.5 shadow-[0_14px_30px_-18px_rgba(154,83,104,0.5)]">
+        <div className="relative h-full w-full overflow-hidden rounded-[82px_82px_12px_12px] bg-rosy">
+          <Image
+            src={src}
+            alt={initial}
+            fill
+            sizes="128px"
+            className="object-cover"
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative mx-auto h-36 w-28 overflow-hidden rounded-full border-2 border-blush bg-blush/35 shadow-[0_14px_30px_-18px_rgba(154,83,104,0.5)]">
       <div className="flex h-full w-full items-center justify-center">
@@ -37,10 +54,10 @@ function Portrait({ initial }) {
   );
 }
 
-function Person({ name, parent, prefix }) {
+function Person({ name, parent, prefix, photo }) {
   return (
     <div className="text-center">
-      <Portrait initial={(name || "?")[0]} />
+      <Portrait src={photo} initial={(name || "?")[0]} />
       <h3 className="mt-5 font-serif text-4xl font-semibold text-dusty">{name}</h3>
       <p className="mx-auto mt-2 max-w-[240px] text-sm leading-relaxed text-brown-mute">
         {prefix} dari {parent}
@@ -93,7 +110,12 @@ export default function Profile() {
           variants={fadeUp}
           className="mt-12"
         >
-          <Person name={groom} parent={parentGroom} prefix="Putra" />
+          <Person
+            name={groom}
+            parent={parentGroom}
+            prefix="Putra"
+            photo={config.groomPhoto}
+          />
         </motion.div>
 
         {/* separator */}
@@ -111,7 +133,12 @@ export default function Profile() {
           variants={fadeUp}
           className="mt-12"
         >
-          <Person name={bride} parent={parentBride} prefix="Putri" />
+          <Person
+            name={bride}
+            parent={parentBride}
+            prefix="Putri"
+            photo={config.bridePhoto}
+          />
         </motion.div>
       </motion.div>
     </section>

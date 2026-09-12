@@ -5,6 +5,8 @@ const config = {
       "Kami akan menikah dan mengundang Anda untuk turut merayakan momen istimewa ini.",
     groomName: "Rizal",
     brideName: "Rema",
+    groomPhoto: "",
+    bridePhoto: "",
     parentGroom: "Bapak Rizal & Ibu Rizal",
     parentBride: "Bapak Rema & Ibu Rema",
     date: "2026-10-09",

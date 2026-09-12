@@ -29,12 +29,23 @@ async function main() {
     ADD COLUMN IF NOT EXISTS gift_address JSONB NOT NULL DEFAULT '{}'::jsonb
   `);
 
+  await client.query(`
+    ALTER TABLE invitations
+    ADD COLUMN IF NOT EXISTS groom_photo TEXT NOT NULL DEFAULT ''
+  `);
+
+  await client.query(`
+    ALTER TABLE invitations
+    ADD COLUMN IF NOT EXISTS bride_photo TEXT NOT NULL DEFAULT ''
+  `);
+
   await client.query(
-    `INSERT INTO invitations (uid, title, description, groom_name, bride_name, parent_groom, parent_bride, wedding_date, time, location, address, maps_url, maps_embed, og_image, favicon, audio, gift_address)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)
+    `INSERT INTO invitations (uid, title, description, groom_name, bride_name, groom_photo, bride_photo, parent_groom, parent_bride, wedding_date, time, location, address, maps_url, maps_embed, og_image, favicon, audio, gift_address)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19)
      ON CONFLICT (uid) DO UPDATE SET
        title=EXCLUDED.title, description=EXCLUDED.description, groom_name=EXCLUDED.groom_name,
-       bride_name=EXCLUDED.bride_name, parent_groom=EXCLUDED.parent_groom, parent_bride=EXCLUDED.parent_bride,
+       bride_name=EXCLUDED.bride_name, groom_photo=EXCLUDED.groom_photo, bride_photo=EXCLUDED.bride_photo,
+       parent_groom=EXCLUDED.parent_groom, parent_bride=EXCLUDED.parent_bride,
        wedding_date=EXCLUDED.wedding_date, time=EXCLUDED.time, location=EXCLUDED.location,
        address=EXCLUDED.address, maps_url=EXCLUDED.maps_url, maps_embed=EXCLUDED.maps_embed,
        og_image=EXCLUDED.og_image, favicon=EXCLUDED.favicon, audio=EXCLUDED.audio,
@@ -45,6 +56,8 @@ async function main() {
       d.description,
       d.groomName,
       d.brideName,
+      d.groomPhoto || "",
+      d.bridePhoto || "",
       d.parentGroom,
       d.parentBride,
       d.date,

@@ -98,16 +98,19 @@ export default function Events() {
           variants={fadeUp}
           className="mx-auto mt-8 max-w-md overflow-hidden rounded-[24px] bg-rosy shadow-[0_20px_40px_-20px_rgba(74,52,56,0.45)]"
         >
-          <div className="px-6 pt-6">
-            <div className="divide-y divide-rose-line">
-              {agenda.map((item, i) => (
-                <EventRow
-                  key={i}
-                  item={item}
-                  date={item.date || config.date}
-                />
-              ))}
-            </div>
+          <div className="px-6 pt-4">
+            {agenda.map((item, i) => (
+              <div key={i}>
+                <EventRow item={item} date={item.date || config.date} />
+                {i < agenda.length - 1 && (
+                  <div className="flex items-center gap-3 px-2 py-1">
+                    <span className="h-px flex-1 border-t border-dashed border-rose-line" />
+                    <span className="inline-block h-1.5 w-1.5 rotate-45 bg-champagne" />
+                    <span className="h-px flex-1 border-t border-dashed border-rose-line" />
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
 
           {/* location */}
@@ -133,16 +136,6 @@ export default function Events() {
                 <MapPin className="h-4 w-4" />
                 Lihat Lokasi
               </a>
-              {config.maps_embed && (
-                <a
-                  href={config.maps_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-1 items-center justify-center gap-2 rounded-full border border-mute px-4 py-2.5 text-sm font-medium text-mute transition hover:bg-mute/10"
-                >
-                  Petunjuk Arah
-                </a>
-              )}
             </div>
           </div>
 
@@ -165,19 +158,10 @@ export default function Events() {
                 ))}
               </div>
             </div>
+            <p className="mt-4 text-xs italic leading-relaxed text-brown-mute">
+              Mohon mengenakan warna yang selaras dengan tema kami. Terima kasih.
+            </p>
           </div>
-
-          {/* map */}
-          {config.maps_embed && (
-            <div className="h-40 w-full overflow-hidden bg-blush/20">
-              <iframe
-                src={config.maps_embed}
-                title="Lokasi Acara"
-                loading="lazy"
-                className="h-full w-full border-0"
-              />
-            </div>
-          )}
         </motion.div>
       </motion.div>
     </section>

@@ -13,6 +13,8 @@ CREATE TABLE IF NOT EXISTS invitations (
   bride_name     TEXT NOT NULL DEFAULT '',
   parent_groom   TEXT NOT NULL DEFAULT '',
   parent_bride   TEXT NOT NULL DEFAULT '',
+  groom_photo    TEXT NOT NULL DEFAULT '',
+  bride_photo    TEXT NOT NULL DEFAULT '',
   wedding_date   DATE,
   time           TEXT,
   location       TEXT,
