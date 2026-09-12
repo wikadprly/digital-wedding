@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { MapPin } from "lucide-react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
-import { formatEventDate } from "@/lib/format-event-date";
+import { formatEventDate, toJakartaEpoch } from "@/lib/format-event-date";
 import { useTranslation } from "@/lib/i18n";
 import { useMotionPreset, staggerContainer } from "@/lib/motion";
 
@@ -62,9 +62,15 @@ export default function Hero() {
   const config = useConfig();
   const fade = useMotionPreset("fade");
   const fadeUp = useMotionPreset("fadeUp");
+  const { t } = useTranslation();
 
   if (!config) return null;
 
+  const firstAgenda = config.agenda?.[0];
+  const countdownTarget = toJakartaEpoch(
+    config.date,
+    firstAgenda?.startTime || "00:00",
+  );
   const dateFull = formatEventDate(config.date, "full").toUpperCase();
   const dateShort = formatEventDate(config.date, "short").toUpperCase();
 
@@ -86,13 +92,13 @@ export default function Hero() {
           variants={fadeUp}
           className="font-serif text-sm uppercase tracking-[0.3em] text-ivory/90"
         >
-          Save
+          {t("hero.save")}
         </motion.p>
         <motion.h2
           variants={fadeUp}
           className="font-script text-[56px] leading-none text-ivory"
         >
-          The Date
+          {t("hero.theDate")}
         </motion.h2>
 
         <motion.div variants={fade} className="mt-4 flex items-center justify-center gap-3">
@@ -118,7 +124,7 @@ export default function Hero() {
           variants={fade}
           className="mt-8 text-[11px] font-medium uppercase tracking-[0.3em] text-ivory/90"
         >
-          Akad &amp; Resepsi
+          {t("hero.akadResepsi")}
         </motion.p>
         <motion.p
           variants={fadeUp}
@@ -127,7 +133,7 @@ export default function Hero() {
           {dateFull}
         </motion.p>
 
-        <CountdownTimer targetDate={config.date} />
+        <CountdownTimer targetDate={countdownTarget} />
 
         <motion.div
           variants={fadeUp}
@@ -146,7 +152,7 @@ export default function Hero() {
           className="mt-7 inline-flex items-center gap-2 rounded-full bg-rosy px-7 py-3 text-sm font-medium text-dusty shadow-[0_10px_24px_-12px_rgba(74,52,56,0.6)]"
         >
           <MapPin className="h-4 w-4" />
-          Lihat Lokasi
+          {t("hero.viewLocation")}
         </motion.a>
       </motion.div>
     </section>

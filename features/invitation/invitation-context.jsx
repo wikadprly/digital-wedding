@@ -1,6 +1,4 @@
 import { useMemo, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchInvitation } from "@/services/api";
 import {
   getWeddingUid,
   storeWeddingUid,
@@ -8,6 +6,7 @@ import {
   resolveGuestName,
 } from "@/lib/invitation-storage";
 import { InvitationContext } from "./invitation-context-definition";
+import staticConfig from "@/config/config";
 
 export function InvitationProvider({ uid, children }) {
   const invitationUid = useMemo(() => {
@@ -46,26 +45,14 @@ export function InvitationProvider({ uid, children }) {
     }
   }, []);
 
-  const {
-    data: config,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["invitation", invitationUid],
-    queryFn: async () => {
-      const response = await fetchInvitation(invitationUid);
-      if (response.success) {
-        return response.data;
-      }
-      throw new Error("Failed to load invitation");
-    },
-    enabled: !!invitationUid,
-    staleTime: 10 * 60 * 1000,
-  });
-
   return (
     <InvitationContext.Provider
-      value={{ uid: invitationUid, config, isLoading, error: error?.message }}
+      value={{
+        uid: invitationUid,
+        config: staticConfig.data,
+        isLoading: false,
+        error: null,
+      }}
     >
       {children}
     </InvitationContext.Provider>

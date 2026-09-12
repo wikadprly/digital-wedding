@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
+import { rateLimit } from "@/lib/rate-limit";
 import { z } from "zod";
 
 const wishSchema = z.object({
@@ -67,6 +68,23 @@ export async function GET(request, { params }) {
 export async function POST(request, { params }) {
   try {
     const { uid } = await params;
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      request.headers.get("x-real-ip") ||
+      "unknown";
+
+    const ipLimit = rateLimit(`wish:${uid}:ip:${ip}`);
+    if (!ipLimit.allowed) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Too many requests. Please try again later.",
+          code: "RATE_LIMITED",
+        },
+        { status: 429 },
+      );
+    }
+
     const body = await request.json().catch(() => null);
 
     const parsed = wishSchema.safeParse(body ?? {});
@@ -81,6 +99,18 @@ export async function POST(request, { params }) {
       );
     }
     const { name, message, attendance } = parsed.data;
+
+    const nameLimit = rateLimit(`wish:${uid}:name:${name.toLowerCase()}`);
+    if (!nameLimit.allowed) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Too many requests. Please try again later.",
+          code: "RATE_LIMITED",
+        },
+        { status: 429 },
+      );
+    }
 
     const invitation = await query(
       "SELECT uid FROM invitations WHERE uid = $1",

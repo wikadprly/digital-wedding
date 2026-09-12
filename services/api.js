@@ -58,21 +58,3 @@ export async function deleteWish(uid, wishId, token) {
   }
   return response.json();
 }
-
-export async function fetchAttendanceStats(uid) {
-  const response = await fetch(`${API_URL}/api/${uid}/stats`);
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || "Failed to fetch stats");
-  }
-  return response.json();
-}
-
-export async function fetchInvitation(uid) {
-  const response = await fetch(`${API_URL}/api/invitation/${uid}`);
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || "Failed to fetch invitation");
-  }
-  return response.json();
-}

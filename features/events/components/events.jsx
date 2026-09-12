@@ -5,6 +5,7 @@ import { CalendarHeart, MapPin } from "lucide-react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
 import { formatEventDate } from "@/lib/format-event-date";
 import { useMotionPreset, staggerContainer } from "@/lib/motion";
+import { useTranslation } from "@/lib/i18n";
 
 function Diamond() {
   return <span className="inline-block h-1.5 w-1.5 rotate-45 bg-champagne" />;
@@ -36,6 +37,7 @@ export default function Events() {
   const config = useConfig();
   const fade = useMotionPreset("fade");
   const fadeUp = useMotionPreset("fadeUp");
+  const { t } = useTranslation();
 
   if (!config) return null;
 
@@ -76,13 +78,13 @@ export default function Events() {
             variants={fade}
             className="text-[11px] font-medium uppercase tracking-[0.3em] text-ivory/80"
           >
-            Detail Acara
+            {t("events.detailAcara")}
           </motion.p>
           <motion.h2
             variants={fadeUp}
             className="mt-2 font-serif text-2xl uppercase tracking-[0.2em] text-ivory"
           >
-            Akad &amp; Resepsi
+            {t("events.akadResepsi")}
           </motion.h2>
           <motion.div
             variants={fade}
@@ -134,7 +136,7 @@ export default function Events() {
                 className="flex flex-1 items-center justify-center gap-2 rounded-full bg-mute px-4 py-2.5 text-sm font-medium text-white transition hover:bg-mute/90"
               >
                 <MapPin className="h-4 w-4" />
-                Lihat Lokasi
+                {t("events.viewLocation")}
               </a>
             </div>
           </div>
@@ -143,9 +145,9 @@ export default function Events() {
           <div className="border-t border-rose-line px-6 py-5">
             <div className="flex items-center justify-between gap-4">
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-brown">Dresscode</p>
+                <p className="text-sm font-semibold text-brown">{t("events.dresscode")}</p>
                 <p className="mt-0.5 text-xs leading-relaxed text-brown-mute">
-                  Nuansa pink, cokelat &amp; sage
+                  {t("events.dresscodeNote")}
                 </p>
               </div>
               <div className="flex shrink-0 items-center gap-2">
@@ -159,7 +161,7 @@ export default function Events() {
               </div>
             </div>
             <p className="mt-4 text-xs italic leading-relaxed text-brown-mute">
-              Mohon mengenakan warna yang selaras dengan tema kami. Terima kasih.
+              {t("events.dresscodeHint")}
             </p>
           </div>
         </motion.div>

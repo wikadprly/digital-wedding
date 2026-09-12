@@ -2,7 +2,8 @@
   "app": {
     "errorTitle": "Invitation Not Found",
     "errorDesc": "Please check your URL or contact the organizer.",
-    "preparing": "Preparing"
+    "preparing": "Preparing",
+    "loading": "Loading..."
   },
   "nav": {
     "home": "Home",
@@ -21,6 +22,10 @@
   },
   "hero": {
     "marriageTitle": "InsyaAllah We Are Getting Married",
+    "save": "Save",
+    "theDate": "The Date",
+    "akadResepsi": "Wedding Ceremony & Reception",
+    "viewLocation": "View Location",
     "guestGreeting": "To Our Honored Guest:",
     "guestSalutation": "Mr./Mrs./Ms.",
     "guestFallback": "Our Guest",
@@ -33,6 +38,12 @@
     "saveTheDate": "Save the Date",
     "title": "Wedding Event Schedule",
     "subtitle": "We cordially invite you to celebrate this special day as the beginning of our love journey",
+    "detailAcara": "Event Details",
+    "akadResepsi": "Wedding Ceremony & Reception",
+    "viewLocation": "View Location",
+    "dresscode": "Dresscode",
+    "dresscodeNote": "Soft pink, brown &amp; sage tones",
+    "dresscodeHint": "Please wear colors that match our theme. Thank you.",
     "addToCalendar": "Add to Calendar",
     "googleCalendar": "Google Calendar",
     "appleCalendar": "Apple Calendar",
@@ -72,5 +83,11 @@
     "delete": "Delete wish",
     "deleteConfirm": "Delete this wish?",
     "close": "Close"
+  },
+  "closing": {
+    "title": "Thank You",
+    "message": "It is an honor and a joy for us if you are kind enough to attend and offer your prayers and blessings.",
+    "sincerely": "Sincerely",
+    "confirmAttendance": "Confirm Attendance"
   }
 }

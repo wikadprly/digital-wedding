@@ -2,7 +2,8 @@
   "app": {
     "errorTitle": "Undangan Tidak Ditemukan",
     "errorDesc": "Silakan periksa URL Anda atau hubungi penyelenggara.",
-    "preparing": "Menyiapkan"
+    "preparing": "Menyiapkan",
+    "loading": "Memuat..."
   },
   "nav": {
     "home": "Beranda",
@@ -21,6 +22,10 @@
   },
   "hero": {
     "marriageTitle": "InsyaAllah Kami Akan Menikah",
+    "save": "Save",
+    "theDate": "The Date",
+    "akadResepsi": "Akad & Resepsi",
+    "viewLocation": "Lihat Lokasi",
     "guestGreeting": "Kepada Yth.",
     "guestSalutation": "Bapak/Ibu/Saudara/i",
     "guestFallback": "Tamu Undangan",
@@ -33,6 +38,12 @@
     "saveTheDate": "Catat Tanggal Penting Ini",
     "title": "Rangkaian Acara Pernikahan",
     "subtitle": "Kami Mengundang Anda untuk Merayakan Hari Istimewa Sebagai Awal Perjalanan Cinta Kami",
+    "detailAcara": "Detail Acara",
+    "akadResepsi": "Akad & Resepsi",
+    "viewLocation": "Lihat Lokasi",
+    "dresscode": "Dresscode",
+    "dresscodeNote": "Nuansa pink, cokelat &amp; sage",
+    "dresscodeHint": "Mohon mengenakan warna yang selaras dengan tema kami. Terima kasih.",
     "addToCalendar": "Tambah ke Kalender",
     "googleCalendar": "Google Calendar",
     "appleCalendar": "Apple Calendar",
@@ -72,5 +83,11 @@
     "delete": "Hapus ucapan",
     "deleteConfirm": "Hapus ucapan ini?",
     "close": "Tutup"
+  },
+  "closing": {
+    "title": "Terima Kasih",
+    "message": "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak / Ibu / Saudara/i berkenan hadir dan memberikan doa restu.",
+    "sincerely": "Sincerely",
+    "confirmAttendance": "Konfirmasi Kehadiran"
   }
 }

@@ -1,5 +1,6 @@
 const config = {
   data: {
+    uid: "rizal-rema-2026",
     title: "Pernikahan Rizal & Rema",
     description:
       "Kami akan menikah dan mengundang Anda untuk turut merayakan momen istimewa ini.",

@@ -110,7 +110,7 @@ export default function Wishes() {
           <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-dusty/10">
             <Heart className="h-6 w-6 text-dusty" />
           </div>
-          <h2 className="font-serif text-3xl text-dusty">Ucapan &amp; Doa</h2>
+          <h2 className="font-serif text-3xl text-dusty">{t("wishes.title")}</h2>
           <p className="mt-2 text-xs font-semibold text-brown-mute">
             {data.length} {t("wishes.title").toLowerCase()}
           </p>
@@ -173,7 +173,7 @@ export default function Wishes() {
       <div className="mx-auto mt-8 max-w-md space-y-3">
         {isLoading ? (
           <div className="rounded-2xl bg-rosy p-6 text-center text-sm text-dusty">
-            Loading...
+            {t("app.loading")}
           </div>
         ) : data.length > 0 ? (
           data.map((wish) => (

@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { MessageCircle, Heart, ArrowRight } from "lucide-react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
 import { useMotionPreset } from "@/lib/motion";
+import { useTranslation } from "@/lib/i18n";
 
 function Diamond() {
   return <span className="inline-block h-1.5 w-1.5 rotate-45 bg-champagne" />;
@@ -13,6 +14,7 @@ export default function Closing() {
   const config = useConfig();
   const fadeUp = useMotionPreset("fadeUp");
   const fade = useMotionPreset("fade");
+  const { t } = useTranslation();
 
   if (!config) return null;
 
@@ -36,22 +38,21 @@ export default function Closing() {
           variants={fadeUp}
           className="mt-6 font-serif text-4xl uppercase tracking-[0.25em]"
         >
-          Terima Kasih
+          {t("closing.title")}
         </motion.h2>
 
         <motion.p
           variants={fade}
           className="mx-auto mt-6 max-w-sm font-serif-alt text-[15px] italic leading-relaxed text-ivory/85"
         >
-          Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak /
-          Ibu / Saudara/i berkenan hadir dan memberikan doa restu.
+          {t("closing.message")}
         </motion.p>
 
         <motion.p
           variants={fadeUp}
           className="mt-10 font-script text-[44px] leading-tight text-ivory"
         >
-          Sincerely,
+          {t("closing.sincerely")},
           <br />
           {config.groomName} &amp; {config.brideName}
         </motion.p>
@@ -65,7 +66,7 @@ export default function Closing() {
           }
           className="mx-auto mt-10 flex items-center gap-2 rounded-full bg-ivory px-8 py-3 text-sm font-semibold text-dusty shadow-[0_10px_24px_-12px_rgba(74,52,56,0.5)] transition hover:bg-rosy"
         >
-          Konfirmasi Kehadiran
+          {t("closing.confirmAttendance")}
           <ArrowRight className="h-4 w-4" />
         </motion.button>
       </motion.div>

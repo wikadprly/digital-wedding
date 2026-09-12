@@ -1,7 +1,6 @@
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import pg from "pg";
-import config from "../config/config.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -11,89 +10,40 @@ if (typeof process.loadEnvFile === "function") {
   } catch {}
 }
 
-const { Client } = pg;
-const client = new Client({
-  connectionString:
-    process.env.DATABASE_URL ||
-    "postgresql://postgres:wikacantik@localhost:5432/digital_wedding",
-});
+const connectionString = process.env.DATABASE_URL;
+if (!connectionString) {
+  console.error(
+    "FATAL: DATABASE_URL is not set. Copy .env.example to .env.local and fill in your Neon connection string.",
+  );
+  process.exit(1);
+}
 
-const d = config.data;
-const UID = "rizal-rema-2026";
+const { Client } = pg;
+const client = new Client({ connectionString });
 
 async function main() {
   await client.connect();
 
   await client.query(`
-    ALTER TABLE invitations
-    ADD COLUMN IF NOT EXISTS gift_address JSONB NOT NULL DEFAULT '{}'::jsonb
+    CREATE TABLE IF NOT EXISTS wishes (
+      id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+      invitation_uid  TEXT NOT NULL,
+      name            TEXT NOT NULL,
+      message         TEXT NOT NULL,
+      attendance      TEXT NOT NULL DEFAULT 'ATTENDING'
+                      CHECK (attendance IN ('ATTENDING', 'NOT_ATTENDING', 'MAYBE')),
+      edit_token      UUID NOT NULL DEFAULT gen_random_uuid(),
+      created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+      CONSTRAINT wishes_invitation_name_key UNIQUE (invitation_uid, name)
+    );
   `);
 
   await client.query(`
-    ALTER TABLE invitations
-    ADD COLUMN IF NOT EXISTS groom_photo TEXT NOT NULL DEFAULT ''
+    CREATE INDEX IF NOT EXISTS wishes_invitation_created_idx
+      ON wishes (invitation_uid, created_at DESC);
   `);
 
-  await client.query(`
-    ALTER TABLE invitations
-    ADD COLUMN IF NOT EXISTS bride_photo TEXT NOT NULL DEFAULT ''
-  `);
-
-  await client.query(
-    `INSERT INTO invitations (uid, title, description, groom_name, bride_name, groom_photo, bride_photo, parent_groom, parent_bride, wedding_date, time, location, address, maps_url, maps_embed, og_image, favicon, audio, gift_address)
-     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19)
-     ON CONFLICT (uid) DO UPDATE SET
-       title=EXCLUDED.title, description=EXCLUDED.description, groom_name=EXCLUDED.groom_name,
-       bride_name=EXCLUDED.bride_name, groom_photo=EXCLUDED.groom_photo, bride_photo=EXCLUDED.bride_photo,
-       parent_groom=EXCLUDED.parent_groom, parent_bride=EXCLUDED.parent_bride,
-       wedding_date=EXCLUDED.wedding_date, time=EXCLUDED.time, location=EXCLUDED.location,
-       address=EXCLUDED.address, maps_url=EXCLUDED.maps_url, maps_embed=EXCLUDED.maps_embed,
-       og_image=EXCLUDED.og_image, favicon=EXCLUDED.favicon, audio=EXCLUDED.audio,
-       gift_address=EXCLUDED.gift_address`,
-    [
-      UID,
-      d.title,
-      d.description,
-      d.groomName,
-      d.brideName,
-      d.groomPhoto || "",
-      d.bridePhoto || "",
-      d.parentGroom,
-      d.parentBride,
-      d.date,
-      d.time,
-      d.location,
-      d.address,
-      d.maps_url,
-      d.maps_embed,
-      d.ogImage || "",
-      d.favicon || "/favicon.svg",
-      JSON.stringify(d.audio || {}),
-      JSON.stringify(d.giftAddress || {}),
-    ],
-  );
-
-  await client.query("DELETE FROM agenda WHERE invitation_uid = $1", [UID]);
-  for (let i = 0; i < (d.agenda || []).length; i++) {
-    const a = d.agenda[i];
-    await client.query(
-      `INSERT INTO agenda (invitation_uid, title, date, start_time, end_time, location, address, order_index)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`,
-      [UID, a.title, a.date, a.startTime, a.endTime, a.location, a.address, i],
-    );
-  }
-
-  await client.query("DELETE FROM banks WHERE invitation_uid = $1", [UID]);
-  for (let i = 0; i < (d.banks || []).length; i++) {
-    const b = d.banks[i];
-    await client.query(
-      `INSERT INTO banks (invitation_uid, bank, account_number, account_name, order_index)
-       VALUES ($1,$2,$3,$4,$5)`,
-      [UID, b.bank, b.accountNumber, b.accountName, i],
-    );
-  }
-
-  console.log(`Seeded invitation: ${UID}`);
+  console.log("Database ready: tabel `wishes` sudah ada.");
   await client.end();
 }
 

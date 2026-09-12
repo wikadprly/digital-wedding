@@ -7,6 +7,8 @@
  * This will output personalized invitation links for each guest
  */
 
+import config from "./config/config.js";
+
 function generateInvitationLink(
   uid,
   guestName,
@@ -17,7 +19,7 @@ function generateInvitationLink(
 }
 
 // ===== CONFIGURATION =====
-const INVITATION_UID = "rizal-rema-2026"; // Change this to your invitation UID
+const INVITATION_UID = config.data.uid; // diatur di config/config.js
 const BASE_URL = "http://localhost:3000"; // Change this to your production URL
 
 // List of guests
