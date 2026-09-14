@@ -31,7 +31,12 @@ function Diamond() {
 function Portrait({ src, initial }) {
   if (src) {
     return (
-      <div className="relative mx-auto h-40 w-32 rounded-[90px_90px_18px_18px] border border-dusty/35 bg-rosy/40 p-1.5 shadow-[0_14px_30px_-18px_rgba(154,83,104,0.5)]">
+      <motion.div
+        whileHover={{ y: -6, scale: 1.04 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 280, damping: 20 }}
+        className="relative mx-auto h-40 w-32 rounded-[90px_90px_18px_18px] border border-dusty/35 bg-rosy/40 p-1.5 shadow-[0_14px_30px_-18px_rgba(154,83,104,0.5)]"
+      >
         <div className="relative h-full w-full overflow-hidden rounded-[82px_82px_12px_12px] bg-rosy">
           <Image
             src={src}
@@ -41,25 +46,29 @@ function Portrait({ src, initial }) {
             className="object-cover"
           />
         </div>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="relative mx-auto h-36 w-28 overflow-hidden rounded-full border-2 border-blush bg-blush/35 shadow-[0_14px_30px_-18px_rgba(154,83,104,0.5)]">
+    <motion.div
+      whileHover={{ y: -6, scale: 1.04 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 280, damping: 20 }}
+      className="relative mx-auto h-36 w-28 overflow-hidden rounded-full border-2 border-blush bg-blush/35 shadow-[0_14px_30px_-18px_rgba(154,83,104,0.5)]"
+    >
       <div className="flex h-full w-full items-center justify-center">
         <span className="font-serif text-6xl text-dusty">{initial}</span>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
-function Person({ name, parent, prefix, photo }) {
+function Person({ parent, prefix, photo }) {
   return (
     <div className="text-center">
-      <Portrait src={photo} initial={(name || "?")[0]} />
-      <h3 className="mt-5 font-serif text-4xl font-semibold text-dusty">{name}</h3>
-      <p className="mx-auto mt-2 max-w-[240px] text-sm leading-relaxed text-brown-mute">
+      <Portrait src={photo} initial={(prefix || "?")[0]} />
+      <p className="mx-auto mt-4 max-w-[240px] text-sm leading-relaxed text-brown-mute">
         {prefix} dari {parent}
       </p>
     </div>
@@ -73,8 +82,6 @@ export default function Profile() {
 
   if (!config) return null;
 
-  const groom = config.groomName || "Rizal";
-  const bride = config.brideName || "Rema";
   const parentGroom = config.parentGroom || "Bapak Rizal & Ibu Rizal";
   const parentBride = config.parentBride || "Bapak Rema & Ibu Rema";
 
@@ -111,9 +118,8 @@ export default function Profile() {
           className="mt-12"
         >
           <Person
-            name={groom}
             parent={parentGroom}
-            prefix="Putra"
+            prefix="Putra ke 1"
             photo={config.groomPhoto}
           />
         </motion.div>
@@ -134,9 +140,8 @@ export default function Profile() {
           className="mt-12"
         >
           <Person
-            name={bride}
             parent={parentBride}
-            prefix="Putri"
+            prefix="Putri ke 1"
             photo={config.bridePhoto}
           />
         </motion.div>

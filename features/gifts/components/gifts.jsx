@@ -44,13 +44,16 @@ export default function Gifts() {
           secara cashless.
         </p>
 
-        <button
+        <motion.button
           onClick={() => setIsOpen((v) => !v)}
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 320, damping: 18 }}
           className="mx-auto mt-6 flex items-center justify-center gap-2 rounded-full bg-dusty px-8 py-2.5 text-sm font-semibold text-white shadow-[0_10px_20px_-10px_rgba(154,83,104,0.6)] transition hover:bg-dusty/90"
         >
           <Gift className="h-4 w-4" />
           {isOpen ? "Tutup" : "Klik Disini"}
-        </button>
+        </motion.button>
 
         {isOpen && (
           <div className="mt-8 space-y-5">

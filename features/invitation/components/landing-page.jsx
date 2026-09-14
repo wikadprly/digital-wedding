@@ -59,16 +59,22 @@ export default function LandingPage({ onOpenInvitation }) {
           {...stage(2)}
           className="relative mt-5 w-[clamp(160px,48vw,215px)] aspect-[3/4] rounded-[130px_130px_26px_26px] border border-dusty/40 bg-rosy/40 p-2 shadow-[0_16px_36px_-18px_rgba(154,83,104,0.4)]"
         >
-          <div className="relative h-full w-full overflow-hidden rounded-[116px_116px_16px_16px] bg-rosy">
-            <Image
-              src="/couple.png"
-              alt={`${groomName} & ${brideName}`}
-              fill
-              sizes="215px"
-              priority
-              className="object-cover"
-            />
-          </div>
+          <motion.div
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+            className="h-full w-full"
+          >
+            <div className="relative h-full w-full overflow-hidden rounded-[116px_116px_16px_16px] bg-rosy">
+              <Image
+                src="/images/coverr.JPG"
+                alt={`${groomName} & ${brideName}`}
+                fill
+                sizes="215px"
+                priority
+                className="object-cover"
+              />
+            </div>
+          </motion.div>
         </motion.div>
 
         {/* names — Cormorant / Playfair */}
@@ -114,7 +120,9 @@ export default function LandingPage({ onOpenInvitation }) {
         {/* CTA */}
         <motion.button
           {...stage(7)}
+          whileHover={{ scale: 1.05, y: -3 }}
           whileTap={{ scale: 0.96 }}
+          transition={{ type: "spring", stiffness: 320, damping: 18 }}
           onClick={onOpenInvitation}
           className="mt-6 flex items-center gap-2 rounded-full bg-dusty px-7 py-3 text-sm font-medium text-white shadow-[0_10px_24px_-10px_rgba(154,83,104,0.6)] transition-transform hover:-translate-y-0.5"
         >

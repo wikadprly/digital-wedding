@@ -160,13 +160,16 @@ export default function Wishes() {
             required
             className="w-full rounded-lg border border-rose-line bg-ivory/40 p-3 text-sm focus:border-dusty focus:outline-none"
           />
-          <button
+          <motion.button
             type="submit"
             disabled={createMutation.isPending}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.96 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
             className="w-full rounded-xl bg-dusty py-3 text-sm font-bold text-white transition hover:bg-dusty/90 disabled:opacity-50"
           >
             {createMutation.isPending ? t("wishes.sending") : t("wishes.sendButton")}
-          </button>
+          </motion.button>
         </form>
       </motion.div>
 
@@ -183,6 +186,8 @@ export default function Wishes() {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
+              whileHover={{ y: -4, boxShadow: "0 12px 24px -14px rgba(74,52,56,0.35)" }}
+              transition={{ type: "spring", stiffness: 300, damping: 24 }}
               className="rounded-2xl bg-rosy p-4"
             >
               <div className="flex items-center justify-between">
@@ -193,15 +198,17 @@ export default function Wishes() {
                     {attendanceLabel(wish.attendance)}
                   </span>
                   {ownWish && ownWish.wishId === wish.id && (
-                    <button
+                    <motion.button
                       type="button"
                       onClick={() => handleDelete(wish.id)}
                       disabled={deleteMutation.isPending}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.85 }}
                       aria-label={t("wishes.delete")}
                       className="rounded-full bg-rose-line/50 p-1.5 text-brown-mute hover:bg-rose-line hover:text-dusty disabled:opacity-50"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
-                    </button>
+                    </motion.button>
                   )}
                 </span>
               </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { MessageCircle, Heart, ArrowRight } from "lucide-react";
+import { MessageCircle, ArrowRight } from "lucide-react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
 import { useMotionPreset } from "@/lib/motion";
 import { useTranslation } from "@/lib/i18n";
@@ -59,6 +59,9 @@ export default function Closing() {
 
         <motion.button
           variants={fadeUp}
+          whileHover={{ scale: 1.05, y: -3 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 300, damping: 18 }}
           onClick={() =>
             document
               .getElementById("wishes")
@@ -78,10 +81,6 @@ export default function Closing() {
         viewport={{ once: true }}
         className="relative z-10 mt-14 flex flex-col items-center gap-4"
       >
-        <p className="flex items-center gap-1.5 text-xs text-ivory/75">
-          Made with <Heart className="h-3.5 w-3.5 fill-champagne text-champagne" /> by{" "}
-          <span className="font-semibold text-ivory">Wika Dwi Aprilia</span>
-        </p>
         <div className="flex gap-5 text-ivory/85">
           <a
             href="#"

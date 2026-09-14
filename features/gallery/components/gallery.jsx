@@ -5,11 +5,11 @@ import { motion } from "motion/react";
 import { useMotionPreset } from "@/lib/motion";
 
 const GALLERY_IMAGES = [
-  { src: "/couple.png", position: "object-top", delay: 0 },
-  { src: "/couple.png", position: "object-center", delay: 100 },
-  { src: "/couple.png", position: "object-bottom", delay: 200 },
-  { src: "/couple.png", position: "object-center", delay: 300 },
-  { src: "/couple.png", position: "object-top", delay: 400 },
+  { src: "/images/awal%20our%20galerry.JPG", position: "object-top", delay: 0 },
+  { src: "/images/Salinan%20DSCF0077.JPG", position: "object-center", delay: 100 },
+  { src: "/images/Salinan%20DSCF0105.JPG", position: "object-bottom", delay: 200 },
+  { src: "/images/Salinan%20DSCF0118.JPG", position: "object-center", delay: 300 },
+  { src: "/images/Salinan%20DSCF0122.JPG", position: "object-top", delay: 400 },
 ];
 
 function Diamond() {
@@ -42,9 +42,6 @@ export default function Gallery() {
           <Diamond />
           <span className="h-px w-8 bg-champagne" />
         </div>
-        <p className="mx-auto mt-4 max-w-xs font-script text-3xl leading-snug text-ivory">
-          Sebentuk kenangan kecil yang ingin kami bagikan.
-        </p>
       </motion.div>
 
       <div className="relative z-10 mx-auto mt-8 grid max-w-md grid-cols-2 gap-4">
@@ -56,6 +53,12 @@ export default function Gallery() {
             whileInView="visible"
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
+            whileHover={{
+              y: -8,
+              scale: 1.03,
+              transition: { type: "spring", stiffness: 280, damping: 20 },
+            }}
+            whileTap={{ scale: 0.97 }}
             className={`relative w-full overflow-hidden rounded-[16px] border border-ivory/30 bg-rosy shadow-[0_14px_28px_-18px_rgba(74,52,56,0.45)] ${
               i === 0 ? "col-span-2 h-64" : "h-44"
             }`}
