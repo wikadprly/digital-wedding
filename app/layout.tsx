@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import config from "@/config/config";
 import {
   Playfair_Display,
   Cormorant_Garamond,
@@ -31,9 +32,8 @@ const italianno = Italianno({
 });
 
 export const metadata: Metadata = {
-  title: "Pernikahan Rizal & Rema",
-  description:
-    "Kami akan menikah dan mengundang Anda untuk turut merayakan momen istimewa ini.",
+  title: config.data.title,
+  description: config.data.description,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

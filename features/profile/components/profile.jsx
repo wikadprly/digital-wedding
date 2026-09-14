@@ -64,11 +64,17 @@ function Portrait({ src, initial }) {
   );
 }
 
-function Person({ parent, prefix, photo }) {
+function Person({ name, fullName, parent, prefix, photo }) {
   return (
     <div className="text-center">
-      <Portrait src={photo} initial={(prefix || "?")[0]} />
-      <p className="mx-auto mt-4 max-w-[240px] text-sm leading-relaxed text-brown-mute">
+      <Portrait src={photo} initial={(name || "?")[0]} />
+      <h3 className="mt-5 font-serif text-4xl font-semibold text-dusty">{name}</h3>
+      {fullName && (
+        <p className="mx-auto mt-1 max-w-[280px] font-serif-alt text-sm italic leading-snug text-brown-mute">
+          {fullName}
+        </p>
+      )}
+      <p className="mx-auto mt-2 max-w-[240px] text-sm leading-relaxed text-brown-mute">
         {prefix} dari {parent}
       </p>
     </div>
@@ -118,6 +124,8 @@ export default function Profile() {
           className="mt-12"
         >
           <Person
+            name={config.groomName}
+            fullName={config.groomFullName || ""}
             parent={parentGroom}
             prefix="Putra ke 1"
             photo={config.groomPhoto}
@@ -140,6 +148,8 @@ export default function Profile() {
           className="mt-12"
         >
           <Person
+            name={config.brideName}
+            fullName={config.brideFullName || ""}
             parent={parentBride}
             prefix="Putri ke 1"
             photo={config.bridePhoto}
