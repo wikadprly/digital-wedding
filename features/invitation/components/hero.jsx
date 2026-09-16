@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
-import { MapPin } from "lucide-react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
 import { formatEventDate, toJakartaEpoch } from "@/lib/format-event-date";
 import { useTranslation } from "@/lib/i18n";
@@ -11,8 +10,8 @@ import { useMotionPreset, staggerContainer } from "@/lib/motion";
 
 function CountBox({ value, label }) {
   return (
-    <div className="flex flex-col items-center">
-      <div className="overflow-hidden rounded-lg px-1">
+    <div className="flex w-full min-w-0 flex-col items-center">
+      <div className="flex h-12 items-center justify-center overflow-hidden">
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
             key={value}
@@ -20,13 +19,13 @@ function CountBox({ value, label }) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: "110%", opacity: 0 }}
             transition={{ type: "spring", stiffness: 260, damping: 24 }}
-            className="block font-serif text-4xl text-ivory"
+            className="block font-serif text-[36px] leading-none text-ivory"
           >
             {String(value).padStart(2, "0")}
           </motion.span>
         </AnimatePresence>
       </div>
-      <span className="mt-1 text-[10px] uppercase tracking-[0.2em] text-ivory/80">
+      <span className="mt-2 text-[10px] uppercase tracking-[0.2em] text-ivory/80">
         {label}
       </span>
     </div>
@@ -35,7 +34,16 @@ function CountBox({ value, label }) {
 
 function CountdownTimer({ targetDate }) {
   const { t } = useTranslation();
-  const [timeLeft, setTimeLeft] = useState({});
+  const [timeLeft, setTimeLeft] = useState(() => {
+    const difference = +new Date(targetDate) - Date.now();
+    if (difference <= 0) return {};
+    return {
+      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((difference / (1000 * 60)) % 60),
+      seconds: Math.floor((difference / 1000) % 60),
+    };
+  });
 
   useEffect(() => {
     const calculate = () => {
@@ -61,7 +69,7 @@ function CountdownTimer({ targetDate }) {
   ];
 
   return (
-    <div className="mx-auto mt-8 flex w-full max-w-[300px] items-start justify-between">
+    <div className="mx-auto mt-8 grid w-full max-w-[300px] grid-cols-4">
       {items.map((item) => (
         <CountBox key={item.label} value={item.value} label={item.label} />
       ))}
@@ -89,14 +97,57 @@ export default function Hero() {
     firstAgenda?.startTime || "00:00",
   );
   const dateFull = formatEventDate(config.date, "full").toUpperCase();
-  const dateShort = formatEventDate(config.date, "short").toUpperCase();
 
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-mute px-6 pb-16 pt-14 text-center"
+      className="relative mx-auto flex aspect-[9/16] min-h-dvh w-full max-w-[430px] flex-col items-center overflow-hidden bg-mute px-6 pb-16 pt-14 text-center"
     >
       <Botanical className="pointer-events-none absolute -right-10 top-10 h-36 w-36 rotate-45 opacity-15" />
+
+      {/* latar belakang pink */}
+      <Image
+        src="/icon/latarbelakangpink.png"
+        alt=""
+        width={1080}
+        height={1920}
+        priority
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
+      />
+
+      {/* dekorasi atas transparan — turun pelan dari atas sekali lalu berhenti */}
+      <motion.div
+        initial={{ y: -90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center"
+      >
+        <Image
+          src="/icon/atass.png"
+          alt=""
+          width={1080}
+          height={1920}
+          priority
+          className="h-[40vh] w-full object-cover object-top"
+        />
+      </motion.div>
+
+      {/* dekorasi bawah transparan — muncul pelan dari bawah sekali lalu berhenti */}
+      <motion.div
+        initial={{ y: 90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center"
+      >
+        <Image
+          src="/icon/bawahh.png"
+          alt=""
+          width={1080}
+          height={1920}
+          priority
+          className="h-[46vh] w-full object-cover object-bottom"
+        />
+      </motion.div>
 
       <motion.div
         variants={staggerContainer()}
@@ -153,29 +204,6 @@ export default function Hero() {
         </motion.p>
 
         <CountdownTimer targetDate={countdownTarget} />
-
-        <motion.div
-          variants={fadeUp}
-          className="mt-9 border-t border-ivory/20 pt-6"
-        >
-          <p className="font-serif text-4xl leading-tight text-ivory">
-            {dateShort}
-          </p>
-          <p className="mt-3 text-sm text-ivory/90">{config.time}</p>
-          <p className="mt-1 text-sm text-ivory/90">{config.location}</p>
-        </motion.div>
-
-        <motion.a
-          variants={fadeUp}
-          whileHover={{ scale: 1.05, y: -3 }}
-          whileTap={{ scale: 0.96 }}
-          transition={{ type: "spring", stiffness: 300, damping: 18 }}
-          href="#events"
-          className="mt-7 inline-flex items-center gap-2 rounded-full bg-rosy px-7 py-3 text-sm font-medium text-dusty shadow-[0_10px_24px_-12px_rgba(74,52,56,0.6)]"
-        >
-          <MapPin className="h-4 w-4" />
-          {t("hero.viewLocation")}
-        </motion.a>
       </motion.div>
     </section>
   );

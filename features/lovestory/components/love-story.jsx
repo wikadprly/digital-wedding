@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { useMotionPreset, staggerContainer } from "@/lib/motion";
 
@@ -35,8 +36,18 @@ export default function LoveStory() {
   return (
     <section
       id="lovestory"
-      className="relative overflow-hidden bg-ivory px-6 pb-28 pt-16"
+      className="relative mx-auto aspect-[9/16] min-h-dvh w-full max-w-[430px] overflow-hidden bg-mute px-6 pb-28 pt-16"
     >
+      {/* latar belakang pink */}
+      <Image
+        src="/icon/latarbelakangpink.png"
+        alt=""
+        width={1080}
+        height={1920}
+        priority
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
+      />
+
       <Botanical className="pointer-events-none absolute -left-8 top-40 h-40 w-40 opacity-[0.08]" />
 
       <motion.div
@@ -49,7 +60,7 @@ export default function LoveStory() {
         <div className="text-center">
           <motion.h2
             variants={fadeUp}
-            className="font-serif text-2xl uppercase tracking-[0.22em] text-dusty"
+            className="font-serif text-2xl uppercase tracking-[0.22em] text-ivory"
           >
             Our Story
           </motion.h2>
@@ -65,7 +76,7 @@ export default function LoveStory() {
 
         <motion.p
           variants={fade}
-          className="mx-auto mt-6 max-w-xs text-center text-sm italic leading-relaxed text-brown-mute"
+          className="mx-auto mt-6 max-w-xs text-center text-sm italic leading-relaxed text-ivory/85"
         >
           Tidak ada yang kebetulan di dunia ini. Kami dipertemukan oleh waktu,
           dipersatukan oleh cerita, dan dipertahankan oleh doa.
@@ -73,7 +84,7 @@ export default function LoveStory() {
 
         <div className="relative mx-auto mt-12 max-w-md">
           {/* vertical line */}
-          <span className="absolute left-4 top-0 h-full w-px bg-blush" />
+          <span className="absolute left-4 top-0 h-full w-px bg-ivory/25" />
 
           {STORY_TIMELINE.map((item, i) => (
             <motion.div
@@ -82,12 +93,12 @@ export default function LoveStory() {
               custom={i}
               className="relative mb-10 pl-12 last:mb-0"
             >
-              <span className="absolute left-[11px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-dusty bg-rosy" />
+              <span className="absolute left-[11px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-ivory bg-mute" />
               <p className="text-xs font-semibold uppercase tracking-[0.25em] text-champagne">
                 {item.year}
               </p>
-              <h3 className="mt-1 font-serif text-xl text-dusty">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-brown-mute">
+              <h3 className="mt-1 font-serif text-xl text-ivory">{item.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ivory/80">
                 {item.description}
               </p>
             </motion.div>
@@ -96,7 +107,7 @@ export default function LoveStory() {
 
         <motion.p
           variants={fade}
-          className="mx-auto mt-12 max-w-sm text-center font-script text-3xl leading-snug text-mute"
+          className="mx-auto mt-12 max-w-sm text-center font-script text-3xl leading-snug text-ivory/95"
         >
           &ldquo;Two souls, one journey, forever begins here.&rdquo;
         </motion.p>

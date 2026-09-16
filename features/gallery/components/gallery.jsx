@@ -23,9 +23,44 @@ export default function Gallery() {
   return (
     <section
       id="gallery"
-      className="relative overflow-hidden bg-dusty px-6 pb-28 pt-16"
+      className="relative mx-auto aspect-[9/16] min-h-dvh w-full max-w-[430px] overflow-hidden bg-ivory px-6 pb-28 pt-16"
     >
-      <Botanical className="pointer-events-none absolute -left-10 bottom-24 h-40 w-40 -scale-x-100 opacity-[0.1]" />
+      <Botanical className="pointer-events-none absolute -left-10 bottom-24 h-40 w-40 -scale-x-100 opacity-[0.08]" />
+      <Botanical className="pointer-events-none absolute -right-8 top-24 h-40 w-40 opacity-[0.08]" />
+
+      {/* dekorasi atas — turun pelan dari atas sekali lalu berhenti */}
+      <motion.div
+        initial={{ y: -90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center"
+      >
+        <Image
+          src="/icon/atasbride.png"
+          alt=""
+          width={1080}
+          height={1920}
+          priority
+          className="h-[40vh] w-full object-cover object-top"
+        />
+      </motion.div>
+
+      {/* dekorasi bawah — muncul pelan dari bawah sekali lalu berhenti */}
+      <motion.div
+        initial={{ y: 90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center"
+      >
+        <Image
+          src="/icon/bawahbride.png"
+          alt=""
+          width={1080}
+          height={1920}
+          priority
+          className="h-[46vh] w-full object-cover object-bottom"
+        />
+      </motion.div>
 
       <motion.div
         variants={fadeUp}
@@ -34,7 +69,7 @@ export default function Gallery() {
         viewport={{ once: true, margin: "-60px" }}
         className="relative z-10 text-center"
       >
-        <h2 className="font-serif text-2xl uppercase tracking-[0.22em] text-ivory">
+        <h2 className="font-serif text-2xl uppercase tracking-[0.22em] text-dusty">
           Our Gallery
         </h2>
         <div className="mt-4 flex items-center justify-center gap-3">
@@ -59,7 +94,7 @@ export default function Gallery() {
               transition: { type: "spring", stiffness: 280, damping: 20 },
             }}
             whileTap={{ scale: 0.97 }}
-            className={`relative w-full overflow-hidden rounded-[16px] border border-ivory/30 bg-rosy shadow-[0_14px_28px_-18px_rgba(74,52,56,0.45)] ${
+            className={`relative w-full overflow-hidden rounded-[16px] border border-dusty/30 bg-rosy shadow-[0_14px_28px_-18px_rgba(74,52,56,0.45)] ${
               i === 0 ? "col-span-2 h-64" : "h-44"
             }`}
           >
@@ -83,7 +118,7 @@ export default function Gallery() {
 
 function Botanical({ className }) {
   return (
-    <svg viewBox="0 0 140 140" fill="none" className={className} style={{ color: "#F7F2EC" }} aria-hidden>
+    <svg viewBox="0 0 140 140" fill="none" className={className} style={{ color: "#9A5368" }} aria-hidden>
       <path
         d="M8 8c14 2 30 10 38 24 6 11 6 24-2 32-7 7-19 6-24-2-4-7-2-16 6-19"
         stroke="currentColor"

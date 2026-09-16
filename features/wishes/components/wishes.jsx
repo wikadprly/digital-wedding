@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Heart, Trash2 } from "lucide-react";
@@ -95,16 +96,50 @@ export default function Wishes() {
   return (
     <section
       id="wishes"
-      className="relative overflow-hidden bg-dusty px-6 pb-28 pt-16"
+      className="relative mx-auto aspect-[9/16] min-h-dvh w-full max-w-[430px] overflow-hidden bg-ivory px-6 pb-28 pt-16"
     >
       <Confetti show={showConfetti} />
+
+      {/* dekorasi atas — turun pelan dari atas sekali lalu berhenti */}
+      <motion.div
+        initial={{ y: -90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center"
+      >
+        <Image
+          src="/icon/atasbride.png"
+          alt=""
+          width={1080}
+          height={1920}
+          priority
+          className="h-[40vh] w-full object-cover object-top"
+        />
+      </motion.div>
+
+      {/* dekorasi bawah — muncul pelan dari bawah sekali lalu berhenti */}
+      <motion.div
+        initial={{ y: 90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center"
+      >
+        <Image
+          src="/icon/bawahbride.png"
+          alt=""
+          width={1080}
+          height={1920}
+          priority
+          className="h-[46vh] w-full object-cover object-bottom"
+        />
+      </motion.div>
 
       <motion.div
         variants={fadeUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
-        className="mx-auto max-w-md rounded-[24px] bg-rosy p-8 shadow-[0_20px_40px_-20px_rgba(74,52,56,0.45)]"
+        className="relative z-10 mx-auto max-w-md rounded-[24px] bg-rosy p-8 shadow-[0_20px_40px_-20px_rgba(74,52,56,0.45)]"
       >
         <div className="text-center">
           <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-dusty/10">
@@ -173,7 +208,7 @@ export default function Wishes() {
         </form>
       </motion.div>
 
-      <div className="mx-auto mt-8 max-w-md space-y-3">
+      <div className="relative z-10 mx-auto mt-8 max-w-md space-y-3">
         {isLoading ? (
           <div className="rounded-2xl bg-rosy p-6 text-center text-sm text-dusty">
             {t("app.loading")}

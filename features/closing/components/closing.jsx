@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { MessageCircle, ArrowRight } from "lucide-react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
@@ -19,7 +20,17 @@ export default function Closing() {
   if (!config) return null;
 
   return (
-    <section className="relative flex min-h-[70svh] flex-col items-center justify-center overflow-hidden bg-dusty px-6 py-16 text-center text-ivory">
+    <section className="relative mx-auto flex aspect-[9/16] min-h-dvh w-full max-w-[430px] flex-col items-center justify-center overflow-hidden bg-mute px-6 py-16 text-center text-ivory">
+      {/* latar belakang pink */}
+      <Image
+        src="/icon/latarbelakangpink.png"
+        alt=""
+        width={1080}
+        height={1920}
+        priority
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
+      />
+
       <Botanical className="pointer-events-none absolute -left-10 top-16 h-44 w-44 -scale-x-100 opacity-[0.1]" />
       <motion.div
         variants={fadeUp}

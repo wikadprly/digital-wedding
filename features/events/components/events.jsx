@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { CalendarHeart, MapPin } from "lucide-react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
@@ -79,9 +80,21 @@ export default function Events() {
   return (
     <section
       id="events"
-      className="relative overflow-hidden bg-dusty px-6 pb-28 pt-16"
+      className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-dusty px-6 pb-28 pt-16"
     >
       <Botanical className="pointer-events-none absolute -right-10 top-16 h-40 w-40 rotate-45 opacity-[0.08]" />
+
+      {/* latar akad & resepsi — satu gambar utuh, tanpa animasi */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <Image
+          src="/icon/akad&resepsi.png"
+          alt=""
+          width={1080}
+          height={1920}
+          priority
+          className="h-full w-full object-cover"
+        />
+      </div>
 
       <motion.div
         variants={staggerContainer()}
