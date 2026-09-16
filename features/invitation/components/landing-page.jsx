@@ -36,16 +36,23 @@ export default function LandingPage({ onOpenInvitation }) {
   const brideName = config.brideName;
 
   return (
-    <div className="relative mx-auto flex min-h-screen w-full max-w-[430px] flex-col overflow-x-hidden bg-ivory font-sans">
-      {/* botanical line art corner */}
-      <Botanical className="absolute -left-8 -top-6 h-40 w-40 opacity-10" />
-      <Botanical className="absolute -bottom-8 -right-8 h-40 w-40 rotate-180 opacity-10" />
+    <div className="relative mx-auto flex min-h-screen w-full max-w-[430px] flex-col overflow-hidden bg-ivory font-sans">
+      {/* video background — freezes on last frame when finished */}
+      <video
+        className="absolute inset-0 h-full w-full object-cover"
+        src="/video/cover.mp4"
+        poster="/images/coverr.JPG"
+        autoPlay
+        muted
+        playsInline
+        preload="auto"
+      />
 
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-8 pb-8 pt-10 text-center">
         {/* eyebrow */}
         <motion.p
           {...stage(0)}
-          className="text-[11px] font-medium uppercase tracking-[0.35em] text-dusty"
+          className="text-[11px] font-medium uppercase tracking-[0.35em] text-dusty drop-shadow-[0_1px_6px_rgba(255,255,255,0.6)]"
         >
           The Wedding Of
         </motion.p>
@@ -57,7 +64,7 @@ export default function LandingPage({ onOpenInvitation }) {
         {/* photo frame — vertical oval / arched */}
         <motion.div
           {...stage(2)}
-          className="relative mt-5 w-[clamp(160px,48vw,215px)] aspect-[3/4] rounded-[130px_130px_26px_26px] border border-dusty/40 bg-rosy/40 p-2 shadow-[0_16px_36px_-18px_rgba(154,83,104,0.4)]"
+          className="relative mt-5 w-[clamp(160px,48vw,215px)] aspect-[3/4] rounded-[130px_130px_26px_26px] border border-dusty/40 bg-rosy/40 p-2 shadow-[0_16px_36px_-18px_rgba(0,0,0,0.4)] backdrop-blur-[2px]"
         >
           <motion.div
             animate={{ y: [0, -8, 0] }}
@@ -77,38 +84,38 @@ export default function LandingPage({ onOpenInvitation }) {
           </motion.div>
         </motion.div>
 
-        {/* names — Cormorant / Playfair */}
+        {/* names */}
         <motion.h1
           {...stage(3)}
-          className="mt-6 font-serif text-[clamp(32px,10vw,40px)] font-semibold leading-[1.05] text-dusty"
+          className="mt-6 font-serif text-[clamp(32px,10vw,40px)] font-semibold leading-[1.05] text-dusty drop-shadow-[0_2px_12px_rgba(255,255,255,0.7)]"
         >
           {groomName}
         </motion.h1>
         <motion.span
           {...stage(4)}
-          className="my-1 font-script text-4xl leading-none text-mute"
+          className="my-1 font-script text-4xl leading-none text-mute drop-shadow-[0_2px_10px_rgba(255,255,255,0.6)]"
         >
           &amp;
         </motion.span>
         <motion.h1
           {...stage(4)}
-          className="font-serif text-[clamp(32px,10vw,40px)] font-semibold leading-[1.05] text-dusty"
+          className="font-serif text-[clamp(32px,10vw,40px)] font-semibold leading-[1.05] text-dusty drop-shadow-[0_2px_12px_rgba(255,255,255,0.7)]"
         >
           {brideName}
         </motion.h1>
 
         {/* guest */}
         <motion.div {...stage(5)} className="mt-5 space-y-1">
-          <p className="text-sm text-brown-mute">Dear,</p>
-          <p className="font-serif-alt text-lg italic text-dusty">
+          <p className="text-sm text-brown-mute drop-shadow-[0_1px_6px_rgba(255,255,255,0.6)]">Dear,</p>
+          <p className="font-serif-alt text-lg italic text-dusty drop-shadow-[0_1px_8px_rgba(255,255,255,0.7)]">
             {guestName || t("hero.guestFallback")}
           </p>
         </motion.div>
 
-        {/* invitation copy — 3 baris seperti bait */}
+        {/* invitation copy */}
         <motion.p
           {...stage(6)}
-          className="mt-4 max-w-[300px] text-[16px] leading-[1.8] text-brown"
+          className="mt-4 max-w-[300px] text-[16px] leading-[1.8] text-brown drop-shadow-[0_1px_8px_rgba(255,255,255,0.7)]"
         >
           Dengan penuh sukacita,
           <br />
@@ -124,7 +131,7 @@ export default function LandingPage({ onOpenInvitation }) {
           whileTap={{ scale: 0.96 }}
           transition={{ type: "spring", stiffness: 320, damping: 18 }}
           onClick={onOpenInvitation}
-          className="mt-6 flex items-center gap-2 rounded-full bg-dusty px-7 py-3 text-sm font-medium text-white shadow-[0_10px_24px_-10px_rgba(154,83,104,0.6)] transition-transform hover:-translate-y-0.5"
+          className="mt-6 flex items-center gap-2 rounded-full bg-dusty px-7 py-3 text-sm font-medium text-white shadow-[0_10px_24px_-10px_rgba(0,0,0,0.6)] transition-transform hover:-translate-y-0.5"
         >
           {t("landing.openInvitation")}
           <ArrowRight className="h-4 w-4" />
@@ -132,9 +139,9 @@ export default function LandingPage({ onOpenInvitation }) {
 
         {/* divider */}
         <motion.div {...stage(8)} className="mt-8 flex items-center gap-3">
-          <span className="h-px w-8 bg-champagne" />
+          <span className="h-px w-8 bg-champagne/80" />
           <Diamond small />
-          <span className="h-px w-8 bg-champagne" />
+          <span className="h-px w-8 bg-champagne/80" />
         </motion.div>
       </div>
     </div>
@@ -148,33 +155,5 @@ function Diamond({ small }) {
         small ? "inline-block h-1.5 w-1.5 rotate-45 bg-champagne" : "inline-block h-2 w-2 rotate-45 bg-champagne"
       }
     />
-  );
-}
-
-function Botanical({ className }) {
-  return (
-    <svg
-      viewBox="0 0 140 140"
-      fill="none"
-      className={className}
-      style={{ color: "#9A5368" }}
-      aria-hidden
-    >
-      <path
-        d="M8 8c14 2 30 10 38 24 6 11 6 24-2 32-7 7-19 6-24-2-4-7-2-16 6-19"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <path
-        d="M8 8c2 18 10 36 26 46 12 8 27 9 36 1"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <circle cx="46" cy="34" r="2.5" fill="currentColor" />
-      <circle cx="60" cy="52" r="2" fill="currentColor" />
-      <circle cx="30" cy="58" r="1.6" fill="currentColor" />
-    </svg>
   );
 }
