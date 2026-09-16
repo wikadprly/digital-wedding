@@ -20,7 +20,7 @@ export default function Closing() {
   if (!config) return null;
 
   return (
-    <section className="relative mx-auto flex aspect-[9/16] min-h-dvh w-full max-w-[430px] flex-col items-center justify-center overflow-hidden bg-mute px-6 py-16 text-center text-ivory">
+    <section className="relative mx-auto flex min-h-[70svh] w-full max-w-[430px] flex-col items-center justify-center overflow-hidden bg-mute px-6 py-16 text-center text-ivory">
       {/* latar belakang pink */}
       <Image
         src="/icon/latarbelakangpink.png"

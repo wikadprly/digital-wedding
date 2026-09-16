@@ -23,7 +23,7 @@ export default function Gallery() {
   return (
     <section
       id="gallery"
-      className="relative mx-auto aspect-[9/16] min-h-dvh w-full max-w-[430px] overflow-hidden bg-ivory px-6 pb-28 pt-16"
+      className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-ivory px-6 pb-28 pt-16"
     >
       <Botanical className="pointer-events-none absolute -left-10 bottom-24 h-40 w-40 -scale-x-100 opacity-[0.08]" />
       <Botanical className="pointer-events-none absolute -right-8 top-24 h-40 w-40 opacity-[0.08]" />

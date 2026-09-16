@@ -36,7 +36,7 @@ export default function LoveStory() {
   return (
     <section
       id="lovestory"
-      className="relative mx-auto aspect-[9/16] min-h-dvh w-full max-w-[430px] overflow-hidden bg-mute px-6 pb-28 pt-16"
+      className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-mute px-6 pb-28 pt-16"
     >
       {/* latar belakang pink */}
       <Image

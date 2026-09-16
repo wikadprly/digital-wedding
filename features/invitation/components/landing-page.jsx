@@ -36,7 +36,7 @@ export default function LandingPage({ onOpenInvitation }) {
   const brideName = config.brideName;
 
   return (
-    <div className="relative mx-auto flex aspect-[9/16] min-h-dvh w-full max-w-[430px] flex-col overflow-hidden bg-ivory font-sans">
+    <div className="relative mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ivory font-sans">
       {/* video background — freezes on last frame when finished */}
       <video
         className="absolute inset-0 h-full w-full object-cover"

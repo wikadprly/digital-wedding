@@ -96,7 +96,7 @@ export default function Wishes() {
   return (
     <section
       id="wishes"
-      className="relative mx-auto aspect-[9/16] min-h-dvh w-full max-w-[430px] overflow-hidden bg-ivory px-6 pb-28 pt-16"
+      className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-ivory px-6 pb-28 pt-16"
     >
       <Confetti show={showConfetti} />
 
