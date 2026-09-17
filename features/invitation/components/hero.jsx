@@ -19,13 +19,13 @@ function CountBox({ value, label }) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: "110%", opacity: 0 }}
             transition={{ type: "spring", stiffness: 260, damping: 24 }}
-            className="block font-serif text-[36px] leading-none text-ivory"
+            className="block font-serif text-[36px] leading-none text-dusty"
           >
             {String(value).padStart(2, "0")}
           </motion.span>
         </AnimatePresence>
       </div>
-      <span className="mt-2 text-[10px] uppercase tracking-[0.2em] text-ivory/80">
+      <span className="mt-2 text-[10px] uppercase tracking-[0.2em] text-brown-mute">
         {label}
       </span>
     </div>
@@ -101,53 +101,9 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative mx-auto flex aspect-[9/16] min-h-dvh w-full max-w-[430px] flex-col items-center overflow-hidden bg-mute px-6 pb-16 pt-14 text-center"
+      className="relative mx-auto flex aspect-[9/16] min-h-dvh w-full max-w-[430px] flex-col items-center overflow-hidden bg-ivory px-6 pb-16 pt-14 text-center"
     >
       <Botanical className="pointer-events-none absolute -right-10 top-10 h-36 w-36 rotate-45 opacity-15" />
-
-      {/* latar belakang pink */}
-      <Image
-        src="/icon/latarbelakangpink.png"
-        alt=""
-        width={1080}
-        height={1920}
-        priority
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
-      />
-
-      {/* dekorasi atas transparan — turun pelan dari atas sekali lalu berhenti */}
-      <motion.div
-        initial={{ y: -90, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center"
-      >
-        <Image
-          src="/icon/atass.png"
-          alt=""
-          width={1080}
-          height={1920}
-          priority
-          className="h-[40vh] w-full object-cover object-top"
-        />
-      </motion.div>
-
-      {/* dekorasi bawah transparan — muncul pelan dari bawah sekali lalu berhenti */}
-      <motion.div
-        initial={{ y: 90, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center"
-      >
-        <Image
-          src="/icon/bawahh.png"
-          alt=""
-          width={1080}
-          height={1920}
-          priority
-          className="h-[46vh] w-full object-cover object-bottom"
-        />
-      </motion.div>
 
       <motion.div
         variants={staggerContainer()}
@@ -158,13 +114,13 @@ export default function Hero() {
       >
         <motion.p
           variants={fadeUp}
-          className="font-serif text-sm uppercase tracking-[0.3em] text-ivory/90"
+          className="font-serif text-sm uppercase tracking-[0.3em] text-brown-mute"
         >
           {t("hero.save")}
         </motion.p>
         <motion.h2
           variants={fadeUp}
-          className="font-script text-[56px] leading-none text-ivory"
+          className="font-script text-[56px] leading-none text-dusty"
         >
           {t("hero.theDate")}
         </motion.h2>
@@ -179,7 +135,7 @@ export default function Hero() {
           variants={fadeUp}
           whileHover={{ y: -8, scale: 1.03 }}
           transition={{ type: "spring", stiffness: 260, damping: 22 }}
-          className="relative mx-auto mt-7 h-56 max-w-[300px] overflow-hidden rounded-[20px] border border-ivory/40 bg-rosy shadow-[0_18px_40px_-20px_rgba(74,52,56,0.5)]"
+          className="relative mx-auto mt-7 h-56 max-w-[300px] overflow-hidden rounded-[20px] border border-rose-line bg-rosy shadow-[0_18px_40px_-20px_rgba(74,52,56,0.5)]"
         >
           <Image
             src="/images/save%20the%20date.JPG"
@@ -192,13 +148,13 @@ export default function Hero() {
 
         <motion.p
           variants={fade}
-          className="mt-8 text-[11px] font-medium uppercase tracking-[0.3em] text-ivory/90"
+          className="mt-8 text-[11px] font-medium uppercase tracking-[0.3em] text-brown-mute"
         >
           {t("hero.akadResepsi")}
         </motion.p>
         <motion.p
           variants={fadeUp}
-          className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-ivory"
+          className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-dusty"
         >
           {dateFull}
         </motion.p>
@@ -211,7 +167,7 @@ export default function Hero() {
 
 function Botanical({ className }) {
   return (
-    <svg viewBox="0 0 140 140" fill="none" className={className} style={{ color: "#F7F2EC" }} aria-hidden>
+    <svg viewBox="0 0 140 140" fill="none" className={className} style={{ color: "#9A5368" }} aria-hidden>
       <path
         d="M8 8c14 2 30 10 38 24 6 11 6 24-2 32-7 7-19 6-24-2-4-7-2-16 6-19"
         stroke="currentColor"

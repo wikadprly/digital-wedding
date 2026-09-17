@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "motion/react";
 import { CalendarHeart, MapPin } from "lucide-react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
@@ -80,21 +79,9 @@ export default function Events() {
   return (
     <section
       id="events"
-      className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-dusty px-6 pb-28 pt-16"
+      className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-ivory px-6 pb-28 pt-16"
     >
       <Botanical className="pointer-events-none absolute -right-10 top-16 h-40 w-40 rotate-45 opacity-[0.08]" />
-
-      {/* latar akad & resepsi — satu gambar utuh, tanpa animasi */}
-      <div className="pointer-events-none absolute inset-0 z-0">
-        <Image
-          src="/icon/akad&resepsi.png"
-          alt=""
-          width={1080}
-          height={1920}
-          priority
-          className="h-full w-full object-cover"
-        />
-      </div>
 
       <motion.div
         variants={staggerContainer()}
@@ -106,13 +93,13 @@ export default function Events() {
         <div className="text-center">
           <motion.p
             variants={fade}
-            className="text-[11px] font-medium uppercase tracking-[0.3em] text-ivory/80"
+            className="text-[11px] font-medium uppercase tracking-[0.3em] text-brown-mute"
           >
             {t("events.detailAcara")}
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="mt-2 font-serif text-2xl uppercase tracking-[0.2em] text-ivory"
+            className="mt-2 font-serif text-2xl uppercase tracking-[0.2em] text-dusty"
           >
             {t("events.akadResepsi")}
           </motion.h2>
@@ -128,7 +115,7 @@ export default function Events() {
 
         <motion.div
           variants={fadeUp}
-          className="mx-auto mt-8 max-w-md overflow-hidden rounded-[24px] bg-rosy shadow-[0_20px_40px_-20px_rgba(74,52,56,0.45)]"
+          className="mx-auto mt-8 max-w-md overflow-hidden rounded-[24px] border border-rose-line bg-rosy shadow-[0_20px_40px_-20px_rgba(74,52,56,0.45)]"
         >
           <div className="px-6 pt-4">
             {agenda.map((item, i) => (
@@ -146,7 +133,7 @@ export default function Events() {
           </div>
 
           {/* location */}
-          <div className="border-t border-rose-line bg-ivory/60 px-6 py-5">
+          <div className="border-t border-rose-line bg-ivory px-6 py-5">
             <div className="flex items-start gap-3">
               <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-dusty" />
               <div className="min-w-0">
@@ -186,7 +173,7 @@ export default function Events() {
             config.turutMengundang.length > 0 && (
               <motion.div
                 variants={fadeUp}
-                className="mx-auto mt-6 max-w-md rounded-[24px] bg-rosy p-8 text-center shadow-[0_20px_40px_-20px_rgba(74,52,56,0.45)]"
+                className="mx-auto mt-6 max-w-md rounded-[24px] border border-rose-line bg-rosy p-8 text-center shadow-[0_20px_40px_-20px_rgba(74,52,56,0.45)]"
               >
                 <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-dusty/70">
                   Turut Mengundang
@@ -210,7 +197,7 @@ export default function Events() {
 
 function Botanical({ className }) {
   return (
-    <svg viewBox="0 0 140 140" fill="none" className={className} style={{ color: "#F7F2EC" }} aria-hidden>
+    <svg viewBox="0 0 140 140" fill="none" className={className} style={{ color: "#9A5368" }} aria-hidden>
       <path
         d="M8 8c14 2 30 10 38 24 6 11 6 24-2 32-7 7-19 6-24-2-4-7-2-16 6-19"
         stroke="currentColor"
