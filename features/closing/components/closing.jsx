@@ -20,16 +20,42 @@ export default function Closing() {
   if (!config) return null;
 
   return (
-    <section className="relative mx-auto flex min-h-[70svh] w-full max-w-[430px] flex-col items-center justify-center overflow-hidden bg-mute px-6 py-16 text-center text-ivory">
-      {/* latar belakang pink */}
-      <Image
-        src="/icon/latarbelakangpink.png"
-        alt=""
-        width={1080}
-        height={1920}
-        priority
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
-      />
+    <section className="relative mx-auto flex min-h-[70svh] w-full max-w-[430px] flex-col items-center overflow-hidden bg-ivory px-6 pb-[38vh] pt-[38vh] text-center">
+      {/* header terima kasih */}
+      <motion.div
+        initial={{ y: -90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-x-0 top-0 z-0"
+      >
+        <Image
+          src="/latarbelakang/headerterimakasih.png"
+          alt=""
+          width={1080}
+          height={1920}
+          priority
+          unoptimized
+          className="h-[38vh] w-full object-cover object-top"
+        />
+      </motion.div>
+
+      {/* footer terima kasih */}
+      <motion.div
+        initial={{ y: 90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-0"
+      >
+        <Image
+          src="/latarbelakang/footerterimakasih.png"
+          alt=""
+          width={1080}
+          height={1920}
+          priority
+          unoptimized
+          className="h-[38vh] w-full object-cover object-bottom"
+        />
+      </motion.div>
 
       <Botanical className="pointer-events-none absolute -left-10 top-16 h-44 w-44 -scale-x-100 opacity-[0.1]" />
       <motion.div
@@ -47,21 +73,21 @@ export default function Closing() {
 
         <motion.h2
           variants={fadeUp}
-          className="mt-6 font-serif text-4xl uppercase tracking-[0.25em]"
+          className="mt-6 font-serif text-4xl uppercase tracking-[0.25em] text-dusty"
         >
           {t("closing.title")}
         </motion.h2>
 
         <motion.p
           variants={fade}
-          className="mx-auto mt-6 max-w-sm font-serif-alt text-[15px] italic leading-relaxed text-ivory/85"
+          className="mx-auto mt-6 max-w-sm font-serif-alt text-[15px] italic leading-relaxed text-brown-mute"
         >
           {t("closing.message")}
         </motion.p>
 
         <motion.p
           variants={fadeUp}
-          className="mt-10 font-script text-[44px] leading-tight text-ivory"
+          className="mt-10 font-script text-[44px] leading-tight text-dusty"
         >
           {t("closing.sincerely")},
           <br />
@@ -78,7 +104,7 @@ export default function Closing() {
               .getElementById("wishes")
               ?.scrollIntoView({ behavior: "smooth", block: "start" })
           }
-          className="mx-auto mt-10 flex items-center gap-2 rounded-full bg-ivory px-8 py-3 text-sm font-semibold text-dusty shadow-[0_10px_24px_-12px_rgba(74,52,56,0.5)] transition hover:bg-rosy"
+          className="mx-auto mt-10 flex items-center gap-2 rounded-full bg-dusty px-8 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(74,52,56,0.5)] transition hover:bg-dusty/90"
         >
           {t("closing.confirmAttendance")}
           <ArrowRight className="h-4 w-4" />
@@ -92,11 +118,11 @@ export default function Closing() {
         viewport={{ once: true }}
         className="relative z-10 mt-14 flex flex-col items-center gap-4"
       >
-        <div className="flex gap-5 text-ivory/85">
+        <div className="flex gap-5 text-dusty/80">
           <a
             href="#"
             aria-label="Instagram"
-            className="transition hover:text-ivory"
+            className="transition hover:text-dusty"
           >
             <svg
               className="h-5 w-5"
@@ -113,7 +139,7 @@ export default function Closing() {
           <a
             href="#"
             aria-label="WhatsApp"
-            className="transition hover:text-ivory"
+            className="transition hover:text-dusty"
           >
             <MessageCircle className="h-5 w-5" />
           </a>
@@ -125,7 +151,7 @@ export default function Closing() {
 
 function Botanical({ className }) {
   return (
-    <svg viewBox="0 0 140 140" fill="none" className={className} style={{ color: "#F7F2EC" }} aria-hidden>
+    <svg viewBox="0 0 140 140" fill="none" className={className} style={{ color: "#9A5368" }} aria-hidden>
       <path
         d="M8 8c14 2 30 10 38 24 6 11 6 24-2 32-7 7-19 6-24-2-4-7-2-16 6-19"
         stroke="currentColor"

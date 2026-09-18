@@ -11,7 +11,7 @@ import { useMotionPreset, staggerContainer } from "@/lib/motion";
 function CountBox({ value, label }) {
   return (
     <div className="flex w-full min-w-0 flex-col items-center">
-      <div className="flex h-12 items-center justify-center overflow-hidden">
+      <div className="flex h-16 items-center justify-center overflow-hidden">
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
             key={value}
@@ -19,13 +19,13 @@ function CountBox({ value, label }) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: "110%", opacity: 0 }}
             transition={{ type: "spring", stiffness: 260, damping: 24 }}
-            className="block font-serif text-[36px] leading-none text-dusty"
+            className="block font-serif text-[52px] leading-none text-dusty"
           >
             {String(value).padStart(2, "0")}
           </motion.span>
         </AnimatePresence>
       </div>
-      <span className="mt-2 text-[10px] uppercase tracking-[0.2em] text-brown-mute">
+      <span className="mt-3 text-[10px] uppercase tracking-[0.2em] text-brown-mute">
         {label}
       </span>
     </div>
@@ -69,7 +69,7 @@ function CountdownTimer({ targetDate }) {
   ];
 
   return (
-    <div className="mx-auto mt-8 grid w-full max-w-[300px] grid-cols-4">
+    <div className="mt-12 grid w-full grid-cols-4">
       {items.map((item) => (
         <CountBox key={item.label} value={item.value} label={item.label} />
       ))}
@@ -101,16 +101,50 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative mx-auto flex aspect-[9/16] min-h-dvh w-full max-w-[430px] flex-col items-center overflow-hidden bg-ivory px-6 pb-16 pt-14 text-center"
+      className="relative mx-auto flex aspect-[9/16] min-h-dvh w-full max-w-[430px] flex-col items-center overflow-hidden bg-ivory pb-16 pt-14 text-center"
     >
       <Botanical className="pointer-events-none absolute -right-10 top-10 h-36 w-36 rotate-45 opacity-15" />
+
+      {/* dekorasi atas dari gambar atasP1 — turun pelan dari atas sekali lalu berhenti */}
+      <motion.div
+        initial={{ y: -90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center"
+      >
+        <Image
+          src="/latarbelakang/atasP1.png"
+          alt=""
+          width={1080}
+          height={1920}
+          priority
+          className="h-[40vh] w-full object-cover object-top"
+        />
+      </motion.div>
+
+      {/* dekorasi bawah dari gambar bawahP1 — muncul pelan dari bawah sekali lalu berhenti */}
+      <motion.div
+        initial={{ y: 90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center"
+      >
+        <Image
+          src="/latarbelakang/bawahP1.png"
+          alt=""
+          width={1080}
+          height={1920}
+          priority
+          className="h-[46vh] w-full object-cover object-bottom"
+        />
+      </motion.div>
 
       <motion.div
         variants={staggerContainer()}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
-        className="relative z-10"
+        className="relative z-10 w-full"
       >
         <motion.p
           variants={fadeUp}
@@ -135,20 +169,20 @@ export default function Hero() {
           variants={fadeUp}
           whileHover={{ y: -8, scale: 1.03 }}
           transition={{ type: "spring", stiffness: 260, damping: 22 }}
-          className="relative mx-auto mt-7 h-56 max-w-[300px] overflow-hidden rounded-[20px] border border-rose-line bg-rosy shadow-[0_18px_40px_-20px_rgba(74,52,56,0.5)]"
+          className="relative mx-auto mt-7 h-64 max-w-[340px] overflow-hidden rounded-[20px] border border-rose-line bg-rosy shadow-[0_18px_40px_-20px_rgba(74,52,56,0.5)]"
         >
           <Image
             src="/images/save%20the%20date.JPG"
             alt={`${config.groomName} & ${config.brideName}`}
             fill
-            sizes="300px"
-            className="object-cover"
+            sizes="340px"
+            className="object-cover object-[50%_33%]"
           />
         </motion.div>
 
         <motion.p
           variants={fade}
-          className="mt-8 text-[11px] font-medium uppercase tracking-[0.3em] text-brown-mute"
+          className="mt-14 text-[11px] font-medium uppercase tracking-[0.3em] text-brown-mute"
         >
           {t("hero.akadResepsi")}
         </motion.p>

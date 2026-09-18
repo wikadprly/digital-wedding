@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Gift, Copy, Check, Landmark, Box } from "lucide-react";
@@ -26,18 +25,8 @@ export default function Gifts() {
   return (
     <section
       id="gifts"
-      className="relative overflow-hidden bg-mute px-6 pb-28 pt-16"
+      className="relative overflow-hidden bg-ivory px-6 pb-28 pt-16"
     >
-      {/* latar belakang pink */}
-      <Image
-        src="/icon/latarbelakangpink.png"
-        alt=""
-        width={1080}
-        height={1920}
-        priority
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full object-cover"
-      />
-
       <motion.div
         variants={fadeUp}
         initial="hidden"

@@ -23,44 +23,10 @@ export default function Gallery() {
   return (
     <section
       id="gallery"
-      className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-ivory px-6 pb-28 pt-16"
+      className="relative mx-auto w-full max-w-[430px] overflow-hidden px-6 pb-28"
     >
       <Botanical className="pointer-events-none absolute -left-10 bottom-24 h-40 w-40 -scale-x-100 opacity-[0.08]" />
       <Botanical className="pointer-events-none absolute -right-8 top-24 h-40 w-40 opacity-[0.08]" />
-
-      {/* dekorasi atas — turun pelan dari atas sekali lalu berhenti */}
-      <motion.div
-        initial={{ y: -90, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center"
-      >
-        <Image
-          src="/icon/atasbride.png"
-          alt=""
-          width={1080}
-          height={1920}
-          priority
-          className="h-[40vh] w-full object-cover object-top"
-        />
-      </motion.div>
-
-      {/* dekorasi bawah — muncul pelan dari bawah sekali lalu berhenti */}
-      <motion.div
-        initial={{ y: 90, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center"
-      >
-        <Image
-          src="/icon/bawahbride.png"
-          alt=""
-          width={1080}
-          height={1920}
-          priority
-          className="h-[46vh] w-full object-cover object-bottom"
-        />
-      </motion.div>
 
       <motion.div
         variants={fadeUp}

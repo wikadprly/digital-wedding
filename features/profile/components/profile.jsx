@@ -68,13 +68,13 @@ function Person({ name, fullName, parent, prefix, photo }) {
   return (
     <div className="text-center">
       <Portrait src={photo} initial={(name || "?")[0]} />
-      <h3 className="mt-5 font-serif text-4xl font-semibold text-dusty">{name}</h3>
+      <h3 className="mt-5 font-serif text-4xl font-semibold text-ivory">{name}</h3>
       {fullName && (
-        <p className="mx-auto mt-1 max-w-[280px] font-serif-alt text-sm italic leading-snug text-brown-mute">
+        <p className="mx-auto mt-1 max-w-[280px] font-serif-alt text-sm italic leading-snug text-ivory/85">
           {fullName}
         </p>
       )}
-      <p className="mx-auto mt-2 max-w-[240px] text-sm leading-relaxed text-brown-mute">
+      <p className="mx-auto mt-2 max-w-[240px] text-sm leading-relaxed text-ivory/85">
         {prefix} dari {parent}
       </p>
     </div>
@@ -104,7 +104,7 @@ export default function Profile() {
         className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center"
       >
         <Image
-          src="/icon/atasbride.png"
+          src="/latarbelakang/atasP2.png"
           alt=""
           width={1080}
           height={1920}
@@ -129,6 +129,28 @@ export default function Profile() {
           className="h-[46vh] w-full object-cover object-bottom"
         />
       </motion.div>
+
+      {/* isi P2 atas — mulai sekitar 30% dari atas section */}
+      <div className="pointer-events-none absolute inset-x-0 top-[30%] z-0">
+        <Image
+          src="/latarbelakang/isiatasP2.png"
+          alt=""
+          width={1080}
+          height={1920}
+          className="h-auto w-full"
+        />
+      </div>
+
+      {/* isi P2 bawah — menjelang akhir section (boleh tumpang tindih dengan isi atas) */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0">
+        <Image
+          src="/latarbelakang/isibawahP2.png"
+          alt=""
+          width={1080}
+          height={1920}
+          className="h-auto w-full"
+        />
+      </div>
 
       <motion.div
         variants={staggerContainer()}
@@ -171,9 +193,9 @@ export default function Profile() {
           variants={fade}
           className="my-10 flex items-center justify-center gap-4"
         >
-          <span className="h-px w-14 bg-rose-line" />
-          <span className="font-script text-5xl leading-none text-mute">&amp;</span>
-          <span className="h-px w-14 bg-rose-line" />
+          <span className="h-px w-14 bg-ivory/30" />
+          <span className="font-script text-5xl leading-none text-ivory">&amp;</span>
+          <span className="h-px w-14 bg-ivory/30" />
         </motion.div>
 
         {/* bride */}
