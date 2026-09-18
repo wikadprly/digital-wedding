@@ -19,7 +19,7 @@ function CountBox({ value, label }) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: "110%", opacity: 0 }}
             transition={{ type: "spring", stiffness: 260, damping: 24 }}
-            className="block font-serif text-[52px] leading-none text-dusty"
+            className="block font-serif text-[52px] leading-none text-brown"
           >
             {String(value).padStart(2, "0")}
           </motion.span>
@@ -105,18 +105,18 @@ export default function Hero() {
     >
       <Botanical className="pointer-events-none absolute -right-10 top-10 h-36 w-36 rotate-45 opacity-15" />
 
-      {/* dekorasi atas dari gambar atasP1 — turun pelan dari atas sekali lalu berhenti */}
+      {/* dekorasi atas P1header — animasi pembuka: turun diagonal sekali, lalu diam */}
       <motion.div
-        initial={{ y: -90, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ x: -120, y: -100, opacity: 0 }}
+        animate={{ x: 0, y: 0, opacity: 1 }}
         transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
         className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center"
       >
         <Image
-          src="/latarbelakang/atasP1.png"
+          src="/jawa/P1header.png"
           alt=""
           width={1080}
-          height={1920}
+          height={1042}
           priority
           className="h-[40vh] w-full object-cover object-top"
         />
@@ -130,10 +130,10 @@ export default function Hero() {
         className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center"
       >
         <Image
-          src="/latarbelakang/bawahP1.png"
+          src="/jawa/P1footer.png"
           alt=""
           width={1080}
-          height={1920}
+          height={1080}
           priority
           className="h-[46vh] w-full object-cover object-bottom"
         />
@@ -148,13 +148,13 @@ export default function Hero() {
       >
         <motion.p
           variants={fadeUp}
-          className="font-serif text-sm uppercase tracking-[0.3em] text-brown-mute"
+          className="font-serif text-sm uppercase tracking-[0.3em] text-ivory"
         >
           {t("hero.save")}
         </motion.p>
         <motion.h2
           variants={fadeUp}
-          className="font-script text-[56px] leading-none text-dusty"
+          className="font-script text-[56px] leading-none text-ivory"
         >
           {t("hero.theDate")}
         </motion.h2>
@@ -188,7 +188,7 @@ export default function Hero() {
         </motion.p>
         <motion.p
           variants={fadeUp}
-          className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-dusty"
+          className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-brown"
         >
           {dateFull}
         </motion.p>

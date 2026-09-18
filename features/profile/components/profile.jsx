@@ -12,7 +12,7 @@ const QURAN_REF = "( QS. Ar-Rum 21 )";
 function SectionHeading({ title }) {
   return (
     <div className="text-center">
-      <h2 className="font-serif text-2xl uppercase tracking-[0.22em] text-dusty">
+      <h2 className="font-serif text-2xl uppercase tracking-[0.22em] text-burgundy">
         {title}
       </h2>
       <div className="mt-4 flex items-center justify-center gap-3">
@@ -35,7 +35,7 @@ function Portrait({ src, initial }) {
         whileHover={{ y: -6, scale: 1.04 }}
         whileTap={{ scale: 0.98 }}
         transition={{ type: "spring", stiffness: 280, damping: 20 }}
-        className="relative mx-auto h-40 w-32 rounded-[90px_90px_18px_18px] border border-dusty/35 bg-rosy/40 p-1.5 shadow-[0_14px_30px_-18px_rgba(154,83,104,0.5)]"
+        className="relative mx-auto h-40 w-32 rounded-[90px_90px_18px_18px] border border-burgundy/35 bg-rosy/40 p-1.5 shadow-[0_14px_30px_-18px_rgba(86,17,18,0.5)]"
       >
         <div className="relative h-full w-full overflow-hidden rounded-[82px_82px_12px_12px] bg-rosy">
           <Image
@@ -58,7 +58,7 @@ function Portrait({ src, initial }) {
       className="relative mx-auto h-36 w-28 overflow-hidden rounded-full border-2 border-blush bg-blush/35 shadow-[0_14px_30px_-18px_rgba(154,83,104,0.5)]"
     >
       <div className="flex h-full w-full items-center justify-center">
-        <span className="font-serif text-6xl text-dusty">{initial}</span>
+        <span className="font-serif text-6xl text-burgundy">{initial}</span>
       </div>
     </motion.div>
   );
@@ -104,7 +104,7 @@ export default function Profile() {
         className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center"
       >
         <Image
-          src="/latarbelakang/atasP2.png"
+          src="/jawa/P2header.png"
           alt=""
           width={1080}
           height={1920}
@@ -133,7 +133,7 @@ export default function Profile() {
       {/* isi P2 atas — mulai sekitar 30% dari atas section */}
       <div className="pointer-events-none absolute inset-x-0 top-[30%] z-0">
         <Image
-          src="/latarbelakang/isiatasP2.png"
+          src="/jawa/P2isiatas.png"
           alt=""
           width={1080}
           height={1920}
@@ -144,7 +144,7 @@ export default function Profile() {
       {/* isi P2 bawah — menjelang akhir section (boleh tumpang tindih dengan isi atas) */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0">
         <Image
-          src="/latarbelakang/isibawahP2.png"
+          src="/jawa/P2isibawah.png"
           alt=""
           width={1080}
           height={1920}

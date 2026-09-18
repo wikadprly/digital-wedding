@@ -34,10 +34,10 @@ export default function Gifts() {
         viewport={{ once: true, margin: "-60px" }}
         className="relative z-10 mx-auto max-w-md rounded-[24px] bg-rosy p-8 text-center shadow-[0_20px_40px_-20px_rgba(74,52,56,0.45)]"
       >
-        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-dusty/10">
-          <Gift className="h-6 w-6 text-dusty" />
+        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-burgundy/10">
+          <Gift className="h-6 w-6 text-burgundy" />
         </div>
-        <h2 className="font-serif text-3xl text-dusty">Wedding Gift</h2>
+        <h2 className="font-serif text-3xl text-burgundy">Wedding Gift</h2>
         <p className="mt-4 text-sm leading-relaxed text-brown-mute">
           Doa restu Anda merupakan karunia yang sangat berarti bagi kami, dan
           jika memberi adalah ungkapan tanda kasih, Anda dapat memberi kado
@@ -49,7 +49,7 @@ export default function Gifts() {
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 320, damping: 18 }}
-          className="mx-auto mt-6 flex items-center justify-center gap-2 rounded-full bg-dusty px-8 py-2.5 text-sm font-semibold text-white shadow-[0_10px_20px_-10px_rgba(154,83,104,0.6)] transition hover:bg-dusty/90"
+          className="mx-auto mt-6 flex items-center justify-center gap-2 rounded-full bg-burgundy px-8 py-2.5 text-sm font-semibold text-white shadow-[0_10px_20px_-10px_rgba(86,17,18,0.6)] transition hover:bg-burgundy/90"
         >
           <Gift className="h-4 w-4" />
           {isOpen ? "Tutup" : "Klik Disini"}
@@ -63,8 +63,8 @@ export default function Gifts() {
                 className="relative overflow-hidden rounded-2xl border border-rose-line bg-ivory/60 p-5 text-left"
               >
                 <div className="mb-4 flex items-start justify-between">
-                  <Landmark className="h-7 w-7 text-dusty opacity-70" />
-                  <span className="font-semibold italic text-dusty">
+                  <Landmark className="h-7 w-7 text-burgundy opacity-70" />
+                  <span className="font-semibold italic text-burgundy">
                     {bank.bank}
                   </span>
                 </div>
@@ -76,7 +76,7 @@ export default function Gifts() {
                 </p>
                 <button
                   onClick={() => handleCopy(bank.accountNumber)}
-                  className="absolute bottom-4 right-4 flex items-center gap-1 rounded-full bg-dusty px-3 py-1 text-xs text-white transition hover:bg-dusty/90"
+                  className="absolute bottom-4 right-4 flex items-center gap-1 rounded-full bg-burgundy px-3 py-1 text-xs text-white transition hover:bg-burgundy/90"
                 >
                   {copied === bank.accountNumber ? (
                     <>
@@ -122,7 +122,7 @@ export default function Gifts() {
               {giftAddress?.phone && (
                 <button
                   onClick={() => handleCopy(giftAddress.phone)}
-                  className="mx-auto mt-4 flex items-center justify-center gap-1 rounded-full bg-dusty px-4 py-1.5 text-xs text-white transition hover:bg-dusty/90"
+                  className="mx-auto mt-4 flex items-center justify-center gap-1 rounded-full bg-burgundy px-4 py-1.5 text-xs text-white transition hover:bg-burgundy/90"
                 >
                   {copied === giftAddress.phone ? (
                     <>

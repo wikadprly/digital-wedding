@@ -13,14 +13,14 @@ export default function MusicButton({ isPlaying, onToggle }) {
       transition={{ type: "spring", stiffness: 420, damping: 18 }}
       className={cn(
         "fixed bottom-24 right-5 z-50 flex h-11 w-11 items-center justify-center",
-        "rounded-full border border-rose-line/60 bg-dusty text-white shadow-[0_10px_24px_-10px_rgba(154,83,104,0.6)]",
+        "rounded-full border border-rose-line/60 bg-burgundy text-white shadow-[0_10px_24px_-10px_rgba(86,17,18,0.6)]",
       )}
     >
       {isPlaying && (
         <motion.span
           animate={{ scale: [1, 1.8], opacity: [0.45, 0] }}
           transition={{ duration: 1.4, repeat: Infinity, ease: "easeOut" }}
-          className="absolute inset-0 rounded-full bg-dusty"
+          className="absolute inset-0 rounded-full bg-burgundy"
         />
       )}
       <span className="relative flex items-center justify-center">

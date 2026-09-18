@@ -40,7 +40,7 @@ export default function LandingPage({ onOpenInvitation }) {
       {/* video background — freezes on last frame when finished */}
       <video
         className="absolute inset-0 h-full w-full object-cover"
-        src="/video/cover.mp4"
+        src="/jawa/cover.mp4"
         poster="/images/coverr.JPG"
         autoPlay
         muted
@@ -52,7 +52,7 @@ export default function LandingPage({ onOpenInvitation }) {
         {/* eyebrow */}
         <motion.p
           {...stage(0)}
-          className="text-[11px] font-medium uppercase tracking-[0.35em] text-dusty drop-shadow-[0_1px_6px_rgba(255,255,255,0.6)]"
+          className="text-[11px] font-medium uppercase tracking-[0.35em] text-ivory"
         >
           The Wedding Of
         </motion.p>
@@ -64,13 +64,9 @@ export default function LandingPage({ onOpenInvitation }) {
         {/* photo frame — vertical oval / arched */}
         <motion.div
           {...stage(2)}
-          className="relative mt-5 w-[clamp(160px,48vw,215px)] aspect-[3/4] rounded-[130px_130px_26px_26px] border border-dusty/40 bg-rosy/40 p-2 shadow-[0_16px_36px_-18px_rgba(0,0,0,0.4)] backdrop-blur-[2px]"
+          className="relative mt-5 w-[clamp(160px,48vw,215px)] aspect-[3/4] rounded-[130px_130px_26px_26px] border border-burgundy/40 bg-rosy/40 p-2 shadow-[0_16px_36px_-18px_rgba(0,0,0,0.4)] backdrop-blur-[2px]"
         >
-          <motion.div
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-            className="h-full w-full"
-          >
+          <div className="h-full w-full">
             <div className="relative h-full w-full overflow-hidden rounded-[116px_116px_16px_16px] bg-rosy">
               <Image
                 src="/images/coverr.JPG"
@@ -81,13 +77,13 @@ export default function LandingPage({ onOpenInvitation }) {
                 className="object-cover"
               />
             </div>
-          </motion.div>
+          </div>
         </motion.div>
 
         {/* names */}
         <motion.h1
           {...stage(3)}
-          className="mt-6 font-serif text-[clamp(32px,10vw,40px)] font-semibold leading-[1.05] text-dusty drop-shadow-[0_2px_12px_rgba(255,255,255,0.7)]"
+          className="mt-6 font-serif text-[clamp(32px,10vw,40px)] font-semibold leading-[1.05] text-burgundy drop-shadow-[0_2px_12px_rgba(255,255,255,0.7)]"
         >
           {groomName}
         </motion.h1>
@@ -99,7 +95,7 @@ export default function LandingPage({ onOpenInvitation }) {
         </motion.span>
         <motion.h1
           {...stage(4)}
-          className="font-serif text-[clamp(32px,10vw,40px)] font-semibold leading-[1.05] text-dusty drop-shadow-[0_2px_12px_rgba(255,255,255,0.7)]"
+          className="font-serif text-[clamp(32px,10vw,40px)] font-semibold leading-[1.05] text-burgundy drop-shadow-[0_2px_12px_rgba(255,255,255,0.7)]"
         >
           {brideName}
         </motion.h1>
@@ -107,7 +103,7 @@ export default function LandingPage({ onOpenInvitation }) {
         {/* guest */}
         <motion.div {...stage(5)} className="mt-5 space-y-1">
           <p className="text-sm text-brown-mute drop-shadow-[0_1px_6px_rgba(255,255,255,0.6)]">Dear,</p>
-          <p className="font-serif-alt text-lg italic text-dusty drop-shadow-[0_1px_8px_rgba(255,255,255,0.7)]">
+          <p className="font-serif-alt text-lg italic text-burgundy drop-shadow-[0_1px_8px_rgba(255,255,255,0.7)]">
             {guestName || t("hero.guestFallback")}
           </p>
         </motion.div>
@@ -131,7 +127,7 @@ export default function LandingPage({ onOpenInvitation }) {
           whileTap={{ scale: 0.96 }}
           transition={{ type: "spring", stiffness: 320, damping: 18 }}
           onClick={onOpenInvitation}
-          className="mt-6 flex items-center gap-2 rounded-full bg-dusty px-7 py-3 text-sm font-medium text-white shadow-[0_10px_24px_-10px_rgba(0,0,0,0.6)] transition-transform hover:-translate-y-0.5"
+          className="mt-6 flex items-center gap-2 rounded-full bg-burgundy px-7 py-3 text-sm font-medium text-white shadow-[0_10px_24px_-10px_rgba(0,0,0,0.6)] transition-transform hover:-translate-y-0.5"
         >
           {t("landing.openInvitation")}
           <ArrowRight className="h-4 w-4" />

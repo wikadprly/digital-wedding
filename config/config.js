@@ -49,8 +49,8 @@ const config = {
       link: "",
     },
     audio: {
-      src: "/audio/i-wanna-grow-old.mp3",
-      title: "I Wanna Grow Old",
+      src: "/audio/KUSUMA%20WIJAYA%20-%20PAWESTRI.mp3",
+      title: "Kusuma Wijaya - Pawestri",
       autoplay: true,
       loop: true,
     },

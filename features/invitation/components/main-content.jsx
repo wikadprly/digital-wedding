@@ -20,41 +20,67 @@ export default function MainContent() {
       <section>
         <LoveStory />
       </section>
-      <section className="relative mx-auto w-full max-w-[430px]">
-        {/* komposisi P4+P5 — SATU LAPISAN membentang penuh: isiatasP4 di atas, isiP4-P5 cover di tengah (crop atas/bawah), isibawahP4 di bawah */}
+<section className="relative mx-auto w-full max-w-[430px] overflow-hidden">
+        {/* komposisi P4 — P4header di atas, P4-P5isi cover mengisi sisa */}
         <div className="pointer-events-none absolute inset-0 flex flex-col">
           <Image
-            src="/latarbelakang/isiatasP4.png"
+            src="/jawa/P4header.png"
             alt=""
             width={1080}
-            height={1920}
+            height={1080}
             priority
             unoptimized
-            className="h-auto w-full"
+            className="h-[40vh] w-full object-cover object-top"
           />
           <div className="relative min-h-0 flex-1 overflow-hidden">
             <Image
-src="/latarbelakang/isiP4-P5.png"
-            alt=""
-            width={1080}
-            height={1920}
-            priority
-            unoptimized
-            className="absolute inset-0 h-full w-full object-cover"
+              src="/jawa/P4-P5isi.png"
+              alt=""
+              width={1080}
+              height={1920}
+              priority
+              unoptimized
+              className="absolute inset-0 h-full w-full object-cover"
             />
           </div>
-          <Image
-            src="/latarbelakang/isibawahP4.png"
-            alt=""
-            width={1080}
-            height={1920}
-            priority
-            unoptimized
-            className="h-auto w-full"
-          />
         </div>
 
         <Events />
+      </section>
+      <section className="relative mx-auto w-full max-w-[430px] overflow-hidden">
+        {/* komposisi P5 — P5header band atas, P4-P5isi mengisi tengah, P5footer band bawah */}
+        <div className="pointer-events-none absolute inset-0 flex flex-col">
+          <Image
+            src="/jawa/P5header.png"
+            alt=""
+            width={1080}
+            height={1153}
+            priority
+            unoptimized
+            className="h-[30vh] w-full object-cover object-top"
+          />
+          <div className="relative min-h-0 flex-1 overflow-hidden">
+            <Image
+              src="/jawa/P4-P5isi.png"
+              alt=""
+              width={1080}
+              height={1920}
+              priority
+              unoptimized
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
+          <Image
+            src="/jawa/P5footer.png"
+            alt=""
+            width={1080}
+            height={1920}
+            priority
+            unoptimized
+            className="h-[30vh] w-full object-cover object-bottom"
+          />
+        </div>
+
         <Gallery />
       </section>
       <section>

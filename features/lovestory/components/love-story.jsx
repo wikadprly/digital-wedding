@@ -46,10 +46,10 @@ export default function LoveStory() {
         className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center"
       >
         <Image
-          src="/latarbelakang/atasP3.png"
+          src="/jawa/P3header.png"
           alt=""
           width={1080}
-          height={828}
+          height={1206}
           priority
           unoptimized
           className="h-auto w-full"
@@ -64,10 +64,10 @@ export default function LoveStory() {
         className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center"
       >
         <Image
-          src="/latarbelakang/bawahP3.png"
+          src="/jawa/P3footer.png"
           alt=""
           width={1080}
-          height={829}
+          height={1080}
           priority
           unoptimized
           className="h-auto w-full"
@@ -86,7 +86,7 @@ export default function LoveStory() {
         <div className="text-center">
           <motion.h2
             variants={fadeUp}
-            className="font-serif text-2xl uppercase tracking-[0.22em] text-dusty"
+            className="font-serif text-2xl uppercase tracking-[0.22em] text-burgundy"
           >
             Our Story
           </motion.h2>
@@ -119,11 +119,11 @@ export default function LoveStory() {
               custom={i}
               className="relative mb-10 pl-12 last:mb-0"
             >
-              <span className="absolute left-[11px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-dusty bg-rosy" />
+              <span className="absolute left-[11px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-burgundy bg-rosy" />
               <p className="text-xs font-semibold uppercase tracking-[0.25em] text-champagne">
                 {item.year}
               </p>
-              <h3 className="mt-1 font-serif text-xl text-dusty">{item.title}</h3>
+              <h3 className="mt-1 font-serif text-xl text-burgundy">{item.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-brown-mute">
                 {item.description}
               </p>
@@ -133,7 +133,7 @@ export default function LoveStory() {
 
         <motion.p
           variants={fade}
-          className="mx-auto mt-12 max-w-sm text-center font-script text-3xl leading-snug text-dusty"
+          className="mx-auto mt-12 max-w-sm text-center font-script text-3xl leading-snug text-burgundy"
         >
           &ldquo;Two souls, one journey, forever begins here.&rdquo;
         </motion.p>

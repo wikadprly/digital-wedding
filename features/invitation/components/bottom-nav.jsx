@@ -65,7 +65,7 @@ export default function BottomNav() {
             initial={false}
             animate={{ x: activeIndex * PITCH }}
             transition={{ type: "spring", stiffness: 380, damping: 32 }}
-            className="absolute left-0 top-0 h-11 w-11 rounded-full bg-dusty shadow-[0_6px_14px_-6px_rgba(154,83,104,0.7)]"
+            className="absolute left-0 top-0 h-11 w-11 rounded-full bg-burgundy shadow-[0_6px_14px_-6px_rgba(86,17,18,0.7)]"
           />
           {NAV_ITEMS.map(({ id, icon: Icon, labelKey }) => {
             const isActive = active === id;
@@ -78,7 +78,7 @@ export default function BottomNav() {
                 className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full"
               >
                 <Icon
-                  className={`h-5 w-5 ${isActive ? "text-white" : "text-dusty/70"}`}
+                  className={`h-5 w-5 ${isActive ? "text-white" : "text-burgundy/70"}`}
                   strokeWidth={isActive ? 2 : 1.75}
                 />
               </motion.button>

@@ -23,7 +23,7 @@ export default function Gallery() {
   return (
     <section
       id="gallery"
-      className="relative mx-auto w-full max-w-[430px] overflow-hidden px-6 pb-28"
+      className="relative mx-auto w-full max-w-[430px] overflow-hidden px-6 pb-64 pt-16"
     >
       <Botanical className="pointer-events-none absolute -left-10 bottom-24 h-40 w-40 -scale-x-100 opacity-[0.08]" />
       <Botanical className="pointer-events-none absolute -right-8 top-24 h-40 w-40 opacity-[0.08]" />
@@ -35,7 +35,7 @@ export default function Gallery() {
         viewport={{ once: true, margin: "-60px" }}
         className="relative z-10 text-center"
       >
-        <h2 className="font-serif text-2xl uppercase tracking-[0.22em] text-dusty">
+        <h2 className="font-serif text-2xl uppercase tracking-[0.22em] text-ivory">
           Our Gallery
         </h2>
         <div className="mt-4 flex items-center justify-center gap-3">
@@ -60,7 +60,7 @@ export default function Gallery() {
               transition: { type: "spring", stiffness: 280, damping: 20 },
             }}
             whileTap={{ scale: 0.97 }}
-            className={`relative w-full overflow-hidden rounded-[16px] border border-dusty/30 bg-rosy shadow-[0_14px_28px_-18px_rgba(74,52,56,0.45)] ${
+            className={`relative w-full overflow-hidden rounded-[16px] border border-burgundy/30 bg-rosy shadow-[0_14px_28px_-18px_rgba(74,52,56,0.45)] ${
               i === 0 ? "col-span-2 h-64" : "h-44"
             }`}
           >

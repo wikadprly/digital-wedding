@@ -108,7 +108,7 @@ export default function Wishes() {
         className="pointer-events-none absolute inset-0 z-0"
       >
         <Image
-          src="/latarbelakang/layerbunga.png"
+          src="/jawa/P7isi.png"
           alt=""
           width={1080}
           height={1920}
@@ -126,10 +126,10 @@ export default function Wishes() {
         className="relative z-10 mx-auto max-w-md rounded-[24px] bg-rosy p-8 shadow-[0_20px_40px_-20px_rgba(74,52,56,0.45)]"
       >
         <div className="text-center">
-          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-dusty/10">
-            <Heart className="h-6 w-6 text-dusty" />
+          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-burgundy/10">
+            <Heart className="h-6 w-6 text-burgundy" />
           </div>
-          <h2 className="font-serif text-3xl text-dusty">{t("wishes.title")}</h2>
+          <h2 className="font-serif text-3xl text-burgundy">{t("wishes.title")}</h2>
           <p className="mt-2 text-xs font-semibold text-brown-mute">
             {data.length} {t("wishes.title").toLowerCase()}
           </p>
@@ -153,14 +153,14 @@ export default function Wishes() {
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             placeholder={t("wishes.namePlaceholder")}
             required
-            className="w-full rounded-lg border border-rose-line bg-ivory/40 p-3 text-sm focus:border-dusty focus:outline-none"
+            className="w-full rounded-lg border border-rose-line bg-ivory/40 p-3 text-sm focus:border-burgundy focus:outline-none"
           />
           <select
             value={formData.attendance}
             onChange={(e) =>
               setFormData({ ...formData, attendance: e.target.value })
             }
-            className="w-full rounded-lg border border-rose-line bg-ivory/40 p-3 text-sm text-brown-mute focus:border-dusty focus:outline-none"
+            className="w-full rounded-lg border border-rose-line bg-ivory/40 p-3 text-sm text-brown-mute focus:border-burgundy focus:outline-none"
           >
             <option value="">{t("wishes.attendancePlaceholder")}</option>
             {ATTENDANCE_OPTIONS.map((o) => (
@@ -177,7 +177,7 @@ export default function Wishes() {
             }
             placeholder={t("wishes.wishPlaceholder")}
             required
-            className="w-full rounded-lg border border-rose-line bg-ivory/40 p-3 text-sm focus:border-dusty focus:outline-none"
+            className="w-full rounded-lg border border-rose-line bg-ivory/40 p-3 text-sm focus:border-burgundy focus:outline-none"
           />
           <motion.button
             type="submit"
@@ -185,7 +185,7 @@ export default function Wishes() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.96 }}
             transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            className="w-full rounded-xl bg-dusty py-3 text-sm font-bold text-white transition hover:bg-dusty/90 disabled:opacity-50"
+            className="w-full rounded-xl bg-burgundy py-3 text-sm font-bold text-white transition hover:bg-burgundy/90 disabled:opacity-50"
           >
             {createMutation.isPending ? t("wishes.sending") : t("wishes.sendButton")}
           </motion.button>
@@ -194,7 +194,7 @@ export default function Wishes() {
 
       <div className="relative z-10 mx-auto mt-8 max-w-md space-y-3">
         {isLoading ? (
-          <div className="rounded-2xl bg-rosy p-6 text-center text-sm text-dusty">
+          <div className="rounded-2xl bg-rosy p-6 text-center text-sm text-burgundy">
             {t("app.loading")}
           </div>
         ) : data.length > 0 ? (
@@ -210,9 +210,9 @@ export default function Wishes() {
               className="rounded-2xl bg-rosy p-4"
             >
               <div className="flex items-center justify-between">
-                <span className="font-medium text-dusty">{wish.name}</span>
+                <span className="font-medium text-burgundy">{wish.name}</span>
                 <span className="inline-flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-dusty/10 px-2 py-0.5 text-xs text-dusty">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-burgundy/10 px-2 py-0.5 text-xs text-burgundy">
                     <AttendanceIcon type={wish.attendance} />
                     {attendanceLabel(wish.attendance)}
                   </span>
@@ -224,7 +224,7 @@ export default function Wishes() {
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.85 }}
                       aria-label={t("wishes.delete")}
-                      className="rounded-full bg-rose-line/50 p-1.5 text-brown-mute hover:bg-rose-line hover:text-dusty disabled:opacity-50"
+                      className="rounded-full bg-rose-line/50 p-1.5 text-brown-mute hover:bg-rose-line hover:text-burgundy disabled:opacity-50"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                     </motion.button>
@@ -235,7 +235,7 @@ export default function Wishes() {
             </motion.div>
           ))
         ) : (
-          <div className="rounded-2xl bg-rosy p-6 text-center text-sm text-dusty">
+          <div className="rounded-2xl bg-rosy p-6 text-center text-sm text-burgundy">
             {t("wishes.emptyState")}
           </div>
         )}
@@ -255,7 +255,7 @@ export default function Wishes() {
               exit={{ scale: 0.9, opacity: 0 }}
               className="w-full max-w-sm space-y-4 rounded-2xl bg-white p-8 text-center"
             >
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-dusty/10">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-burgundy/10">
                 <CheckIcon />
               </div>
               <h3 className="font-serif text-xl text-brown">
@@ -263,11 +263,11 @@ export default function Wishes() {
               </h3>
               <p className="text-sm text-brown-mute">{t("wishes.successMessage")}</p>
               {createMutation.error?.code === "WISH_ALREADY_EXISTS" && (
-                <p className="text-sm text-dusty">{t("wishes.oneMessageLimit")}</p>
+                <p className="text-sm text-burgundy">{t("wishes.oneMessageLimit")}</p>
               )}
               <button
                 onClick={() => setShowSuccess(false)}
-                className="w-full rounded-xl bg-dusty py-2.5 font-medium text-white transition hover:bg-dusty/90"
+                className="w-full rounded-xl bg-burgundy py-2.5 font-medium text-white transition hover:bg-burgundy/90"
               >
                 {t("wishes.close")}
               </button>
@@ -281,7 +281,7 @@ export default function Wishes() {
 
 function CheckIcon() {
   return (
-    <svg className="h-8 w-8 text-dusty" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+    <svg className="h-8 w-8 text-burgundy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
     </svg>
   );

@@ -20,7 +20,7 @@ export default function Closing() {
   if (!config) return null;
 
   return (
-    <section className="relative mx-auto flex min-h-[70svh] w-full max-w-[430px] flex-col items-center overflow-hidden bg-ivory px-6 pb-[38vh] pt-[38vh] text-center">
+    <section className="relative mx-auto flex min-h-[70svh] w-full max-w-[430px] flex-col items-center overflow-hidden bg-ivory px-6 pb-[26vh] pt-[38vh] text-center">
       {/* header terima kasih */}
       <motion.div
         initial={{ y: -90, opacity: 0 }}
@@ -47,13 +47,13 @@ export default function Closing() {
         className="pointer-events-none absolute inset-x-0 bottom-0 z-0"
       >
         <Image
-          src="/latarbelakang/footerterimakasih.png"
+          src="/jawa/P8footer.png"
           alt=""
           width={1080}
-          height={1920}
+          height={515}
           priority
           unoptimized
-          className="h-[38vh] w-full object-cover object-bottom"
+          className="h-auto w-full"
         />
       </motion.div>
 
@@ -73,7 +73,7 @@ export default function Closing() {
 
         <motion.h2
           variants={fadeUp}
-          className="mt-6 font-serif text-4xl uppercase tracking-[0.25em] text-dusty"
+          className="mt-6 font-serif text-4xl uppercase tracking-[0.25em] text-burgundy"
         >
           {t("closing.title")}
         </motion.h2>
@@ -87,7 +87,7 @@ export default function Closing() {
 
         <motion.p
           variants={fadeUp}
-          className="mt-10 font-script text-[44px] leading-tight text-dusty"
+          className="mt-10 font-script text-[44px] leading-tight text-burgundy"
         >
           {t("closing.sincerely")},
           <br />
@@ -104,7 +104,7 @@ export default function Closing() {
               .getElementById("wishes")
               ?.scrollIntoView({ behavior: "smooth", block: "start" })
           }
-          className="mx-auto mt-10 flex items-center gap-2 rounded-full bg-dusty px-8 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(74,52,56,0.5)] transition hover:bg-dusty/90"
+          className="mx-auto mt-10 flex items-center gap-2 rounded-full bg-burgundy px-8 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(74,52,56,0.5)] transition hover:bg-burgundy/90"
         >
           {t("closing.confirmAttendance")}
           <ArrowRight className="h-4 w-4" />
@@ -118,11 +118,11 @@ export default function Closing() {
         viewport={{ once: true }}
         className="relative z-10 mt-14 flex flex-col items-center gap-4"
       >
-        <div className="flex gap-5 text-dusty/80">
+        <div className="flex gap-5 text-burgundy/80">
           <a
             href="#"
             aria-label="Instagram"
-            className="transition hover:text-dusty"
+            className="transition hover:text-burgundy"
           >
             <svg
               className="h-5 w-5"
@@ -139,7 +139,7 @@ export default function Closing() {
           <a
             href="#"
             aria-label="WhatsApp"
-            className="transition hover:text-dusty"
+            className="transition hover:text-burgundy"
           >
             <MessageCircle className="h-5 w-5" />
           </a>

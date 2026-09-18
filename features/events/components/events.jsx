@@ -20,11 +20,11 @@ function EventRow({ item, date }) {
       whileHover={{ x: 6 }}
       className="flex items-center gap-4 rounded-lg py-4 transition-colors hover:bg-rosy/60"
     >
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-rose-line bg-rosy text-dusty">
+      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-rose-line bg-rosy text-burgundy">
         <CalendarHeart className="h-5 w-5" />
       </div>
       <div className="min-w-0 flex-1 text-left">
-        <h3 className="font-serif text-lg leading-tight text-dusty">
+        <h3 className="font-serif text-lg leading-tight text-burgundy">
           {item.title}
         </h3>
         <p className="mt-0.5 text-xs uppercase tracking-wider text-brown-mute">
@@ -33,7 +33,7 @@ function EventRow({ item, date }) {
         <p className="mt-0.5 text-sm font-semibold text-brown">{time} WIB</p>
         {item.location && (
           <p className="mt-0.5 flex items-start gap-1 text-xs leading-relaxed text-brown-mute">
-            <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-dusty" />
+            <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-burgundy" />
             <span>
               {item.location}
               {item.address && item.address !== item.location ? (
@@ -79,7 +79,7 @@ export default function Events() {
   return (
     <section
       id="events"
-      className="relative mx-auto w-full max-w-[430px] overflow-hidden px-6"
+      className="relative mx-auto w-full max-w-[430px] overflow-hidden px-6 pt-[25vh]"
     >
       <Botanical className="pointer-events-none absolute -right-10 top-16 h-40 w-40 rotate-45 opacity-[0.08]" />
 
@@ -93,13 +93,13 @@ export default function Events() {
         <div className="text-center">
           <motion.p
             variants={fade}
-            className="text-[11px] font-medium uppercase tracking-[0.3em] text-brown-mute"
+            className="text-[11px] font-medium uppercase tracking-[0.3em] text-ivory"
           >
             {t("events.detailAcara")}
           </motion.p>
           <motion.h2
             variants={fadeUp}
-            className="mt-2 font-serif text-2xl uppercase tracking-[0.2em] text-dusty"
+            className="mt-2 font-serif text-2xl uppercase tracking-[0.2em] text-ivory"
           >
             {t("events.akadResepsi")}
           </motion.h2>
@@ -135,7 +135,7 @@ export default function Events() {
           {/* location */}
           <div className="border-t border-rose-line bg-ivory px-6 py-5">
             <div className="flex items-start gap-3">
-              <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-dusty" />
+              <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-burgundy" />
               <div className="min-w-0">
                 <p className="text-[11px] font-semibold uppercase tracking-widest text-brown-mute">
                   Tempat
@@ -159,7 +159,7 @@ export default function Events() {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.96 }}
                 transition={{ type: "spring", stiffness: 320, damping: 18 }}
-                className="flex flex-1 items-center justify-center gap-2 rounded-full bg-mute px-4 py-2.5 text-sm font-medium text-white transition hover:bg-mute/90"
+                className="flex flex-1 items-center justify-center gap-2 rounded-full bg-burgundy px-4 py-2.5 text-sm font-medium text-white transition hover:bg-burgundy/90"
               >
                 <MapPin className="h-4 w-4" />
                 {t("events.viewLocation")}
@@ -175,7 +175,7 @@ export default function Events() {
                 variants={fadeUp}
                 className="mx-auto mt-6 max-w-md rounded-[24px] border border-rose-line bg-rosy p-8 text-center shadow-[0_20px_40px_-20px_rgba(74,52,56,0.45)]"
               >
-                <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-dusty/70">
+                <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-burgundy/70">
                   Turut Mengundang
                 </p>
                 <div className="mt-4 flex items-center justify-center gap-3">

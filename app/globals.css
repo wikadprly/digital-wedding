@@ -45,6 +45,7 @@
   --color-brown: #4a3438;
   --color-brown-mute: #8f6872;
   --color-rose-line: #e7d7dc;
+  --color-burgundy: #561112;
   --animate-marquee: marquee var(--duration) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
 
@@ -68,7 +69,7 @@
 
 @layer base {
   :root {
-    --background: #ffffff;
+    --background: #f7f2ec;
     --foreground: #1c1917;
     --card: #ffffff;
     --card-foreground: #1c1917;

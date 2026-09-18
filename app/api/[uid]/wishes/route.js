@@ -20,17 +20,6 @@ export async function GET(request, { params }) {
     const limit = Number.isNaN(rawLimit) ? 50 : Math.min(rawLimit, 100);
     const offset = Number.isNaN(rawOffset) ? 0 : Math.max(rawOffset, 0);
 
-    const invitation = await query(
-      "SELECT uid FROM invitations WHERE uid = $1",
-      [uid],
-    );
-    if (invitation.rows.length === 0) {
-      return NextResponse.json(
-        { success: false, error: "Invitation not found" },
-        { status: 404 },
-      );
-    }
-
     const result = await query(
       `SELECT id, name, message,
               LOWER(attendance) as attendance,
@@ -109,17 +98,6 @@ export async function POST(request, { params }) {
           code: "RATE_LIMITED",
         },
         { status: 429 },
-      );
-    }
-
-    const invitation = await query(
-      "SELECT uid FROM invitations WHERE uid = $1",
-      [uid],
-    );
-    if (invitation.rows.length === 0) {
-      return NextResponse.json(
-        { success: false, error: "Invitation not found" },
-        { status: 404 },
       );
     }
 
