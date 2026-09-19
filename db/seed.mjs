@@ -1,5 +1,6 @@
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import { readFileSync } from "node:fs";
 import pg from "pg";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -24,26 +25,10 @@ const client = new Client({ connectionString });
 async function main() {
   await client.connect();
 
-  await client.query(`
-    CREATE TABLE IF NOT EXISTS wishes (
-      id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-      invitation_uid  TEXT NOT NULL,
-      name            TEXT NOT NULL,
-      message         TEXT NOT NULL,
-      attendance      TEXT NOT NULL DEFAULT 'ATTENDING'
-                      CHECK (attendance IN ('ATTENDING', 'NOT_ATTENDING', 'MAYBE')),
-      edit_token      UUID NOT NULL DEFAULT gen_random_uuid(),
-      created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
-      CONSTRAINT wishes_invitation_name_key UNIQUE (invitation_uid, name)
-    );
-  `);
+  const schemaSql = readFileSync(path.join(__dirname, "schema.sql"), "utf-8");
+  await client.query(schemaSql);
 
-  await client.query(`
-    CREATE INDEX IF NOT EXISTS wishes_invitation_created_idx
-      ON wishes (invitation_uid, created_at DESC);
-  `);
-
-  console.log("Database ready: tabel `wishes` sudah ada.");
+  console.log("Database ready: tabel `wishes` dan `rate_limits` sudah ada.");
   await client.end();
 }
 

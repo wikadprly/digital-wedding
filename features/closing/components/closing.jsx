@@ -20,7 +20,7 @@ export default function Closing() {
   if (!config) return null;
 
   return (
-    <section className="relative mx-auto flex min-h-[70svh] w-full max-w-[430px] flex-col items-center overflow-hidden bg-ivory px-6 pb-[26vh] pt-[38vh] text-center">
+    <section className="relative mx-auto flex min-h-svh w-full max-w-[430px] flex-col items-center overflow-hidden bg-ivory px-6 pb-[12vh] pt-[34vh] text-center">
       {/* header terima kasih */}
       <motion.div
         initial={{ y: -90, opacity: 0 }}
@@ -29,13 +29,19 @@ export default function Closing() {
         className="pointer-events-none absolute inset-x-0 top-0 z-0"
       >
         <Image
-          src="/latarbelakang/headerterimakasih.png"
+          src="/wayang/p8header.png"
           alt=""
           width={1080}
           height={1920}
           priority
           unoptimized
           className="h-[38vh] w-full object-cover object-top"
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,0.55) 74%, rgba(0,0,0,0.22) 86%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, #000 0%, #000 62%, rgba(0,0,0,0.55) 74%, rgba(0,0,0,0.22) 86%, transparent 100%)",
+          }}
         />
       </motion.div>
 
@@ -47,7 +53,7 @@ export default function Closing() {
         className="pointer-events-none absolute inset-x-0 bottom-0 z-0"
       >
         <Image
-          src="/jawa/P8footer.png"
+          src="/wayang/p8footer.png"
           alt=""
           width={1080}
           height={515}
@@ -116,7 +122,7 @@ export default function Closing() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="relative z-10 mt-14 flex flex-col items-center gap-4"
+        className="relative z-10 mt-8 flex flex-col items-center gap-4"
       >
         <div className="flex gap-5 text-burgundy/80">
           <a

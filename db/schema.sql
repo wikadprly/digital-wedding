@@ -26,3 +26,16 @@ CREATE TABLE IF NOT EXISTS wishes (
 
 CREATE INDEX IF NOT EXISTS wishes_invitation_created_idx
   ON wishes (invitation_uid, created_at DESC);
+
+-- ------------------------------------------------------------
+-- Penghitung rate limit berbasis database.
+-- Key unik (mis. "wish:<uid>:ip:<ip>" atau "wish:<uid>:name:<name>").
+-- Bersifat atomik (INSERT ... ON CONFLICT DO UPDATE), aman dipakai
+-- lintas instance serverless tanpa state di memori.
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS rate_limits (
+  key         TEXT PRIMARY KEY,
+  count       INTEGER NOT NULL DEFAULT 1,
+  reset_at    TIMESTAMPTZ NOT NULL,
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);

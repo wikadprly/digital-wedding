@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
 
 export default function Confetti({ show }) {
-  const colors = ["#FDA4AF", "#FDE68A", "#A7F3D0", "#93C5FD", "#C4B5FD"];
+  const colors = ["#D9AEB7", "#9A5368", "#FDF1F4", "#B97889", "#7E2A47"];
   const [pieces] = useState(() =>
     Array.from({ length: 60 }, (_, i) => ({
       id: i,

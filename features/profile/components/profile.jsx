@@ -92,26 +92,11 @@ export default function Profile() {
   const parentBride = config.parentBride || "Bapak Rema & Ibu Rema";
 
   return (
-    <section id="profile" className="relative overflow-hidden bg-ivory px-6 py-16">
+    <section id="profile" className="relative overflow-hidden bg-ivory px-6 pb-16 pt-10">
       <Botanical className="pointer-events-none absolute -right-8 top-24 h-40 w-40 -scale-x-100 opacity-[0.08]" />
       <Botanical className="pointer-events-none absolute -left-8 bottom-16 h-40 w-40 opacity-[0.08]" />
 
-      {/* dekorasi atas — turun pelan dari atas sekali lalu berhenti */}
-      <motion.div
-        initial={{ y: -90, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center"
-      >
-        <Image
-          src="/jawa/P2header.png"
-          alt=""
-          width={1080}
-          height={1920}
-          priority
-          className="h-[40vh] w-full object-cover object-top"
-        />
-      </motion.div>
+      {/* dekorasi atas P2header dihapus — isi P2 naik sedikit menggantikan posisinya */}
 
       {/* dekorasi bawah — muncul pelan dari bawah sekali lalu berhenti */}
       <motion.div
@@ -130,10 +115,10 @@ export default function Profile() {
         />
       </motion.div>
 
-      {/* isi P2 atas — mulai sekitar 30% dari atas section */}
-      <div className="pointer-events-none absolute inset-x-0 top-[30%] z-0">
+      {/* isi P2 atas — naik sedikit menggantikan header, sisa space dikit di atas */}
+      <div className="pointer-events-none absolute inset-x-0 top-[8%] z-0">
         <Image
-          src="/jawa/P2isiatas.png"
+          src="/wayang/p2isiatas.png"
           alt=""
           width={1080}
           height={1920}
@@ -144,7 +129,7 @@ export default function Profile() {
       {/* isi P2 bawah — menjelang akhir section (boleh tumpang tindih dengan isi atas) */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0">
         <Image
-          src="/jawa/P2isibawah.png"
+          src="/wayang/p2isibawah.png"
           alt=""
           width={1080}
           height={1920}

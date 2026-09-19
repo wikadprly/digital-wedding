@@ -108,7 +108,7 @@ export default function Wishes() {
         className="pointer-events-none absolute inset-0 z-0"
       >
         <Image
-          src="/jawa/P7isi.png"
+          src="/wayang/p7isi.png"
           alt=""
           width={1080}
           height={1920}
@@ -136,7 +136,7 @@ export default function Wishes() {
         </div>
 
         <div className="mt-4 flex gap-4">
-          <div className="w-1/2 rounded-xl bg-[#e7f2e4] py-3 text-center text-[#3f6b3a]">
+          <div className="w-1/2 rounded-xl bg-blush/40 py-3 text-center text-brown">
             <span className="block text-xl font-bold">{attending}</span>
             <span className="text-xs">{t("wishes.attending")}</span>
           </div>

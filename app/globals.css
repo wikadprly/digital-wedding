@@ -39,37 +39,18 @@
   --color-dusty: #9a5368;
   --color-mute: #b97889;
   --color-blush: #d9aeb7;
-  --color-ivory: #f7f2ec;
-  --color-rosy: #fffcf8;
-  --color-champagne: #c8a77b;
-  --color-brown: #4a3438;
-  --color-brown-mute: #8f6872;
-  --color-rose-line: #e7d7dc;
-  --color-burgundy: #561112;
-  --animate-marquee: marquee var(--duration) infinite linear;
-  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
-
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(calc(-100% - var(--gap)));
-    }
-  }
-  @keyframes marquee-vertical {
-    from {
-      transform: translateY(0);
-    }
-    to {
-      transform: translateY(calc(-100% - var(--gap)));
-    }
-  }
+  --color-ivory: #fdf1f4;
+  --color-rosy: #fff7f9;
+  --color-champagne: #ddaabc;
+  --color-brown: #5b3140;
+  --color-brown-mute: #9c6b7b;
+  --color-rose-line: #efd8e0;
+  --color-burgundy: #7e2a47;
 }
 
 @layer base {
   :root {
-    --background: #f7f2ec;
+    --background: #fdf1f4;
     --foreground: #1c1917;
     --card: #ffffff;
     --card-foreground: #1c1917;

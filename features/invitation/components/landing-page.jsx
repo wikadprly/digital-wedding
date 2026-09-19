@@ -23,11 +23,11 @@ export default function LandingPage({ onOpenInvitation }) {
     shouldReduceMotion
       ? {}
       : {
-          initial: { opacity: 0, y: 14 },
-          animate: { opacity: 1, y: 0 },
+          initial: { opacity: 0, scale: 1.25 },
+          animate: { opacity: 1, scale: 1 },
           transition: {
-            duration: 0.7,
-            delay: 0.15 * i,
+            duration: 1.2,
+            delay: 2 + 0.25 * i,
             ease: [0.22, 1, 0.36, 1],
           },
         };
@@ -36,23 +36,48 @@ export default function LandingPage({ onOpenInvitation }) {
   const brideName = config.brideName;
 
   return (
-    <div className="relative mx-auto flex min-h-dvh w-full max-w-[430px] flex-col bg-ivory font-sans">
-      {/* video background — freezes on last frame when finished */}
-      <video
-        className="absolute inset-0 h-full w-full object-cover"
-        src="/jawa/cover.mp4"
-        poster="/images/coverr.JPG"
-        autoPlay
-        muted
-        playsInline
-        preload="auto"
-      />
+    <div className="relative mx-auto flex min-h-dvh w-full max-w-[430px] flex-col overflow-hidden bg-ivory font-sans">
+      {/* dekorasi pembuka "tirai": kanopi atas turun lurus dari atas */}
+      <motion.div
+        initial={{ opacity: 0, scale: 1.35 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center"
+      >
+        <Image
+          src="/wayang/p1header.png"
+          alt=""
+          width={1080}
+          height={569}
+          priority
+          unoptimized
+          className="h-auto w-full"
+        />
+      </motion.div>
 
-      <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-8 pb-8 pt-10 text-center">
+      {/* tirai bawah: kanopi bawah naik lurus dari bawah */}
+      <motion.div
+        initial={{ opacity: 0, scale: 1.35 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center"
+      >
+        <Image
+          src="/wayang/coverhfooter.png"
+          alt=""
+          width={1080}
+          height={1080}
+          priority
+          unoptimized
+          className="h-auto w-full"
+        />
+      </motion.div>
+
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-8 pb-8 pt-8 text-center">
         {/* eyebrow */}
         <motion.p
           {...stage(0)}
-          className="text-[11px] font-medium uppercase tracking-[0.35em] text-ivory"
+          className="text-[11px] font-medium uppercase tracking-[0.35em] text-burgundy drop-shadow-[0_2px_8px_rgba(255,255,255,0.85)]"
         >
           The Wedding Of
         </motion.p>

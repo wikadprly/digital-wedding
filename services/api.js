@@ -1,8 +1,14 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+const API_URL = process.env.NEXT_PUBLIC_API_URL
+  ? process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, "")
+  : "";
+
+function endpoint(path) {
+  return `${API_URL}${path}`;
+}
 
 export async function fetchWishes(uid, options = {}) {
   const { limit = 50, offset = 0 } = options;
-  const url = new URL(`${API_URL}/api/${uid}/wishes`, window.location.origin);
+  const url = new URL(endpoint(`/api/${uid}/wishes`), window.location.origin);
   url.searchParams.set("limit", limit);
   url.searchParams.set("offset", offset);
 
@@ -15,7 +21,7 @@ export async function fetchWishes(uid, options = {}) {
 }
 
 export async function createWish(uid, wishData) {
-  const response = await fetch(`${API_URL}/api/${uid}/wishes`, {
+  const response = await fetch(endpoint(`/api/${uid}/wishes`), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -35,7 +41,7 @@ export async function createWish(uid, wishData) {
 
 export async function checkWishSubmitted(uid, name) {
   const response = await fetch(
-    `${API_URL}/api/${uid}/wishes/check/${encodeURIComponent(name)}`,
+    endpoint(`/api/${uid}/wishes/check/${encodeURIComponent(name)}`),
   );
   if (!response.ok) {
     const error = await response.json();
@@ -45,7 +51,7 @@ export async function checkWishSubmitted(uid, name) {
 }
 
 export async function deleteWish(uid, wishId, token) {
-  const response = await fetch(`${API_URL}/api/${uid}/wishes/${wishId}`, {
+  const response = await fetch(endpoint(`/api/${uid}/wishes/${wishId}`), {
     method: "DELETE",
     headers: {
       "x-wish-token": token || "",

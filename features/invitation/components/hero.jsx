@@ -11,7 +11,7 @@ import { useMotionPreset, staggerContainer } from "@/lib/motion";
 function CountBox({ value, label }) {
   return (
     <div className="flex w-full min-w-0 flex-col items-center">
-      <div className="flex h-16 items-center justify-center overflow-hidden">
+      <div className="flex h-14 items-center justify-center overflow-hidden">
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
             key={value}
@@ -19,45 +19,36 @@ function CountBox({ value, label }) {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: "110%", opacity: 0 }}
             transition={{ type: "spring", stiffness: 260, damping: 24 }}
-            className="block font-serif text-[52px] leading-none text-brown"
+            className="block font-serif text-[48px] leading-none text-burgundy"
           >
             {String(value).padStart(2, "0")}
           </motion.span>
         </AnimatePresence>
       </div>
-      <span className="mt-3 text-[10px] uppercase tracking-[0.2em] text-brown-mute">
+      <span className="mt-2 text-[10px] uppercase tracking-[0.2em] text-burgundy/80">
         {label}
       </span>
     </div>
   );
 }
 
+function getTimeLeft(targetDate) {
+  const difference = +new Date(targetDate) - Date.now();
+  if (difference <= 0) return {};
+  return {
+    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((difference / (1000 * 60)) % 60),
+    seconds: Math.floor((difference / 1000) % 60),
+  };
+}
+
 function CountdownTimer({ targetDate }) {
   const { t } = useTranslation();
-  const [timeLeft, setTimeLeft] = useState(() => {
-    const difference = +new Date(targetDate) - Date.now();
-    if (difference <= 0) return {};
-    return {
-      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / (1000 * 60)) % 60),
-      seconds: Math.floor((difference / 1000) % 60),
-    };
-  });
+  const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(targetDate));
 
   useEffect(() => {
-    const calculate = () => {
-      const difference = +new Date(targetDate) - Date.now();
-      if (difference <= 0) return {};
-      return {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / (1000 * 60)) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-      };
-    };
-
-    const timer = setInterval(() => setTimeLeft(calculate()), 1000);
+    const timer = setInterval(() => setTimeLeft(getTimeLeft(targetDate)), 1000);
     return () => clearInterval(timer);
   }, [targetDate]);
 
@@ -69,7 +60,7 @@ function CountdownTimer({ targetDate }) {
   ];
 
   return (
-    <div className="mt-12 grid w-full grid-cols-4">
+    <div className="mx-auto mt-8 grid w-full max-w-[300px] grid-cols-4">
       {items.map((item) => (
         <CountBox key={item.label} value={item.value} label={item.label} />
       ))}
@@ -101,28 +92,29 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative mx-auto flex aspect-[9/16] min-h-dvh w-full max-w-[430px] flex-col items-center overflow-hidden bg-ivory pb-16 pt-14 text-center"
+      className="relative mx-auto flex aspect-[9/16] min-h-dvh w-full max-w-[430px] flex-col items-center overflow-hidden bg-ivory pb-16 pt-24 text-center"
     >
       <Botanical className="pointer-events-none absolute -right-10 top-10 h-36 w-36 rotate-45 opacity-15" />
 
-      {/* dekorasi atas P1header — animasi pembuka: turun diagonal sekali, lalu diam */}
+      {/* dekorasi atas p1header — animasi pembuka: meluncur diagonal sekali, lalu diam */}
       <motion.div
-        initial={{ x: -120, y: -100, opacity: 0 }}
-        animate={{ x: 0, y: 0, opacity: 1 }}
+        initial={{ y: "-120%", opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
         className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center"
       >
         <Image
-          src="/jawa/P1header.png"
+          src="/wayang/p1header.png"
           alt=""
           width={1080}
-          height={1042}
+          height={569}
           priority
-          className="h-[40vh] w-full object-cover object-top"
+          unoptimized
+          className="h-auto w-full"
         />
       </motion.div>
 
-      {/* dekorasi bawah dari gambar bawahP1 — muncul pelan dari bawah sekali lalu berhenti */}
+      {/* dekorasi bawah p1footer — muncul pelan dari bawah sekali lalu berhenti */}
       <motion.div
         initial={{ y: 90, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -130,12 +122,13 @@ export default function Hero() {
         className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center"
       >
         <Image
-          src="/jawa/P1footer.png"
+          src="/wayang/p1footer.png"
           alt=""
           width={1080}
           height={1080}
           priority
-          className="h-[46vh] w-full object-cover object-bottom"
+          unoptimized
+          className="h-auto w-full"
         />
       </motion.div>
 
@@ -148,13 +141,13 @@ export default function Hero() {
       >
         <motion.p
           variants={fadeUp}
-          className="font-serif text-sm uppercase tracking-[0.3em] text-ivory"
+          className="font-serif text-sm uppercase tracking-[0.22em] text-burgundy"
         >
           {t("hero.save")}
         </motion.p>
         <motion.h2
           variants={fadeUp}
-          className="font-script text-[56px] leading-none text-ivory"
+          className="mt-2 font-serif text-2xl uppercase tracking-[0.22em] text-burgundy"
         >
           {t("hero.theDate")}
         </motion.h2>
@@ -182,13 +175,13 @@ export default function Hero() {
 
         <motion.p
           variants={fade}
-          className="mt-14 text-[11px] font-medium uppercase tracking-[0.3em] text-brown-mute"
+          className="mt-10 text-[11px] font-medium uppercase tracking-[0.3em] text-dusty/80"
         >
           {t("hero.akadResepsi")}
         </motion.p>
         <motion.p
           variants={fadeUp}
-          className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-brown"
+          className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-dusty"
         >
           {dateFull}
         </motion.p>

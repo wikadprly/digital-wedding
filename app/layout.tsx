@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import config from "@/config/config";
+import { SITE_URL } from "@/lib/site-url";
 import {
   Playfair_Display,
   Cormorant_Garamond,
@@ -32,6 +33,7 @@ const italianno = Italianno({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: config.data.title,
   description: config.data.description,
 };

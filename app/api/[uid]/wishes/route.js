@@ -58,11 +58,11 @@ export async function POST(request, { params }) {
   try {
     const { uid } = await params;
     const ip =
+      request.headers.get("x-real-ip")?.trim() ||
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-      request.headers.get("x-real-ip") ||
       "unknown";
 
-    const ipLimit = rateLimit(`wish:${uid}:ip:${ip}`);
+    const ipLimit = await rateLimit(`wish:${uid}:ip:${ip}`);
     if (!ipLimit.allowed) {
       return NextResponse.json(
         {
@@ -89,7 +89,7 @@ export async function POST(request, { params }) {
     }
     const { name, message, attendance } = parsed.data;
 
-    const nameLimit = rateLimit(`wish:${uid}:name:${name.toLowerCase()}`);
+    const nameLimit = await rateLimit(`wish:${uid}:name:${name.toLowerCase()}`);
     if (!nameLimit.allowed) {
       return NextResponse.json(
         {
