@@ -68,13 +68,13 @@ function Person({ name, fullName, parent, prefix, photo }) {
   return (
     <div className="text-center">
       <Portrait src={photo} initial={(name || "?")[0]} />
-      <h3 className="mt-5 font-serif text-4xl font-semibold text-ivory">{name}</h3>
+      <h3 className="mt-5 font-serif text-4xl font-semibold text-burgundy">{name}</h3>
       {fullName && (
-        <p className="mx-auto mt-1 max-w-[280px] font-serif-alt text-sm italic leading-snug text-ivory/85">
+        <p className="mx-auto mt-1 max-w-[280px] font-serif-alt text-sm italic leading-snug text-brown-mute">
           {fullName}
         </p>
       )}
-      <p className="mx-auto mt-2 max-w-[240px] text-sm leading-relaxed text-ivory/85">
+      <p className="mx-auto mt-2 max-w-[240px] text-sm leading-relaxed text-brown-mute">
         {prefix} dari {parent}
       </p>
     </div>
@@ -178,9 +178,9 @@ export default function Profile() {
           variants={fade}
           className="my-10 flex items-center justify-center gap-4"
         >
-          <span className="h-px w-14 bg-ivory/30" />
-          <span className="font-script text-5xl leading-none text-ivory">&amp;</span>
-          <span className="h-px w-14 bg-ivory/30" />
+          <span className="h-px w-14 bg-rose-line" />
+          <span className="font-script text-5xl leading-none text-burgundy">&amp;</span>
+          <span className="h-px w-14 bg-rose-line" />
         </motion.div>
 
         {/* bride */}

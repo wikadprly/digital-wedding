@@ -44,9 +44,9 @@ export default function Wishes() {
   });
   const [showSuccess, setShowSuccess] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
-  const { uid, wishes, isLoading, setSubmittedWish, createMutation, deleteMutation } =
-    useWishes();
+  const { uid, wishes, isLoading, createMutation, deleteMutation } = useWishes();
   const fadeUp = useMotionPreset("fadeUp");
 
   const data = Array.isArray(wishes) ? wishes : [];
@@ -72,6 +72,7 @@ export default function Wishes() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.message) return;
+    setSubmitError(null);
 
     try {
       const wishData = {
@@ -80,15 +81,17 @@ export default function Wishes() {
         message: formData.message,
       };
       await createMutation.mutateAsync(wishData);
-      setSubmittedWish(formData.name);
       setFormData({ name: "", attendance: "", message: "" });
       setShowSuccess(true);
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 4000);
     } catch (err) {
       if (err.code === "WISH_ALREADY_EXISTS") {
-        setSubmittedWish(formData.name);
         setShowSuccess(true);
+      } else if (err.code === "RATE_LIMITED") {
+        setSubmitError(t("wishes.rateLimited"));
+      } else {
+        setSubmitError(t("wishes.submitError"));
       }
     }
   };
@@ -150,7 +153,10 @@ export default function Wishes() {
           <input
             type="text"
             value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            onChange={(e) => {
+              setSubmitError(null);
+              setFormData({ ...formData, name: e.target.value });
+            }}
             placeholder={t("wishes.namePlaceholder")}
             required
             className="w-full rounded-lg border border-rose-line bg-ivory/40 p-3 text-sm focus:border-burgundy focus:outline-none"
@@ -172,13 +178,22 @@ export default function Wishes() {
           <textarea
             rows={3}
             value={formData.message}
-            onChange={(e) =>
-              setFormData({ ...formData, message: e.target.value })
-            }
+            onChange={(e) => {
+              setSubmitError(null);
+              setFormData({ ...formData, message: e.target.value });
+            }}
             placeholder={t("wishes.wishPlaceholder")}
             required
             className="w-full rounded-lg border border-rose-line bg-ivory/40 p-3 text-sm focus:border-burgundy focus:outline-none"
           />
+          {submitError && (
+            <p
+              role="alert"
+              className="rounded-lg bg-rose-line/60 p-3 text-center text-xs font-medium text-burgundy"
+            >
+              {submitError}
+            </p>
+          )}
           <motion.button
             type="submit"
             disabled={createMutation.isPending}

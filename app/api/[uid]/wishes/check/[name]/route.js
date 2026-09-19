@@ -1,17 +1,33 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 import { rateLimit } from "@/lib/rate-limit";
+import { isAllowedUid } from "@/lib/allowed-uids";
 
 const MAX_NAME_LENGTH = 80;
+
+function decodeName(raw) {
+  try {
+    return decodeURIComponent(raw).trim();
+  } catch {
+    return null;
+  }
+}
 
 export async function GET(request, { params }) {
   try {
     const { uid, name } = await params;
-    const decodedName = decodeURIComponent(name).trim();
 
-    if (!decodedName || decodedName.length === 0) {
+    if (!isAllowedUid(uid)) {
       return NextResponse.json(
-        { success: false, error: "Name is required" },
+        { success: false, error: "Invitation not found" },
+        { status: 404 },
+      );
+    }
+
+    const decodedName = decodeName(name);
+    if (!decodedName) {
+      return NextResponse.json(
+        { success: false, error: "Invalid name" },
         { status: 400 },
       );
     }

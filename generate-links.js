@@ -12,7 +12,7 @@ import config from "./config/config.js";
 function generateInvitationLink(
   uid,
   guestName,
-  baseUrl = "http://localhost:3000",
+  baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
 ) {
   const encodedName = encodeURIComponent(guestName);
   return `${baseUrl}/${uid}?to=${encodedName}`;
@@ -20,7 +20,12 @@ function generateInvitationLink(
 
 // ===== CONFIGURATION =====
 const INVITATION_UID = config.data.uid; // diatur di config/config.js
-const BASE_URL = "http://localhost:3000"; // Change this to your production URL
+// Untuk link produksi, set NEXT_PUBLIC_SITE_URL (contoh: https://domain-anda.com)
+// atau ubah fallback di bawah ini.
+const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(
+  /\/$/,
+  "",
+);
 
 // List of guests
 const guestList = [

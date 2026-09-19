@@ -2,6 +2,14 @@ import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 import { rateLimit } from "@/lib/rate-limit";
 import { z } from "zod";
+import { isAllowedUid } from "@/lib/allowed-uids";
+
+function invalidUid() {
+  return NextResponse.json(
+    { success: false, error: "Invitation not found" },
+    { status: 404 },
+  );
+}
 
 const wishSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(80),
@@ -14,6 +22,9 @@ const wishSchema = z.object({
 export async function GET(request, { params }) {
   try {
     const { uid } = await params;
+    if (!isAllowedUid(uid)) {
+      return invalidUid();
+    }
     const searchParams = request.nextUrl.searchParams;
     const rawLimit = parseInt(searchParams.get("limit") || "50", 10);
     const rawOffset = parseInt(searchParams.get("offset") || "0", 10);
@@ -23,7 +34,7 @@ export async function GET(request, { params }) {
     const result = await query(
       `SELECT id, name, message,
               LOWER(attendance) as attendance,
-              created_at AT TIME ZONE 'UTC' AT TIME ZONE 'Asia/Jakarta' as created_at
+              created_at as created_at
        FROM wishes
        WHERE invitation_uid = $1
        ORDER BY created_at DESC
@@ -57,6 +68,9 @@ export async function GET(request, { params }) {
 export async function POST(request, { params }) {
   try {
     const { uid } = await params;
+    if (!isAllowedUid(uid)) {
+      return invalidUid();
+    }
     const ip =
       request.headers.get("x-real-ip")?.trim() ||
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
@@ -127,7 +141,7 @@ export async function POST(request, { params }) {
         `INSERT INTO wishes (invitation_uid, name, message, attendance, created_at)
          VALUES ($1, $2, $3, $4, now())
          RETURNING id, name, message, LOWER(attendance) as attendance, edit_token,
-                   created_at AT TIME ZONE 'UTC' AT TIME ZONE 'Asia/Jakarta' as created_at`,
+                   created_at as created_at`,
         [uid, name, message, dbAttendance],
       );
       const wish = result.rows[0];

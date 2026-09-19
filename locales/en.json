@@ -77,6 +77,8 @@
     "thankYou": "Thank You!",
     "successMessage": "Your message and wishes have been sent. We deeply appreciate your kind words.",
     "oneMessageLimit": "Each guest can only submit one message.",
+    "rateLimited": "Too many attempts. Please try again in a moment.",
+    "submitError": "Failed to send your message. Check your connection and try again.",
     "delete": "Delete wish",
     "deleteConfirm": "Delete this wish?",
     "close": "Close"

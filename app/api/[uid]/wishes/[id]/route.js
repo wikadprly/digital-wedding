@@ -1,10 +1,21 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
+import { isAllowedUid } from "@/lib/allowed-uids";
+
+const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export async function DELETE(request, { params }) {
   try {
     const { uid, id } = await params;
     const token = request.headers.get("x-wish-token");
+
+    if (!isAllowedUid(uid) || !UUID_RE.test(id)) {
+      return NextResponse.json(
+        { success: false, error: "Wish not found or unauthorized" },
+        { status: 404 },
+      );
+    }
 
     if (!token) {
       return NextResponse.json(
