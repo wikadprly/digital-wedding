@@ -92,7 +92,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative mx-auto flex aspect-[9/16] min-h-dvh w-full max-w-[430px] flex-col items-center overflow-hidden bg-ivory pb-16 pt-24 text-center"
+      className="relative mx-auto flex w-full max-w-[430px] flex-col items-center overflow-hidden bg-ivory px-6 pb-[20vh] pt-[15vh] text-center"
     >
       <Botanical className="pointer-events-none absolute -right-10 top-10 h-36 w-36 rotate-45 opacity-15" />
 
@@ -114,7 +114,7 @@ export default function Hero() {
         />
       </motion.div>
 
-      {/* dekorasi bawah p1footer — muncul pelan dari bawah sekali lalu berhenti */}
+      {/* dekorasi bawah coverfooter — muncul pelan dari bawah sekali lalu berhenti */}
       <motion.div
         initial={{ y: 90, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -122,7 +122,7 @@ export default function Hero() {
         className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center"
       >
         <Image
-          src="/wayang/p1footer.png"
+          src="/wayang/coverhfooter.png"
           alt=""
           width={1080}
           height={1080}

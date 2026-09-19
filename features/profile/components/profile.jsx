@@ -58,7 +58,7 @@ function Portrait({ src, initial }) {
       className="relative mx-auto h-36 w-28 overflow-hidden rounded-full border-2 border-blush bg-blush/35 shadow-[0_14px_30px_-18px_rgba(154,83,104,0.5)]"
     >
       <div className="flex h-full w-full items-center justify-center">
-        <span className="font-serif text-6xl text-burgundy">{initial}</span>
+        <span className="font-serif text-6xl text-ivory">{initial}</span>
       </div>
     </motion.div>
   );
@@ -68,13 +68,13 @@ function Person({ name, fullName, parent, prefix, photo }) {
   return (
     <div className="text-center">
       <Portrait src={photo} initial={(name || "?")[0]} />
-      <h3 className="mt-5 font-serif text-4xl font-semibold text-burgundy">{name}</h3>
+      <h3 className="mt-5 font-serif text-4xl font-semibold text-ivory drop-shadow-[0_1px_4px_rgba(126,42,71,0.35)]">{name}</h3>
       {fullName && (
-        <p className="mx-auto mt-1 max-w-[280px] font-serif-alt text-sm italic leading-snug text-brown-mute">
+        <p className="mx-auto mt-1 max-w-[280px] font-serif-alt text-sm italic leading-snug text-ivory/90">
           {fullName}
         </p>
       )}
-      <p className="mx-auto mt-2 max-w-[240px] text-sm leading-relaxed text-brown-mute">
+      <p className="mx-auto mt-2 max-w-[240px] text-sm leading-relaxed text-ivory/90">
         {prefix} dari {parent}
       </p>
     </div>
@@ -179,7 +179,7 @@ export default function Profile() {
           className="my-10 flex items-center justify-center gap-4"
         >
           <span className="h-px w-14 bg-rose-line" />
-          <span className="font-script text-5xl leading-none text-burgundy">&amp;</span>
+          <span className="font-script text-5xl leading-none text-ivory drop-shadow-[0_1px_4px_rgba(126,42,71,0.35)]">&amp;</span>
           <span className="h-px w-14 bg-rose-line" />
         </motion.div>
 

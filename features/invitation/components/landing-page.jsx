@@ -36,7 +36,7 @@ export default function LandingPage({ onOpenInvitation }) {
   const brideName = config.brideName;
 
   return (
-    <div className="relative mx-auto flex min-h-dvh w-full max-w-[430px] flex-col overflow-hidden bg-ivory font-sans">
+    <div className="relative mx-auto flex w-full max-w-[430px] flex-col overflow-hidden bg-ivory font-sans">
       {/* dekorasi pembuka "tirai": kanopi atas turun lurus dari atas */}
       <motion.div
         initial={{ opacity: 0, scale: 1.35 }}
@@ -73,7 +73,7 @@ export default function LandingPage({ onOpenInvitation }) {
         />
       </motion.div>
 
-      <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-8 pb-8 pt-8 text-center">
+      <div className="relative z-10 flex flex-col items-center px-6 pb-[15vh] pt-[15vh] text-center">
         {/* eyebrow */}
         <motion.p
           {...stage(0)}
