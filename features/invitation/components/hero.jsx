@@ -109,7 +109,6 @@ export default function Hero() {
           width={1080}
           height={569}
           priority
-          unoptimized
           className="h-auto w-full"
         />
       </motion.div>
@@ -127,7 +126,6 @@ export default function Hero() {
           width={1080}
           height={1080}
           priority
-          unoptimized
           className="h-auto w-full"
         />
       </motion.div>
@@ -165,7 +163,7 @@ export default function Hero() {
           className="relative mx-auto mt-7 h-64 max-w-[340px] overflow-hidden rounded-[20px] border border-rose-line bg-rosy shadow-[0_18px_40px_-20px_rgba(74,52,56,0.5)]"
         >
           <Image
-            src="/images/save%20the%20date.JPG"
+            src="/images/coverr.JPG"
             alt={`${config.groomName} & ${config.brideName}`}
             fill
             sizes="340px"

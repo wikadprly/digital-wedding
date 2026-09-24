@@ -50,7 +50,6 @@ export default function LandingPage({ onOpenInvitation }) {
           width={1080}
           height={569}
           priority
-          unoptimized
           className="h-auto w-full"
         />
       </motion.div>
@@ -68,7 +67,6 @@ export default function LandingPage({ onOpenInvitation }) {
           width={1080}
           height={1080}
           priority
-          unoptimized
           className="h-auto w-full"
         />
       </motion.div>
@@ -94,7 +92,7 @@ export default function LandingPage({ onOpenInvitation }) {
           <div className="h-full w-full">
             <div className="relative h-full w-full overflow-hidden rounded-[116px_116px_16px_16px] bg-rosy">
               <Image
-                src="/images/coverr.JPG"
+                src="/images/save%20the%20date.JPG"
                 alt={`${groomName} & ${brideName}`}
                 fill
                 sizes="215px"
@@ -132,18 +130,6 @@ export default function LandingPage({ onOpenInvitation }) {
             {guestName || t("hero.guestFallback")}
           </p>
         </motion.div>
-
-        {/* invitation copy */}
-        <motion.p
-          {...stage(6)}
-          className="mt-4 max-w-[300px] text-[16px] leading-[1.8] text-brown drop-shadow-[0_1px_8px_rgba(255,255,255,0.7)]"
-        >
-          Dengan penuh sukacita,
-          <br />
-          kami mengundang Anda untuk hadir
-          <br />
-          di hari istimewa kami.
-        </motion.p>
 
         {/* CTA */}
         <motion.button

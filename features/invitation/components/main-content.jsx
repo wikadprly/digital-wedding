@@ -29,7 +29,6 @@ export default function MainContent() {
             width={1080}
             height={1080}
             priority
-            unoptimized
             className="h-[40vh] w-full object-cover object-top"
           />
           <div className="relative min-h-0 flex-1 overflow-hidden">
@@ -39,7 +38,6 @@ export default function MainContent() {
               width={1080}
               height={1920}
               priority
-              unoptimized
               className="absolute inset-0 h-full w-full object-cover"
             />
           </div>
@@ -56,7 +54,6 @@ export default function MainContent() {
             width={1080}
             height={1153}
             priority
-            unoptimized
             className="h-[30vh] w-full object-cover object-top"
           />
           <div className="relative min-h-0 flex-1 overflow-hidden">
@@ -66,7 +63,6 @@ export default function MainContent() {
               width={1080}
               height={1920}
               priority
-              unoptimized
               className="absolute inset-0 h-full w-full object-cover"
             />
           </div>
@@ -76,7 +72,6 @@ export default function MainContent() {
             width={1080}
             height={1920}
             priority
-            unoptimized
             className="h-[30vh] w-full object-cover object-bottom"
           />
         </div>

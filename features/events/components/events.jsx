@@ -143,12 +143,16 @@ export default function Events() {
                 <p className="text-sm font-semibold text-brown">
                   {config.location}
                 </p>
-                <p className="mt-2 text-[11px] font-semibold uppercase tracking-widest text-brown-mute">
-                  Alamat
-                </p>
-                <p className="mt-0.5 text-sm leading-relaxed text-brown-mute">
-                  {config.address}
-                </p>
+                {config.address && (
+                  <>
+                    <p className="mt-2 text-[11px] font-semibold uppercase tracking-widest text-brown-mute">
+                      Alamat
+                    </p>
+                    <p className="mt-0.5 text-sm leading-relaxed text-brown-mute">
+                      {config.address}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
             <div className="mt-4 flex gap-3">

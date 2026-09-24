@@ -69,25 +69,27 @@ export default function Gifts() {
                   </span>
                 </div>
                 <p className="font-mono text-xl tracking-widest text-brown">
-                  {bank.accountNumber}
+                  {bank.accountNumber || "Nomor menyusul"}
                 </p>
                 <p className="mt-1 text-xs font-semibold uppercase text-brown-mute">
                   {bank.accountName}
                 </p>
-                <button
-                  onClick={() => handleCopy(bank.accountNumber)}
-                  className="absolute bottom-4 right-4 flex items-center gap-1 rounded-full bg-burgundy px-3 py-1 text-xs text-white transition hover:bg-burgundy/90"
-                >
-                  {copied === bank.accountNumber ? (
-                    <>
-                      <Check className="h-3 w-3" /> TerSalin
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-3 w-3" /> Copy
-                    </>
-                  )}
-                </button>
+                {bank.accountNumber && (
+                  <button
+                    onClick={() => handleCopy(bank.accountNumber)}
+                    className="absolute bottom-4 right-4 flex items-center gap-1 rounded-full bg-burgundy px-3 py-1 text-xs text-white transition hover:bg-burgundy/90"
+                  >
+                    {copied === bank.accountNumber ? (
+                      <>
+                        <Check className="h-3 w-3" /> TerSalin
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="h-3 w-3" /> Copy
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
             ))}
 

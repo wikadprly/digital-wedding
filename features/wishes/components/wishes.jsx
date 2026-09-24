@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Heart, Trash2 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { useMotionPreset } from "@/lib/motion";
 import { useWishes } from "@/features/wishes/hooks/use-wishes";
 import { getWishToken } from "@/lib/wish-storage";
+import { resolveGuestName } from "@/lib/invitation-storage";
 import Confetti from "@/components/ui/confetti";
 
 const ATTENDANCE_OPTIONS = [
@@ -37,14 +38,18 @@ function AttendanceIcon({ type }) {
 
 export default function Wishes() {
   const { t } = useTranslation();
-  const [formData, setFormData] = useState({
-    name: "",
-    attendance: "",
-    message: "",
-  });
+  const guestName = useSyncExternalStore(
+    () => () => {},
+    () => resolveGuestName(),
+    () => "",
+  );
+  const nameTouchedRef = useRef(false);
+  const [formData, setFormData] = useState({ name: "", attendance: "", message: "" });
   const [showSuccess, setShowSuccess] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [submitError, setSubmitError] = useState(null);
+  const [nameTouched, setNameTouched] = useState(false);
+  const name = nameTouched ? formData.name : guestName;
 
   const { uid, wishes, isLoading, createMutation, deleteMutation } = useWishes();
   const fadeUp = useMotionPreset("fadeUp");
@@ -71,17 +76,18 @@ export default function Wishes() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.message) return;
+    if (!name || !formData.message) return;
     setSubmitError(null);
 
     try {
       const wishData = {
-        name: formData.name,
+        name,
         attendance: formData.attendance || "attending",
         message: formData.message,
       };
       await createMutation.mutateAsync(wishData);
       setFormData({ name: "", attendance: "", message: "" });
+      setNameTouched(false);
       setShowSuccess(true);
       setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 4000);
@@ -110,13 +116,12 @@ export default function Wishes() {
         transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
         className="pointer-events-none absolute inset-0 z-0"
       >
-        <Image
+<Image
           src="/wayang/p7isi.png"
           alt=""
           width={1080}
           height={1920}
           priority
-          unoptimized
           className="h-full w-full object-cover"
         />
       </motion.div>
@@ -152,9 +157,10 @@ export default function Wishes() {
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <input
             type="text"
-            value={formData.name}
+            value={name}
             onChange={(e) => {
               setSubmitError(null);
+              nameTouchedRef.current = true;
               setFormData({ ...formData, name: e.target.value });
             }}
             placeholder={t("wishes.namePlaceholder")}

@@ -6,16 +6,16 @@ import { useMotionPreset, staggerContainer } from "@/lib/motion";
 
 const STORY_TIMELINE = [
   {
-    year: "2019",
+    year: "2023",
     title: "Awal Bertemu",
     description:
       "Berawal dari sapaan sederhana, dua insan mulai saling mengenal dan menemukan kenyamanan dalam setiap cerita yang dijalani bersama.",
   },
   {
-    year: "2021",
+    year: "2025",
     title: "Menjalin Hubungan",
     description:
-      "Tumbuh menjadi hubungan yang penuh tawa, saling dukung, dan perjalanan bersama dalam memahami, menerima, serta menguatkan satu sama lain.",
+      "Hari demi hari berlalu, kami sering merencanakan makan bersama setiap libur kerja. Tak terasa, hal itu tumbuh menjadi hubungan yang penuh tawa dan saling dukung. Sebuah pertemuan yang tak pernah disangka, hingga akhirnya membawa kami berkomitmen untuk menjalin hubungan ke jenjang lebih serius — pada 25 Oktober 2025, kami telah melangsungkan acara lamaran.",
   },
   {
     year: "2026",
@@ -51,7 +51,6 @@ export default function LoveStory() {
           width={1080}
           height={1206}
           priority
-          unoptimized
           className="h-auto w-full"
         />
       </motion.div>
@@ -69,7 +68,6 @@ export default function LoveStory() {
           width={1080}
           height={1080}
           priority
-          unoptimized
           className="h-auto w-full"
         />
       </motion.div>
