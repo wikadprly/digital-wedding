@@ -92,7 +92,7 @@ export default function Profile() {
   const parentBride = config.parentBride || "Bapak Rema & Ibu Rema";
 
   return (
-    <section id="profile" className="relative overflow-hidden bg-ivory px-6 pb-16 pt-10">
+    <section id="profile" className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-ivory px-6 pb-16 pt-10">
       <Botanical className="pointer-events-none absolute -right-8 top-24 h-40 w-40 -scale-x-100 opacity-[0.08]" />
       <Botanical className="pointer-events-none absolute -left-8 bottom-16 h-40 w-40 opacity-[0.08]" />
 

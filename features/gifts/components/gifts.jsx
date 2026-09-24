@@ -25,7 +25,7 @@ export default function Gifts() {
   return (
     <section
       id="gifts"
-      className="relative overflow-hidden bg-ivory px-6 pb-28 pt-16"
+      className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-ivory px-6 pb-28 pt-16"
     >
       <motion.div
         variants={fadeUp}

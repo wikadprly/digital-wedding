@@ -116,7 +116,7 @@ export default function Wishes() {
         transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
         className="pointer-events-none absolute inset-0 z-0"
       >
-<Image
+        <Image
           src="/wayang/p7isi.png"
           alt=""
           width={1080}

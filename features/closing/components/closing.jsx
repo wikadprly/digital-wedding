@@ -33,7 +33,7 @@ export default function Closing() {
           alt=""
           width={1080}
           height={1920}
-priority
+          priority
           className="h-[38vh] w-full object-cover object-top"
           style={{
             maskImage:
@@ -56,7 +56,7 @@ priority
           alt=""
           width={1080}
           height={515}
-priority
+          priority
           className="h-auto w-full"
         />
       </motion.div>

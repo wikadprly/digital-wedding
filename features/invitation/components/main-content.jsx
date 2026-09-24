@@ -14,13 +14,9 @@ export default function MainContent() {
   return (
     <main>
       <Hero />
-      <section>
-        <Profile />
-      </section>
-      <section>
-        <LoveStory />
-      </section>
-<section className="relative mx-auto w-full max-w-[430px] overflow-hidden">
+      <Profile />
+      <LoveStory />
+      <section className="relative mx-auto w-full max-w-[430px] overflow-hidden">
         {/* komposisi P4 — P4header di atas, P4-P5isi cover mengisi sisa */}
         <div className="pointer-events-none absolute inset-0 flex flex-col">
           <Image
@@ -78,15 +74,9 @@ export default function MainContent() {
 
         <Gallery />
       </section>
-      <section>
-        <Gifts />
-      </section>
-      <section>
-        <Wishes />
-      </section>
-      <section>
-        <Closing />
-      </section>
+      <Gifts />
+      <Wishes />
+      <Closing />
     </main>
   );
 }
