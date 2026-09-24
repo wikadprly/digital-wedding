@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
 import { useMotionPreset, staggerContainer } from "@/lib/motion";
+import Reveal from "@/components/ui/reveal";
 
 const QURAN_VERSE =
   "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.";
@@ -137,11 +138,9 @@ export default function Profile() {
         />
       </div>
 
-      <motion.div
+      <Reveal
         variants={staggerContainer()}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
+        amount={0.55}
         className="relative z-10"
       >
         <SectionHeading title="Bride & Groom" />
@@ -196,7 +195,7 @@ export default function Profile() {
             photo={config.bridePhoto}
           />
         </motion.div>
-      </motion.div>
+      </Reveal>
     </section>
   );
 }

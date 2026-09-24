@@ -6,6 +6,7 @@ import { MessageCircle, ArrowRight } from "lucide-react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
 import { useMotionPreset } from "@/lib/motion";
 import { useTranslation } from "@/lib/i18n";
+import Reveal from "@/components/ui/reveal";
 
 function Diamond() {
   return <span className="inline-block h-1.5 w-1.5 rotate-45 bg-champagne" />;
@@ -62,11 +63,9 @@ export default function Closing() {
       </motion.div>
 
       <Botanical className="pointer-events-none absolute -left-10 top-16 h-44 w-44 -scale-x-100 opacity-[0.1]" />
-      <motion.div
+      <Reveal
         variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
+        amount={0.55}
         className="relative z-10"
       >
         <motion.div variants={fade} className="flex items-center justify-center gap-3">
@@ -113,13 +112,11 @@ export default function Closing() {
           {t("closing.confirmAttendance")}
           <ArrowRight className="h-4 w-4" />
         </motion.button>
-      </motion.div>
+      </Reveal>
 
-      <motion.div
+      <Reveal
         variants={fade}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
+        amount={0.9}
         className="relative z-10 mt-8 flex flex-col items-center gap-4"
       >
         <div className="flex gap-5 text-burgundy/80">
@@ -148,7 +145,7 @@ export default function Closing() {
             <MessageCircle className="h-5 w-5" />
           </a>
         </div>
-      </motion.div>
+      </Reveal>
     </section>
   );
 }

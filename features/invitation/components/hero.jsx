@@ -7,6 +7,7 @@ import { useConfig } from "@/features/invitation/hooks/use-config";
 import { formatEventDate, toJakartaEpoch } from "@/lib/format-event-date";
 import { useTranslation } from "@/lib/i18n";
 import { useMotionPreset, staggerContainer } from "@/lib/motion";
+import Reveal from "@/components/ui/reveal";
 
 function CountBox({ value, label }) {
   return (
@@ -78,6 +79,7 @@ export default function Hero() {
   const config = useConfig();
   const fade = useMotionPreset("fade");
   const fadeUp = useMotionPreset("fadeUp");
+  const zoomIn = useMotionPreset("slowZoom");
   const { t } = useTranslation();
 
   if (!config) return null;
@@ -130,11 +132,9 @@ export default function Hero() {
         />
       </motion.div>
 
-      <motion.div
+      <Reveal
         variants={staggerContainer()}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
+        amount={0.55}
         className="relative z-10 w-full"
       >
         <motion.p
@@ -157,7 +157,7 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          variants={fadeUp}
+          variants={zoomIn}
           whileHover={{ y: -8, scale: 1.03 }}
           transition={{ type: "spring", stiffness: 260, damping: 22 }}
           className="relative mx-auto mt-7 h-64 max-w-[340px] overflow-hidden rounded-[20px] border border-rose-line bg-rosy shadow-[0_18px_40px_-20px_rgba(74,52,56,0.5)]"
@@ -185,7 +185,7 @@ export default function Hero() {
         </motion.p>
 
         <CountdownTimer targetDate={countdownTarget} />
-      </motion.div>
+      </Reveal>
     </section>
   );
 }

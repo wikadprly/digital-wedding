@@ -4,8 +4,9 @@ import { motion } from "motion/react";
 import { CalendarHeart, MapPin } from "lucide-react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
 import { formatEventDate } from "@/lib/format-event-date";
-import { useMotionPreset, staggerContainer } from "@/lib/motion";
+import { useMotionPreset, staggerContainer, fadeUpSpring } from "@/lib/motion";
 import { useTranslation } from "@/lib/i18n";
+import Reveal from "@/components/ui/reveal";
 
 function Diamond() {
   return <span className="inline-block h-1.5 w-1.5 rotate-45 bg-champagne" />;
@@ -17,6 +18,7 @@ function EventRow({ item, date }) {
     .trim();
   return (
     <motion.div
+      variants={fadeUpSpring}
       whileHover={{ x: 6 }}
       className="flex items-center gap-4 rounded-lg py-4 transition-colors hover:bg-rosy/60"
     >
@@ -83,11 +85,9 @@ export default function Events() {
     >
       <Botanical className="pointer-events-none absolute -right-10 top-16 h-40 w-40 rotate-45 opacity-[0.08]" />
 
-      <motion.div
+      <Reveal
         variants={staggerContainer()}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
+        amount={0.55}
         className="relative z-10"
       >
         <div className="text-center">
@@ -117,20 +117,24 @@ export default function Events() {
           variants={fadeUp}
           className="mx-auto mt-8 max-w-md overflow-hidden rounded-[24px] border border-rose-line bg-rosy shadow-[0_20px_40px_-20px_rgba(74,52,56,0.45)]"
         >
-          <div className="px-6 pt-4">
-            {agenda.map((item, i) => (
-              <div key={i}>
-                <EventRow item={item} date={item.date || config.date} />
-                {i < agenda.length - 1 && (
-                  <div className="flex items-center gap-3 px-2 py-1">
-                    <span className="h-px flex-1 border-t border-dashed border-rose-line" />
-                    <span className="inline-block h-1.5 w-1.5 rotate-45 bg-champagne" />
-                    <span className="h-px flex-1 border-t border-dashed border-rose-line" />
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+<Reveal
+          variants={staggerContainer(0.15)}
+          amount={0.6}
+          className="px-6 pt-4"
+        >
+          {agenda.map((item, i) => (
+            <motion.div key={i} variants={fadeUpSpring}>
+              <EventRow item={item} date={item.date || config.date} />
+              {i < agenda.length - 1 && (
+                <div className="flex items-center gap-3 px-2 py-1">
+                  <span className="h-px flex-1 border-t border-dashed border-rose-line" />
+                  <span className="inline-block h-1.5 w-1.5 rotate-45 bg-champagne" />
+                  <span className="h-px flex-1 border-t border-dashed border-rose-line" />
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </Reveal>
 
           {/* location */}
           <div className="border-t border-rose-line bg-ivory px-6 py-5">
@@ -194,7 +198,7 @@ export default function Events() {
                 </ul>
               </motion.div>
             )}
-      </motion.div>
+      </Reveal>
     </section>
   );
 }

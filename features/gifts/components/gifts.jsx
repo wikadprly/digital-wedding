@@ -4,13 +4,13 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { Gift, Copy, Check, Landmark, Box } from "lucide-react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
-import { useMotionPreset } from "@/lib/motion";
+import { staggerContainer, fadeUpSpring } from "@/lib/motion";
+import Reveal from "@/components/ui/reveal";
 
 export default function Gifts() {
   const config = useConfig();
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(null);
-  const fadeUp = useMotionPreset("fadeUp");
 
   if (!config) return null;
 
@@ -27,11 +27,9 @@ export default function Gifts() {
       id="gifts"
       className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-ivory px-6 pb-28 pt-16"
     >
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
+      <Reveal
+        variants={fadeUpSpring}
+        amount={0.6}
         className="relative z-10 mx-auto max-w-md rounded-[24px] bg-rosy p-8 text-center shadow-[0_20px_40px_-20px_rgba(74,52,56,0.45)]"
       >
         <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-burgundy/10">
@@ -56,10 +54,16 @@ export default function Gifts() {
         </motion.button>
 
         {isOpen && (
-          <div className="mt-8 space-y-5">
+          <motion.div
+            variants={staggerContainer(0.18)}
+            initial="hidden"
+            animate="visible"
+            className="mt-8 space-y-5"
+          >
             {(config.banks || []).map((bank, index) => (
-              <div
+              <motion.div
                 key={index}
+                variants={fadeUpSpring}
                 className="relative overflow-hidden rounded-2xl border border-rose-line bg-ivory/60 p-5 text-left"
               >
                 <div className="mb-4 flex items-start justify-between">
@@ -90,10 +94,13 @@ export default function Gifts() {
                     )}
                   </button>
                 )}
-              </div>
+              </motion.div>
             ))}
 
-            <div className="relative overflow-hidden rounded-2xl border border-rose-line bg-ivory/60 p-5 text-center">
+            <motion.div
+              variants={fadeUpSpring}
+              className="relative overflow-hidden rounded-2xl border border-rose-line bg-ivory/60 p-5 text-center"
+            >
               <Box className="mx-auto h-8 w-8 text-brown-mute" />
               <h3 className="mt-2 font-semibold text-brown">Kirim Hadiah</h3>
               <div className="mt-3 text-xs leading-relaxed text-brown-mute">
@@ -137,10 +144,10 @@ export default function Gifts() {
                   )}
                 </button>
               )}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
-      </motion.div>
+      </Reveal>
     </section>
   );
 }

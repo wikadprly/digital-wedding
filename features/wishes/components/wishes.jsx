@@ -10,6 +10,8 @@ import { useWishes } from "@/features/wishes/hooks/use-wishes";
 import { getWishToken } from "@/lib/wish-storage";
 import { resolveGuestName } from "@/lib/invitation-storage";
 import Confetti from "@/components/ui/confetti";
+import Parallax from "@/components/ui/parallax";
+import Reveal from "@/components/ui/reveal";
 
 const ATTENDANCE_OPTIONS = [
   { value: "attending", key: "wishes.attending", icon: "check" },
@@ -109,13 +111,8 @@ export default function Wishes() {
     >
       <Confetti show={showConfetti} />
 
-      {/* dekorasi layerbunga — full halaman, di belakang konten */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 5, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute inset-0 z-0"
-      >
+{/* dekorasi layerbunga — full halaman, di belakang konten, parallax halus */}
+      <Parallax speed={0.3}>
         <Image
           src="/wayang/p7isi.png"
           alt=""
@@ -124,13 +121,11 @@ export default function Wishes() {
           priority
           className="h-full w-full object-cover"
         />
-      </motion.div>
+      </Parallax>
 
-      <motion.div
+      <Reveal
         variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
+        amount={0.6}
         className="relative z-10 mx-auto max-w-md rounded-[24px] bg-rosy p-8 shadow-[0_20px_40px_-20px_rgba(74,52,56,0.45)]"
       >
         <div className="text-center">
@@ -211,7 +206,7 @@ export default function Wishes() {
             {createMutation.isPending ? t("wishes.sending") : t("wishes.sendButton")}
           </motion.button>
         </form>
-      </motion.div>
+      </Reveal>
 
       <div className="relative z-10 mx-auto mt-8 max-w-md space-y-3">
         {isLoading ? (
@@ -220,12 +215,10 @@ export default function Wishes() {
           </div>
         ) : data.length > 0 ? (
           data.map((wish) => (
-            <motion.div
+            <Reveal
               key={wish.id}
               variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
+              amount={0.9}
               whileHover={{ y: -4, boxShadow: "0 12px 24px -14px rgba(74,52,56,0.35)" }}
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
               className="rounded-2xl bg-rosy p-4"
@@ -253,7 +246,7 @@ export default function Wishes() {
                 </span>
               </div>
               <p className="mt-1 text-sm text-brown-mute">{wish.message}</p>
-            </motion.div>
+            </Reveal>
           ))
         ) : (
           <div className="rounded-2xl bg-rosy p-6 text-center text-sm text-burgundy">

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { useMotionPreset, staggerContainer } from "@/lib/motion";
+import Reveal from "@/components/ui/reveal";
 
 const STORY_TIMELINE = [
   {
@@ -74,11 +75,9 @@ export default function LoveStory() {
 
       <Botanical className="pointer-events-none absolute -left-8 top-40 h-40 w-40 opacity-[0.08]" />
 
-      <motion.div
+      <Reveal
         variants={staggerContainer()}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
+        amount={0.55}
         className="relative z-10"
       >
         <div className="text-center">
@@ -135,7 +134,7 @@ export default function LoveStory() {
         >
           &ldquo;Two souls, one journey, forever begins here.&rdquo;
         </motion.p>
-      </motion.div>
+      </Reveal>
     </section>
   );
 }

@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
 import { useMotionPreset } from "@/lib/motion";
+import Reveal from "@/components/ui/reveal";
 
 const GALLERY_IMAGES = [
   { src: "/images/awal%20our%20galerry.JPG", position: "object-top", delay: 0 },
@@ -28,11 +28,9 @@ export default function Gallery() {
       <Botanical className="pointer-events-none absolute -left-10 bottom-24 h-40 w-40 -scale-x-100 opacity-[0.08]" />
       <Botanical className="pointer-events-none absolute -right-8 top-24 h-40 w-40 opacity-[0.08]" />
 
-      <motion.div
+      <Reveal
         variants={fadeUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
+        amount={0.7}
         className="relative z-10 text-center"
       >
         <h2 className="font-serif text-2xl uppercase tracking-[0.22em] text-ivory">
@@ -43,16 +41,14 @@ export default function Gallery() {
           <Diamond />
           <span className="h-px w-8 bg-champagne" />
         </div>
-      </motion.div>
+      </Reveal>
 
       <div className="relative z-10 mx-auto mt-8 grid max-w-md grid-cols-2 gap-4">
         {GALLERY_IMAGES.map((img, i) => (
-          <motion.div
+          <Reveal
             key={i}
             variants={scaleIn}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            amount={0.85}
             transition={{ delay: i * 0.1 }}
             whileHover={{
               y: -8,
@@ -75,7 +71,7 @@ export default function Gallery() {
               }
               className={`object-cover transition-transform duration-700 hover:scale-105 ${img.position}`}
             />
-          </motion.div>
+          </Reveal>
         ))}
       </div>
     </section>
