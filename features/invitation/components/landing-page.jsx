@@ -27,7 +27,7 @@ export default function LandingPage({ onOpenInvitation }) {
           animate: { opacity: 1, scale: 1 },
           transition: {
             duration: 1.2,
-            delay: 2 + 0.25 * i,
+            delay: 0.25 * i,
             ease: [0.22, 1, 0.36, 1],
           },
         };

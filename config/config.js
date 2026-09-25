@@ -60,11 +60,6 @@ const config = {
         accountNumber: "667501035335532",
         accountName: "Rema Puji Lestari",
       },
-      {
-        bank: "BRI",
-        accountNumber: "",
-        accountName: "Risqi Fitriyadi Rizal Pratama",
-      },
     ],
     giftAddress: {
       receiver: "Rema Puji Lestari",

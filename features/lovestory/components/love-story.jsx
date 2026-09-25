@@ -47,10 +47,10 @@ export default function LoveStory() {
         className="pointer-events-none absolute inset-x-0 top-0 z-0 flex justify-center"
       >
         <Image
-          src="/jawa/P3header.png"
+          src="/wayang/p3header.png"
           alt=""
           width={1080}
-          height={1206}
+          height={1080}
           priority
           className="h-auto w-full"
         />
@@ -64,7 +64,7 @@ export default function LoveStory() {
         className="pointer-events-none absolute inset-x-0 bottom-0 z-0 flex justify-center"
       >
         <Image
-          src="/jawa/P3footer.png"
+          src="/wayang/p3footer.png"
           alt=""
           width={1080}
           height={1080}

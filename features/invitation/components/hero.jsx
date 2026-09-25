@@ -134,7 +134,7 @@ export default function Hero() {
 
       <Reveal
         variants={staggerContainer()}
-        amount={0.55}
+        amount={0.2}
         className="relative z-10 w-full"
       >
         <motion.p
