@@ -5,11 +5,11 @@ import { useMotionPreset } from "@/lib/motion";
 import Reveal from "@/components/ui/reveal";
 
 const GALLERY_IMAGES = [
-  { src: "/images/awal%20our%20galerry.JPG", position: "object-top", delay: 0, lift: "scale-y-[1.08] -translate-y-[10px]" },
-  { src: "/images/Salinan%20DSCF0077.JPG", position: "object-center", delay: 100 },
-  { src: "/images/Salinan%20DSCF0105.JPG", position: "object-bottom", delay: 200 },
-  { src: "/images/Salinan%20DSCF0118.JPG", position: "object-center", delay: 300 },
-  { src: "/images/our4.jpeg", position: "object-top", delay: 400 },
+  "/images/awal%20our%20galerry.JPG",
+  "/images/Salinan%20DSCF0077.JPG",
+  "/images/Salinan%20DSCF0105.JPG",
+  "/images/Salinan%20DSCF0118.JPG",
+  "/images/our4.jpeg",
 ];
 
 function Diamond() {
@@ -44,9 +44,9 @@ export default function Gallery() {
       </Reveal>
 
       <div className="relative z-10 mx-auto mt-8 grid max-w-md grid-cols-2 gap-4">
-        {GALLERY_IMAGES.map((img, i) => (
+        {GALLERY_IMAGES.map((src, i) => (
           <Reveal
-            key={i}
+            key={src}
             variants={scaleIn}
             amount={0.85}
             transition={{ delay: i * 0.1 }}
@@ -61,7 +61,7 @@ export default function Gallery() {
             }`}
           >
             <Image
-              src={img.src}
+              src={src}
               alt={`Gallery ${i + 1}`}
               fill
               sizes={
@@ -69,7 +69,7 @@ export default function Gallery() {
                   ? "(max-width: 768px) calc(100vw - 48px), 448px"
                   : "(max-width: 768px) 50vw, 320px"
               }
-              className={`${img.lift ?? ""} object-cover transition-transform duration-700 hover:scale-105 ${img.position}`}
+              className="object-cover object-center transition-transform duration-700 hover:scale-105"
             />
           </Reveal>
         ))}
