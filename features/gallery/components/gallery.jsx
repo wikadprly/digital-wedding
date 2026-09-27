@@ -5,11 +5,11 @@ import { useMotionPreset } from "@/lib/motion";
 import Reveal from "@/components/ui/reveal";
 
 const GALLERY_IMAGES = [
-  { src: "/images/awal%20our%20galerry.JPG", position: "object-top", delay: 0 },
+  { src: "/images/awal%20our%20galerry.JPG", position: "object-top", delay: 0, lift: "scale-y-[1.08] -translate-y-[10px]" },
   { src: "/images/Salinan%20DSCF0077.JPG", position: "object-center", delay: 100 },
   { src: "/images/Salinan%20DSCF0105.JPG", position: "object-bottom", delay: 200 },
   { src: "/images/Salinan%20DSCF0118.JPG", position: "object-center", delay: 300 },
-  { src: "/images/Salinan%20DSCF0122.JPG", position: "object-top", delay: 400 },
+  { src: "/images/our4.jpeg", position: "object-top", delay: 400 },
 ];
 
 function Diamond() {
@@ -69,7 +69,7 @@ export default function Gallery() {
                   ? "(max-width: 768px) calc(100vw - 48px), 448px"
                   : "(max-width: 768px) 50vw, 320px"
               }
-              className={`object-cover transition-transform duration-700 hover:scale-105 ${img.position}`}
+              className={`${img.lift ?? ""} object-cover transition-transform duration-700 hover:scale-105 ${img.position}`}
             />
           </Reveal>
         ))}

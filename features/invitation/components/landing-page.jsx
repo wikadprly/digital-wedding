@@ -97,7 +97,7 @@ export default function LandingPage({ onOpenInvitation }) {
                 fill
                 sizes="215px"
                 priority
-                className="object-cover"
+                className="scale-y-[1.05] -translate-y-[3px] object-cover"
               />
             </div>
           </div>
