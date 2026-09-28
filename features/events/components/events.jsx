@@ -7,10 +7,8 @@ import { formatEventDate } from "@/lib/format-event-date";
 import { useMotionPreset, staggerContainer, fadeUpSpring } from "@/lib/motion";
 import { useTranslation } from "@/lib/i18n";
 import Reveal from "@/components/ui/reveal";
-
-function Diamond() {
-  return <span className="inline-block h-1.5 w-1.5 rotate-45 bg-champagne" />;
-}
+import { Diamond } from "@/components/ui/divider";
+import { Botanical } from "@/components/ui/botanical";
 
 function EventRow({ item, date }) {
   const time = `${item.startTime} - ${item.endTime}`
@@ -142,21 +140,27 @@ export default function Events() {
               <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-burgundy" />
               <div className="min-w-0">
                 <p className="text-[11px] font-semibold uppercase tracking-widest text-brown-mute">
-                  Tempat
+                  {t("location.eventVenue")}
                 </p>
                 <p className="text-sm font-semibold text-brown">
-                  {config.location}
+                  {config.location || config.address || (
+                    <span className="font-normal text-brown-mute">
+                      {t("gifts.unknown")}
+                    </span>
+                  )}
                 </p>
-                {config.address && (
-                  <>
-                    <p className="mt-2 text-[11px] font-semibold uppercase tracking-widest text-brown-mute">
-                      Alamat
-                    </p>
-                    <p className="mt-0.5 text-sm leading-relaxed text-brown-mute">
-                      {config.address}
-                    </p>
-                  </>
-                )}
+                {config.location &&
+                  config.address &&
+                  config.address !== config.location && (
+                    <>
+                      <p className="mt-2 text-[11px] font-semibold uppercase tracking-widest text-brown-mute">
+                        Alamat
+                      </p>
+                      <p className="mt-0.5 text-sm leading-relaxed text-brown-mute">
+                        {config.address}
+                      </p>
+                    </>
+                  )}
               </div>
             </div>
             <div className="mt-4 flex gap-3">
@@ -200,25 +204,5 @@ export default function Events() {
             )}
       </Reveal>
     </section>
-  );
-}
-
-function Botanical({ className }) {
-  return (
-    <svg viewBox="0 0 140 140" fill="none" className={className} style={{ color: "#9A5368" }} aria-hidden>
-      <path
-        d="M8 8c14 2 30 10 38 24 6 11 6 24-2 32-7 7-19 6-24-2-4-7-2-16 6-19"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <path
-        d="M8 8c2 18 10 36 26 46 12 8 27 9 36 1"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <circle cx="46" cy="34" r="2.5" fill="currentColor" />
-    </svg>
   );
 }

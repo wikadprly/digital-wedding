@@ -4,24 +4,19 @@
  * Usage:
  *   npm run generate-links
  *
- * This will output personalized invitation links for each guest
+ * Loads NEXT_PUBLIC_SITE_URL from .env.local / .env, falling back to
+ * http://localhost:3000. Set it to your production domain before sharing links.
  */
 
 import config from "./config/config.js";
 
-function generateInvitationLink(
-  uid,
-  guestName,
-  baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-) {
+function generateInvitationLink(uid, guestName, baseUrl) {
   const encodedName = encodeURIComponent(guestName);
   return `${baseUrl}/${uid}?to=${encodedName}`;
 }
 
 // ===== CONFIGURATION =====
 const INVITATION_UID = config.data.uid; // diatur di config/config.js
-// Untuk link produksi, set NEXT_PUBLIC_SITE_URL (contoh: https://domain-anda.com)
-// atau ubah fallback di bawah ini.
 const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(
   /\/$/,
   "",

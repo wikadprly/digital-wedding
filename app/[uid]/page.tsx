@@ -8,6 +8,8 @@ type PageProps = {
   params: Promise<{ uid: string }>;
 };
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return [{ uid: staticConfig.data.uid }];
 }
@@ -46,10 +48,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function InvitationPage({ params }: PageProps) {
   const { uid } = await params;
-
-  if (uid !== staticConfig.data.uid) {
-    notFound();
-  }
 
   return (
     <LanguageProvider language="id">

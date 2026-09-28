@@ -4,6 +4,8 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { useMotionPreset, staggerContainer } from "@/lib/motion";
 import Reveal from "@/components/ui/reveal";
+import { Diamond } from "@/components/ui/divider";
+import { Botanical } from "@/components/ui/botanical";
 
 const STORY_TIMELINE = [
   {
@@ -16,7 +18,7 @@ const STORY_TIMELINE = [
     year: "2025",
     title: "Menjalin Hubungan",
     description:
-      "Hari demi hari berlalu, kami sering merencanakan makan bersama setiap libur kerja. Tak terasa, hal itu tumbuh menjadi hubungan yang penuh tawa dan saling dukung. Sebuah pertemuan yang tak pernah disangka, hingga akhirnya membawa kami berkomitmen untuk menjalin hubungan ke jenjang lebih serius — pada 25 Oktober 2025, kami telah melangsungkan acara lamaran.",
+      "Hari demi hari berlalu, kami sering merencanakan makan bersama setiap libur kerja. Tak terasa, hal itu tumbuh menjadi hubungan yang penuh tawa dan saling dukung. Sebuah pertemuan yang tak pernah disangka, hingga akhirnya membawa kami berkomitmen untuk menjalin hubungan ke jenjang lebih serius Ã¢â‚¬â€ pada 25 Oktober 2025, kami telah melangsungkan acara lamaran.",
   },
   {
     year: "2026",
@@ -26,9 +28,7 @@ const STORY_TIMELINE = [
   },
 ];
 
-function Diamond() {
-  return <span className="inline-block h-1.5 w-1.5 rotate-45 bg-champagne" />;
-}
+
 
 export default function LoveStory() {
   const fade = useMotionPreset("fade");
@@ -39,7 +39,7 @@ export default function LoveStory() {
       id="lovestory"
       className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-ivory px-6 pb-28 pt-16"
     >
-      {/* dekorasi atas dari gambar atasP3 — turun pelan dari atas sekali lalu berhenti */}
+      {/* dekorasi atas dari gambar atasP3 Ã¢â‚¬â€ turun pelan dari atas sekali lalu berhenti */}
       <motion.div
         initial={{ y: -90, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -56,7 +56,7 @@ export default function LoveStory() {
         />
       </motion.div>
 
-      {/* dekorasi bawah dari gambar bawahP3 — muncul pelan dari bawah sekali lalu berhenti */}
+      {/* dekorasi bawah dari gambar bawahP3 Ã¢â‚¬â€ muncul pelan dari bawah sekali lalu berhenti */}
       <motion.div
         initial={{ y: 90, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -136,25 +136,5 @@ export default function LoveStory() {
         </motion.p>
       </Reveal>
     </section>
-  );
-}
-
-function Botanical({ className }) {
-  return (
-    <svg viewBox="0 0 140 140" fill="none" className={className} style={{ color: "#9A5368" }} aria-hidden>
-      <path
-        d="M8 8c14 2 30 10 38 24 6 11 6 24-2 32-7 7-19 6-24-2-4-7-2-16 6-19"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <path
-        d="M8 8c2 18 10 36 26 46 12 8 27 9 36 1"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <circle cx="46" cy="34" r="2.5" fill="currentColor" />
-    </svg>
   );
 }

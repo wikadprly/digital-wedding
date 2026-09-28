@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "seed": "node db/seed.mjs",
-    "generate-links": "node generate-links.js"
+    "generate-links": "node --env-file-if-exists=.env.local --env-file-if-exists=.env generate-links.mjs"
   },
   "dependencies": {
     "@neon/config": "^1.4.2",

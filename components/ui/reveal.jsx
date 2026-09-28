@@ -3,53 +3,47 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 
+const ENTRY_MARGIN = "0px 0px -20% 0px";
+
 export default function Reveal({
   children,
   variants,
-  amount = 0.55,
+  amount = 0.15,
+  once = true,
   className = "",
   transition,
   ...rest
 }) {
   const ref = useRef(null);
   const [state, setState] = useState("hidden");
-  const stateRef = useRef("hidden");
-
-  const syncState = (next) => {
-    if (stateRef.current === next) return;
-    stateRef.current = next;
-    setState(next);
-  };
+  const hasRevealedRef = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (once && hasRevealedRef.current) return;
 
-    const enter = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && stateRef.current === "hidden") {
-          syncState("visible");
+        if (!entry.isIntersecting) {
+          if (!once) setState("hidden");
+          return;
         }
+        if (hasRevealedRef.current) return;
+
+        const tallerThanViewport = entry.boundingClientRect.height > window.innerHeight;
+        const required = tallerThanViewport ? 0 : amount;
+        if (entry.intersectionRatio < required) return;
+
+        hasRevealedRef.current = true;
+        setState("visible");
       },
-      { threshold: amount }
+      { threshold: [0, amount], rootMargin: ENTRY_MARGIN }
     );
 
-    const exit = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting && stateRef.current === "visible") {
-          syncState("hidden");
-        }
-      },
-      { threshold: 0 }
-    );
-
-    enter.observe(el);
-    exit.observe(el);
-    return () => {
-      enter.disconnect();
-      exit.disconnect();
-    };
-  }, [amount]);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [amount, once]);
 
   return (
     <motion.div

@@ -8,6 +8,8 @@ import { formatEventDate, toJakartaEpoch } from "@/lib/format-event-date";
 import { useTranslation } from "@/lib/i18n";
 import { useMotionPreset, staggerContainer } from "@/lib/motion";
 import Reveal from "@/components/ui/reveal";
+import { Diamond } from "@/components/ui/divider";
+import { Botanical } from "@/components/ui/botanical";
 
 function CountBox({ value, label }) {
   return (
@@ -69,12 +71,6 @@ function CountdownTimer({ targetDate }) {
   );
 }
 
-function Diamond({ className }) {
-  return (
-    <span className={`inline-block h-1.5 w-1.5 rotate-45 bg-champagne ${className}`} />
-  );
-}
-
 export default function Hero() {
   const config = useConfig();
   const fade = useMotionPreset("fade");
@@ -96,9 +92,12 @@ export default function Hero() {
       id="home"
       className="relative mx-auto flex w-full max-w-[430px] flex-col items-center overflow-hidden bg-ivory px-6 pb-[20vh] pt-[15vh] text-center"
     >
-      <Botanical className="pointer-events-none absolute -right-10 top-10 h-36 w-36 rotate-45 opacity-15" />
+      <Botanical
+        showDot={false}
+        className="pointer-events-none absolute -right-10 top-10 h-36 w-36 rotate-45 opacity-15"
+      />
 
-      {/* dekorasi atas p1header — animasi pembuka: meluncur diagonal sekali, lalu diam */}
+      {/* dekorasi atas p1header â€” animasi pembuka: meluncur diagonal sekali, lalu diam */}
       <motion.div
         initial={{ y: "-120%", opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -115,7 +114,7 @@ export default function Hero() {
         />
       </motion.div>
 
-      {/* dekorasi bawah coverfooter — muncul pelan dari bawah sekali lalu berhenti */}
+      {/* dekorasi bawah coverfooter â€” muncul pelan dari bawah sekali lalu berhenti */}
       <motion.div
         initial={{ y: 90, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -187,24 +186,5 @@ export default function Hero() {
         <CountdownTimer targetDate={countdownTarget} />
       </Reveal>
     </section>
-  );
-}
-
-function Botanical({ className }) {
-  return (
-    <svg viewBox="0 0 140 140" fill="none" className={className} style={{ color: "#9A5368" }} aria-hidden>
-      <path
-        d="M8 8c14 2 30 10 38 24 6 11 6 24-2 32-7 7-19 6-24-2-4-7-2-16 6-19"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <path
-        d="M8 8c2 18 10 36 26 46 12 8 27 9 36 1"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-    </svg>
   );
 }

@@ -7,6 +7,7 @@ import { useSyncExternalStore } from "react";
 import { useTranslation } from "@/lib/i18n";
 import { useConfig } from "@/features/invitation/hooks/use-config";
 import { resolveGuestName } from "@/lib/invitation-storage";
+import { Diamond } from "@/components/ui/divider";
 
 export default function LandingPage({ onOpenInvitation }) {
   const shouldReduceMotion = useReducedMotion();
@@ -84,7 +85,7 @@ export default function LandingPage({ onOpenInvitation }) {
           <Diamond />
         </motion.div>
 
-        {/* photo frame — vertical oval / arched */}
+        {/* photo frame â€” vertical oval / arched */}
         <motion.div
           {...stage(2)}
           className="relative mt-5 w-[clamp(160px,48vw,215px)] aspect-[3/4] rounded-[130px_130px_26px_26px] border border-burgundy/40 bg-rosy/40 p-2 shadow-[0_16px_36px_-18px_rgba(0,0,0,0.4)] backdrop-blur-[2px]"
@@ -147,20 +148,10 @@ export default function LandingPage({ onOpenInvitation }) {
         {/* divider */}
         <motion.div {...stage(8)} className="mt-8 flex items-center gap-3">
           <span className="h-px w-8 bg-champagne/80" />
-          <Diamond small />
+          <Diamond size="lg" />
           <span className="h-px w-8 bg-champagne/80" />
         </motion.div>
       </div>
     </div>
-  );
-}
-
-function Diamond({ small }) {
-  return (
-    <span
-      className={
-        small ? "inline-block h-1.5 w-1.5 rotate-45 bg-champagne" : "inline-block h-2 w-2 rotate-45 bg-champagne"
-      }
-    />
   );
 }

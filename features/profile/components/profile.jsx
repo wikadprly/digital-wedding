@@ -5,6 +5,8 @@ import { motion } from "motion/react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
 import { useMotionPreset, staggerContainer } from "@/lib/motion";
 import Reveal from "@/components/ui/reveal";
+import { Diamond } from "@/components/ui/divider";
+import { Botanical } from "@/components/ui/botanical";
 
 const QURAN_VERSE =
   "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir.";
@@ -25,9 +27,7 @@ function SectionHeading({ title }) {
   );
 }
 
-function Diamond() {
-  return <span className="inline-block h-1.5 w-1.5 rotate-45 bg-champagne" />;
-}
+
 
 function Portrait({ src, initial }) {
   if (src) {
@@ -97,9 +97,9 @@ export default function Profile() {
       <Botanical className="pointer-events-none absolute -right-8 top-24 h-40 w-40 -scale-x-100 opacity-[0.08]" />
       <Botanical className="pointer-events-none absolute -left-8 bottom-16 h-40 w-40 opacity-[0.08]" />
 
-      {/* dekorasi atas P2header dihapus — isi P2 naik sedikit menggantikan posisinya */}
+      {/* dekorasi atas P2header dihapus Ã¢â‚¬â€ isi P2 naik sedikit menggantikan posisinya */}
 
-      {/* dekorasi bawah — muncul pelan dari bawah sekali lalu berhenti */}
+      {/* dekorasi bawah Ã¢â‚¬â€ muncul pelan dari bawah sekali lalu berhenti */}
       <motion.div
         initial={{ y: 90, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -116,7 +116,7 @@ export default function Profile() {
         />
       </motion.div>
 
-      {/* isi P2 atas — naik sedikit menggantikan header, sisa space dikit di atas */}
+      {/* isi P2 atas Ã¢â‚¬â€ naik sedikit menggantikan header, sisa space dikit di atas */}
       <div className="pointer-events-none absolute inset-x-0 top-[8%] z-0">
         <Image
           src="/wayang/p2isiatas.png"
@@ -127,7 +127,7 @@ export default function Profile() {
         />
       </div>
 
-      {/* isi P2 bawah — menjelang akhir section (boleh tumpang tindih dengan isi atas) */}
+      {/* isi P2 bawah Ã¢â‚¬â€ menjelang akhir section (boleh tumpang tindih dengan isi atas) */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0">
         <Image
           src="/wayang/p2isibawah.png"
@@ -197,25 +197,5 @@ export default function Profile() {
         </motion.div>
       </Reveal>
     </section>
-  );
-}
-
-function Botanical({ className }) {
-  return (
-    <svg viewBox="0 0 140 140" fill="none" className={className} style={{ color: "#9A5368" }} aria-hidden>
-      <path
-        d="M8 8c14 2 30 10 38 24 6 11 6 24-2 32-7 7-19 6-24-2-4-7-2-16 6-19"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <path
-        d="M8 8c2 18 10 36 26 46 12 8 27 9 36 1"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <circle cx="46" cy="34" r="2.5" fill="currentColor" />
-    </svg>
   );
 }

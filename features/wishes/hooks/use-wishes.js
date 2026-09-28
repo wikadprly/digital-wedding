@@ -7,6 +7,8 @@ import {
   clearWishToken,
 } from "@/lib/wish-storage";
 
+const PAGE_SIZE = 50;
+
 export function useWishes() {
   const { uid } = useInvitation();
   const queryClient = useQueryClient();
@@ -14,8 +16,17 @@ export function useWishes() {
   const wishesQuery = useQuery({
     queryKey: ["wishes", uid],
     queryFn: async () => {
-      const res = await fetchWishes(uid);
-      return Array.isArray(res) ? res : res?.data || [];
+      const res = await fetchWishes(uid, { limit: PAGE_SIZE });
+      if (Array.isArray(res)) {
+        return { wishes: res, total: res.length };
+      }
+      return {
+        wishes: Array.isArray(res?.data) ? res.data : [],
+        total:
+          Number.isFinite(res?.pagination?.total)
+            ? res.pagination.total
+            : (res?.data?.length ?? 0),
+      };
     },
     enabled: !!uid,
     staleTime: 30 * 1000,
@@ -46,11 +57,15 @@ export function useWishes() {
     },
   });
 
+  const payload = wishesQuery.data;
+
   return {
     uid,
-    wishes: wishesQuery.data,
+    wishes: payload?.wishes,
+    total: payload?.total ?? 0,
     isLoading: wishesQuery.isLoading,
     error: wishesQuery.error,
+    refetch: wishesQuery.refetch,
     createMutation,
     deleteMutation,
   };

@@ -1,24 +1,27 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { useMotionPreset } from "@/lib/motion";
 import Reveal from "@/components/ui/reveal";
+import GalleryLightbox from "@/components/ui/gallery-lightbox";
+import { Diamond } from "@/components/ui/divider";
+import { Botanical } from "@/components/ui/botanical";
+import { useTranslation } from "@/lib/i18n";
 
 const GALLERY_IMAGES = [
-  "/images/awal%20our%20galerry.JPG",
-  "/images/Salinan%20DSCF0077.JPG",
-  "/images/Salinan%20DSCF0105.JPG",
-  "/images/Salinan%20DSCF0118.JPG",
-  "/images/our4.jpeg",
+  { src: "/images/awal%20our%20galerry.JPG", alt: "galeri-1" },
+  { src: "/images/Salinan%20DSCF0077.JPG", alt: "galeri-2" },
+  { src: "/images/Salinan%20DSCF0105.JPG", alt: "galeri-3" },
+  { src: "/images/Salinan%20DSCF0118.JPG", alt: "galeri-4" },
+  { src: "/images/our4.jpeg", alt: "galeri-5" },
 ];
-
-function Diamond() {
-  return <span className="inline-block h-1.5 w-1.5 rotate-45 bg-champagne" />;
-}
 
 export default function Gallery() {
   const scaleIn = useMotionPreset("scaleIn");
   const fadeUp = useMotionPreset("fadeUp");
+  const { t } = useTranslation();
+  const [activeIndex, setActiveIndex] = useState(null);
 
   return (
     <section
@@ -34,7 +37,7 @@ export default function Gallery() {
         className="relative z-10 text-center"
       >
         <h2 className="font-serif text-2xl uppercase tracking-[0.22em] text-ivory">
-          Our Gallery
+          {t("gallery.title")}
         </h2>
         <div className="mt-4 flex items-center justify-center gap-3">
           <span className="h-px w-8 bg-champagne" />
@@ -44,11 +47,11 @@ export default function Gallery() {
       </Reveal>
 
       <div className="relative z-10 mx-auto mt-8 grid max-w-md grid-cols-2 gap-4">
-        {GALLERY_IMAGES.map((src, i) => (
+        {GALLERY_IMAGES.map((image, i) => (
           <Reveal
-            key={src}
+            key={image.src}
             variants={scaleIn}
-            amount={0.85}
+            amount={0.4}
             transition={{ delay: i * 0.1 }}
             whileHover={{
               y: -8,
@@ -60,40 +63,34 @@ export default function Gallery() {
               i === 0 ? "col-span-2 h-64" : "h-44"
             }`}
           >
-            <Image
-              src={src}
-              alt={`Gallery ${i + 1}`}
-              fill
-              sizes={
-                i === 0
-                  ? "(max-width: 768px) calc(100vw - 48px), 448px"
-                  : "(max-width: 768px) 50vw, 320px"
-              }
-              className="object-cover object-center transition-transform duration-700 hover:scale-105"
-            />
+            <button
+              type="button"
+              onClick={() => setActiveIndex(i)}
+              aria-label={`${t("gallery.open")} ${i + 1}`}
+              className="block h-full w-full"
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes={
+                  i === 0
+                    ? "(max-width: 768px) calc(100vw - 48px), 448px"
+                    : "(max-width: 768px) 50vw, 320px"
+                }
+                className="object-cover object-center transition-transform duration-700 hover:scale-105"
+              />
+            </button>
           </Reveal>
         ))}
       </div>
-    </section>
-  );
-}
 
-function Botanical({ className }) {
-  return (
-    <svg viewBox="0 0 140 140" fill="none" className={className} style={{ color: "#9A5368" }} aria-hidden>
-      <path
-        d="M8 8c14 2 30 10 38 24 6 11 6 24-2 32-7 7-19 6-24-2-4-7-2-16 6-19"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
+      <GalleryLightbox
+        images={GALLERY_IMAGES}
+        index={activeIndex}
+        onIndexChange={setActiveIndex}
+        onClose={() => setActiveIndex(null)}
       />
-      <path
-        d="M8 8c2 18 10 36 26 46 12 8 27 9 36 1"
-        stroke="currentColor"
-        strokeWidth="1"
-        strokeLinecap="round"
-      />
-      <circle cx="46" cy="34" r="2.5" fill="currentColor" />
-    </svg>
+    </section>
   );
 }

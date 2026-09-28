@@ -1,13 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Heart, Trash2 } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { useMotionPreset } from "@/lib/motion";
 import { useWishes } from "@/features/wishes/hooks/use-wishes";
-import { getWishToken } from "@/lib/wish-storage";
+import { getWishToken, subscribeWishToken } from "@/lib/wish-storage";
 import { resolveGuestName } from "@/lib/invitation-storage";
 import Confetti from "@/components/ui/confetti";
 import Parallax from "@/components/ui/parallax";
@@ -46,6 +46,7 @@ export default function Wishes() {
     () => "",
   );
   const nameTouchedRef = useRef(false);
+  const confettiTimerRef = useRef(null);
   const [formData, setFormData] = useState({ name: "", attendance: "", message: "" });
   const [showSuccess, setShowSuccess] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
@@ -53,11 +54,28 @@ export default function Wishes() {
   const [nameTouched, setNameTouched] = useState(false);
   const name = nameTouched ? formData.name : guestName;
 
-  const { uid, wishes, isLoading, createMutation, deleteMutation } = useWishes();
+  const {
+    uid,
+    wishes,
+    total,
+    isLoading,
+    error,
+    refetch,
+    createMutation,
+    deleteMutation,
+  } = useWishes();
   const fadeUp = useMotionPreset("fadeUp");
 
   const data = Array.isArray(wishes) ? wishes : [];
-  const ownWish = uid && getWishToken(uid);
+  const ownWish = useSyncExternalStore(
+    (onStoreChange) => subscribeWishToken(onStoreChange),
+    () => getWishToken(uid),
+    () => null,
+  );
+
+  useEffect(() => {
+    return () => clearTimeout(confettiTimerRef.current);
+  }, []);
 
   const handleDelete = (wishId) => {
     if (window.confirm(t("wishes.deleteConfirm"))) {
@@ -65,10 +83,12 @@ export default function Wishes() {
     }
   };
 
-  const count = (value) =>
-    data.filter((w) => (w.attendance || "").toLowerCase() === value).length;
-  const attending = count("attending");
-  const notAttending = count("not_attending");
+  const attending = data.filter(
+    (w) => (w.attendance || "").toLowerCase() === "attending",
+  ).length;
+  const notAttending = data.filter(
+    (w) => (w.attendance || "").toLowerCase() === "not_attending",
+  ).length;
 
   const attendanceLabel = (value) => {
     const v = (value || "").toLowerCase();
@@ -92,7 +112,8 @@ export default function Wishes() {
       setNameTouched(false);
       setShowSuccess(true);
       setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 4000);
+      clearTimeout(confettiTimerRef.current);
+      confettiTimerRef.current = setTimeout(() => setShowConfetti(false), 4000);
     } catch (err) {
       if (err.code === "WISH_ALREADY_EXISTS") {
         setShowSuccess(true);
@@ -134,17 +155,21 @@ export default function Wishes() {
           </div>
           <h2 className="font-serif text-3xl text-burgundy">{t("wishes.title")}</h2>
           <p className="mt-2 text-xs font-semibold text-brown-mute">
-            {data.length} {t("wishes.title").toLowerCase()}
+            {error ? t("wishes.countUnavailable") : `${total} ${t("wishes.title").toLowerCase()}`}
           </p>
         </div>
 
         <div className="mt-4 flex gap-4">
           <div className="w-1/2 rounded-xl bg-blush/40 py-3 text-center text-brown">
-            <span className="block text-xl font-bold">{attending}</span>
+            <span className="block text-xl font-bold">
+              {error ? "—" : attending}
+            </span>
             <span className="text-xs">{t("wishes.attending")}</span>
           </div>
           <div className="w-1/2 rounded-xl bg-rose-line/40 py-3 text-center text-brown">
-            <span className="block text-xl font-bold">{notAttending}</span>
+            <span className="block text-xl font-bold">
+              {error ? "—" : notAttending}
+            </span>
             <span className="text-xs">{t("wishes.notAttending")}</span>
           </div>
         </div>
@@ -213,6 +238,21 @@ export default function Wishes() {
           <div className="rounded-2xl bg-rosy p-6 text-center text-sm text-burgundy">
             {t("app.loading")}
           </div>
+        ) : error ? (
+          <div
+            role="alert"
+            className="rounded-2xl bg-rosy p-6 text-center text-sm text-burgundy"
+          >
+            <p className="font-semibold">{t("wishes.loadErrorTitle")}</p>
+            <p className="mt-1 text-xs text-brown-mute">{t("wishes.loadError")}</p>
+            <button
+              type="button"
+              onClick={() => refetch()}
+              className="mt-3 rounded-full bg-burgundy px-4 py-1.5 text-xs font-semibold text-white transition hover:bg-burgundy/90"
+            >
+              {t("wishes.retry")}
+            </button>
+          </div>
         ) : data.length > 0 ? (
           data.map((wish) => (
             <Reveal
@@ -252,6 +292,12 @@ export default function Wishes() {
           <div className="rounded-2xl bg-rosy p-6 text-center text-sm text-burgundy">
             {t("wishes.emptyState")}
           </div>
+        )}
+
+        {!isLoading && !error && total > data.length && (
+          <p className="pt-1 text-center text-xs text-brown-mute">
+            {t("wishes.showingFirst", { count: data.length, total })}
+          </p>
         )}
       </div>
 

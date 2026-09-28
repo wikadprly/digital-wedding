@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Home, CalendarHeart, Users, Images, Heart } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
@@ -13,48 +13,82 @@ const NAV_ITEMS = [
   { id: "wishes", icon: Heart, labelKey: "nav.rsvp" },
 ];
 
-const SECTION_ORDER = ["home", "profile", "events", "gallery", "wishes"];
+const SECTION_ORDER = NAV_ITEMS.map((item) => item.id);
 
 const BUTTON_WIDTH = 44;
 const GAP = 6;
 const PITCH = BUTTON_WIDTH + GAP;
 
+const TRIGGER_LINE = 0.2;
+const SCROLL_LOCK_MS = 1000;
+
+function pickActiveSection() {
+  const viewport = window.innerHeight;
+  const line = viewport * TRIGGER_LINE;
+  let current = null;
+
+  for (const id of SECTION_ORDER) {
+    const el = document.getElementById(id);
+    if (!el) continue;
+    if (el.getBoundingClientRect().top <= line) current = id;
+    else break;
+  }
+
+  return current;
+}
+
 export default function BottomNav() {
   const { t } = useTranslation();
   const [active, setActive] = useState("home");
+  const activeRef = useRef("home");
+  const lockRef = useRef(false);
+  const unlockRef = useRef(null);
   const activeIndex = Math.max(0, NAV_ITEMS.findIndex((item) => item.id === active));
 
   useEffect(() => {
-    const probe = () => {
-      const half = window.innerHeight / 2;
-      let current = SECTION_ORDER[0];
+    let frame = 0;
 
-      for (const id of SECTION_ORDER) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        if (el.getBoundingClientRect().top <= half) {
-          current = id;
-        } else {
-          break;
-        }
-      }
+    const evaluate = () => {
+      frame = 0;
+      if (lockRef.current) return;
 
-      setActive(current);
+      const next = pickActiveSection();
+      if (!next || next === activeRef.current) return;
+
+      activeRef.current = next;
+      setActive(next);
     };
 
-    probe();
-    window.addEventListener("scroll", probe, { passive: true });
-    window.addEventListener("resize", probe);
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(evaluate);
+    };
+
+    evaluate();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
 
     return () => {
-      window.removeEventListener("scroll", probe);
-      window.removeEventListener("resize", probe);
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
     };
   }, []);
 
+  useEffect(() => () => clearTimeout(unlockRef.current), []);
+
   const scrollTo = (id) => {
+    activeRef.current = id;
     setActive(id);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    lockRef.current = true;
+    clearTimeout(unlockRef.current);
+    unlockRef.current = setTimeout(() => {
+      lockRef.current = false;
+    }, SCROLL_LOCK_MS);
+
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? "auto"
+      : "smooth";
+    document.getElementById(id)?.scrollIntoView({ behavior, block: "start" });
   };
 
   return (

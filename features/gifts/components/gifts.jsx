@@ -1,23 +1,74 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Gift, Copy, Check, Landmark, Box } from "lucide-react";
 import { useConfig } from "@/features/invitation/hooks/use-config";
-import { staggerContainer, fadeUpSpring } from "@/lib/motion";
+import { useTranslation } from "@/lib/i18n";
+import { useMotionPreset, staggerContainer } from "@/lib/motion";
 import Reveal from "@/components/ui/reveal";
+
+const COPIED_RESET_MS = 2000;
+
+function CopyButton({ value, label, copiedLabel, isCopied, onCopy }) {
+  return (
+    <button
+      type="button"
+      onClick={() => onCopy(value)}
+      className="flex items-center gap-1 rounded-full bg-burgundy px-3 py-1 text-xs text-white transition hover:bg-burgundy/90"
+    >
+      {isCopied ? (
+        <>
+          <Check className="h-3 w-3" /> {copiedLabel}
+        </>
+      ) : (
+        <>
+          <Copy className="h-3 w-3" /> {label}
+        </>
+      )}
+    </button>
+  );
+}
 
 export default function Gifts() {
   const config = useConfig();
+  const { t } = useTranslation();
+  const fadeUpSpring = useMotionPreset("fadeUpSpring");
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(null);
+  const copiedTimerRef = useRef(null);
+
+  useEffect(() => {
+    return () => clearTimeout(copiedTimerRef.current);
+  }, []);
 
   if (!config) return null;
 
-  const handleCopy = (text) => {
-    navigator.clipboard.writeText(text);
+  const markCopied = (text) => {
     setCopied(text);
-    setTimeout(() => setCopied(null), 2000);
+    clearTimeout(copiedTimerRef.current);
+    copiedTimerRef.current = setTimeout(() => setCopied(null), COPIED_RESET_MS);
+  };
+
+  const handleCopy = async (text) => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const field = document.createElement("textarea");
+        field.value = text;
+        field.setAttribute("readonly", "");
+        field.style.position = "fixed";
+        field.style.opacity = "0";
+        document.body.appendChild(field);
+        field.select();
+        document.execCommand("copy");
+        document.body.removeChild(field);
+      }
+      markCopied(text);
+    } catch {
+      markCopied(null);
+    }
   };
 
   const giftAddress = config.giftAddress;
@@ -35,22 +86,22 @@ export default function Gifts() {
         <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-burgundy/10">
           <Gift className="h-6 w-6 text-burgundy" />
         </div>
-        <h2 className="font-serif text-3xl text-burgundy">Wedding Gift</h2>
+        <h2 className="font-serif text-3xl text-burgundy">{t("gifts.title")}</h2>
         <p className="mt-4 text-sm leading-relaxed text-brown-mute">
-          Doa restu Anda merupakan karunia yang sangat berarti bagi kami, dan
-          jika memberi adalah ungkapan tanda kasih, Anda dapat memberi kado
-          secara cashless.
+          {t("gifts.message")}
         </p>
 
         <motion.button
+          type="button"
           onClick={() => setIsOpen((v) => !v)}
+          aria-expanded={isOpen}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 320, damping: 18 }}
           className="mx-auto mt-6 flex items-center justify-center gap-2 rounded-full bg-burgundy px-8 py-2.5 text-sm font-semibold text-white shadow-[0_10px_20px_-10px_rgba(86,17,18,0.6)] transition hover:bg-burgundy/90"
         >
           <Gift className="h-4 w-4" />
-          {isOpen ? "Tutup" : "Klik Disini"}
+          {isOpen ? t("gifts.toggleClose") : t("gifts.toggleOpen")}
         </motion.button>
 
         {isOpen && (
@@ -73,26 +124,21 @@ export default function Gifts() {
                   </span>
                 </div>
                 <p className="font-mono text-xl tracking-widest text-brown">
-                  {bank.accountNumber || "Nomor menyusul"}
+                  {bank.accountNumber || t("gifts.accountPending")}
                 </p>
                 <p className="mt-1 text-xs font-semibold uppercase text-brown-mute">
-                  {bank.accountName}
+                  {t("gifts.accountName")}: {bank.accountName}
                 </p>
                 {bank.accountNumber && (
-                  <button
-                    onClick={() => handleCopy(bank.accountNumber)}
-                    className="absolute bottom-4 right-4 flex items-center gap-1 rounded-full bg-burgundy px-3 py-1 text-xs text-white transition hover:bg-burgundy/90"
-                  >
-                    {copied === bank.accountNumber ? (
-                      <>
-                        <Check className="h-3 w-3" /> TerSalin
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="h-3 w-3" /> Copy
-                      </>
-                    )}
-                  </button>
+                  <div className="absolute bottom-4 right-4">
+                    <CopyButton
+                      value={bank.accountNumber}
+                      label={t("gifts.copy")}
+                      copiedLabel={t("gifts.copied")}
+                      isCopied={copied === bank.accountNumber}
+                      onCopy={handleCopy}
+                    />
+                  </div>
                 )}
               </motion.div>
             ))}
@@ -102,47 +148,45 @@ export default function Gifts() {
               className="relative overflow-hidden rounded-2xl border border-rose-line bg-ivory/60 p-5 text-center"
             >
               <Box className="mx-auto h-8 w-8 text-brown-mute" />
-              <h3 className="mt-2 font-semibold text-brown">Kirim Hadiah</h3>
+              <h3 className="mt-2 font-semibold text-brown">
+                {t("gifts.physicalTitle")}
+              </h3>
               <div className="mt-3 text-xs leading-relaxed text-brown-mute">
-                <p>
-                  Nama Penerima :{" "}
+                <p>{t("gifts.physicalIntro")}</p>
+                <p className="mt-2">
+                  {t("gifts.receiverLabel")}:{" "}
                   <span className="font-semibold text-brown">
-                    {giftAddress?.receiver || "-"}
+                    {giftAddress?.receiver || t("gifts.unknown")}
                   </span>
                 </p>
                 <p>
-                  Nomor HP :{" "}
+                  {t("gifts.phoneLabel")}:{" "}
                   <span className="font-semibold text-brown">
-                    {giftAddress?.phone || "-"}
+                    {giftAddress?.phone || t("gifts.unknown")}
                   </span>
                 </p>
                 <p className="mt-2">
-                  Alamat Kirim Hadiah :
+                  {t("gifts.addressLabel")}:
                   <br />
                   {giftAddress?.address ? (
                     <span className="whitespace-pre-line font-semibold text-brown">
                       {giftAddress.address}
                     </span>
                   ) : (
-                    "-"
+                    t("gifts.unknown")
                   )}
                 </p>
               </div>
               {giftAddress?.phone && (
-                <button
-                  onClick={() => handleCopy(giftAddress.phone)}
-                  className="mx-auto mt-4 flex items-center justify-center gap-1 rounded-full bg-burgundy px-4 py-1.5 text-xs text-white transition hover:bg-burgundy/90"
-                >
-                  {copied === giftAddress.phone ? (
-                    <>
-                      <Check className="h-3 w-3" /> TerSalin
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-3 w-3" /> Copy No. HP
-                    </>
-                  )}
-                </button>
+                <div className="mt-4 flex justify-center">
+                  <CopyButton
+                    value={giftAddress.phone}
+                    label={t("gifts.copyPhone")}
+                    copiedLabel={t("gifts.copied")}
+                    isCopied={copied === giftAddress.phone}
+                    onCopy={handleCopy}
+                  />
+                </div>
               )}
             </motion.div>
           </motion.div>
