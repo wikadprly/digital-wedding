@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Heart, Trash2 } from "lucide-react";
+import { Heart, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslation } from "@/lib/i18n";
 import { useMotionPreset } from "@/lib/motion";
 import { useWishes } from "@/features/wishes/hooks/use-wishes";
@@ -52,6 +52,7 @@ export default function Wishes() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [submitError, setSubmitError] = useState(null);
   const [nameTouched, setNameTouched] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const name = nameTouched ? formData.name : guestName;
 
   const {
@@ -67,11 +68,25 @@ export default function Wishes() {
   const fadeUp = useMotionPreset("fadeUp");
 
   const data = Array.isArray(wishes) ? wishes : [];
+  const perPage = 8;
+  const totalPages = Math.max(1, Math.ceil(data.length / perPage));
+  const startIndex = (currentPage - 1) * perPage;
+  const visibleWishes = data.slice(startIndex, startIndex + perPage);
   const ownWish = useSyncExternalStore(
     (onStoreChange) => subscribeWishToken(onStoreChange),
     () => getWishToken(uid),
     () => null,
   );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [uid]);
+
+  useEffect(() => {
+    if (totalPages > 0 && currentPage > totalPages) {
+      setCurrentPage((prev) => Math.min(prev, totalPages));
+    }
+  }, [totalPages]);
 
   useEffect(() => {
     return () => clearTimeout(confettiTimerRef.current);
@@ -253,50 +268,89 @@ export default function Wishes() {
               {t("wishes.retry")}
             </button>
           </div>
-        ) : data.length > 0 ? (
-          data.map((wish) => (
-            <Reveal
-              key={wish.id}
-              variants={fadeUp}
-              amount={0.9}
-              whileHover={{ y: -4, boxShadow: "0 12px 24px -14px rgba(74,52,56,0.35)" }}
-              transition={{ type: "spring", stiffness: 300, damping: 24 }}
-              className="rounded-2xl bg-rosy p-4"
-            >
-              <div className="flex items-center justify-between">
-                <span className="font-medium text-burgundy">{wish.name}</span>
-                <span className="inline-flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-burgundy/10 px-2 py-0.5 text-xs text-burgundy">
-                    <AttendanceIcon type={wish.attendance} />
-                    {attendanceLabel(wish.attendance)}
+        ) : visibleWishes.length > 0 ? (
+          <>
+            {visibleWishes.map((wish) => (
+              <Reveal
+                key={wish.id}
+                variants={fadeUp}
+                amount={0.9}
+                whileHover={{ y: -4, boxShadow: "0 12px 24px -14px rgba(74,52,56,0.35)" }}
+                transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                className="rounded-2xl bg-rosy p-4"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-burgundy">{wish.name}</span>
+                  <span className="inline-flex items-center gap-2">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-burgundy/10 px-2 py-0.5 text-xs text-burgundy">
+                      <AttendanceIcon type={wish.attendance} />
+                      {attendanceLabel(wish.attendance)}
+                    </span>
+                    {ownWish && ownWish.wishId === wish.id && (
+                      <motion.button
+                        type="button"
+                        onClick={() => handleDelete(wish.id)}
+                        disabled={deleteMutation.isPending}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.85 }}
+                        aria-label={t("wishes.delete")}
+                        className="rounded-full bg-rose-line/50 p-1.5 text-brown-mute hover:bg-rose-line hover:text-burgundy disabled:opacity-50"
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </motion.button>
+                    )}
                   </span>
-                  {ownWish && ownWish.wishId === wish.id && (
-                    <motion.button
-                      type="button"
-                      onClick={() => handleDelete(wish.id)}
-                      disabled={deleteMutation.isPending}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.85 }}
-                      aria-label={t("wishes.delete")}
-                      className="rounded-full bg-rose-line/50 p-1.5 text-brown-mute hover:bg-rose-line hover:text-burgundy disabled:opacity-50"
-                    >
-                      <Trash2 className="h-3.5 w-3.5" />
-                    </motion.button>
-                  )}
+                </div>
+                <p className="mt-1 text-sm text-brown-mute">{wish.message}</p>
+              </Reveal>
+            ))}
+
+            {totalPages > 1 && (
+              <div className="mt-4 flex items-center justify-center gap-3">
+                <motion.button
+                  type="button"
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(1, prev - 1))
+                  }
+                  disabled={currentPage === 1}
+                  whileHover={{ scale: currentPage === 1 ? 1 : 1.05 }}
+                  whileTap={{ scale: currentPage === 1 ? 1 : 0.95 }}
+                  className="flex items-center justify-center rounded-full bg-rosy p-2 text-burgundy transition hover:bg-rose-line disabled:opacity-40"
+                  aria-label="Previous page"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </motion.button>
+                <span className="text-xs font-medium text-brown-mute">
+                  {currentPage} / {totalPages}
                 </span>
+                <motion.button
+                  type="button"
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(totalPages, prev + 1))
+                  }
+                  disabled={currentPage === totalPages}
+                  whileHover={{ scale: currentPage === totalPages ? 1 : 1.05 }}
+                  whileTap={{ scale: currentPage === totalPages ? 1 : 0.95 }}
+                  className="flex items-center justify-center rounded-full bg-rosy p-2 text-burgundy transition hover:bg-rose-line disabled:opacity-40"
+                  aria-label="Next page"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </motion.button>
               </div>
-              <p className="mt-1 text-sm text-brown-mute">{wish.message}</p>
-            </Reveal>
-          ))
+            )}
+          </>
         ) : (
           <div className="rounded-2xl bg-rosy p-6 text-center text-sm text-burgundy">
             {t("wishes.emptyState")}
           </div>
         )}
 
-        {!isLoading && !error && total > data.length && (
+        {!isLoading && !error && total > 0 && (
           <p className="pt-1 text-center text-xs text-brown-mute">
-            {t("wishes.showingFirst", { count: data.length, total })}
+            {t("wishes.showingFirst", {
+              count: Math.min(data.length, startIndex + perPage),
+              total,
+            })}
           </p>
         )}
       </div>
