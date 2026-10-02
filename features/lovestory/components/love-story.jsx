@@ -18,7 +18,7 @@ const STORY_TIMELINE = [
     year: "2025",
     title: "Menjalin Hubungan",
     description:
-      "Hari demi hari berlalu, kami sering merencanakan makan bersama setiap libur kerja. Tak terasa, hal itu tumbuh menjadi hubungan yang penuh tawa dan saling dukung. Sebuah pertemuan yang tak pernah disangka, hingga akhirnya membawa kami berkomitmen untuk menjalin hubungan ke jenjang lebih serius Ã¢â‚¬â€ pada 25 Oktober 2025, kami telah melangsungkan acara lamaran.",
+      "Hari demi hari berlalu, kami sering merencanakan makan bersama setiap libur kerja. Tak terasa, hal itu tumbuh menjadi hubungan yang penuh tawa dan saling dukung. Sebuah pertemuan yang tak pernah disangka, hingga akhirnya membawa kami berkomitmen untuk menjalin hubungan ke jenjang lebih serius — pada 25 Oktober 2025, kami telah melangsungkan acara lamaran.",
   },
   {
     year: "2026",
@@ -39,7 +39,7 @@ export default function LoveStory() {
       id="lovestory"
       className="relative mx-auto w-full max-w-[430px] overflow-hidden bg-ivory px-6 pb-28 pt-16"
     >
-      {/* dekorasi atas dari gambar atasP3 Ã¢â‚¬â€ turun pelan dari atas sekali lalu berhenti */}
+      {/* dekorasi atas dari gambar atasP3 — turun pelan dari atas sekali lalu berhenti */}
       <motion.div
         initial={{ y: -90, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -56,7 +56,7 @@ export default function LoveStory() {
         />
       </motion.div>
 
-      {/* dekorasi bawah dari gambar bawahP3 Ã¢â‚¬â€ muncul pelan dari bawah sekali lalu berhenti */}
+      {/* dekorasi bawah dari gambar bawahP3 — muncul pelan dari bawah sekali lalu berhenti */}
       <motion.div
         initial={{ y: 90, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
