@@ -44,7 +44,7 @@ const config = {
     audio: {
       src: "/audio/KUSUMA%20WIJAYA%20-%20PAWESTRI.mp3",
       title: "Kusuma Wijaya - Pawestri",
-      autoplay: true,
+      autoplay: false,
       loop: true,
     },
     banks: [
